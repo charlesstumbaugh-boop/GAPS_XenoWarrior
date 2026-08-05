@@ -1,1 +1,194 @@
+###############################################################################
+# GameArtBible
+# PaintedSteel.yaml
+#
+# Canonical Material Specification
+#
+# Defines the visual behavior of painted military steel surfaces.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: MAT_PAINTED_STEEL
+
+  version: 1.0.0
+
+  status: APPROVED
+
+###############################################################################
+
+identity:
+
+  name: Painted Military Steel
+
+  category: Hard Surface
+
+###############################################################################
+
+palette:
+
+  primary:
+
+    PALETTE_PRIMARY_STEEL
+
+  secondary:
+
+    PALETTE_GUNMETAL
+
+###############################################################################
+
+surface:
+
+  finish:
+
+    matte
+
+  roughness:
+
+    medium
+
+  reflectivity:
+
+    low
+
+  metallic:
+
+    true
+
+###############################################################################
+
+lighting:
+
+  receives_primary_light: true
+
+  receives_fill_light: false
+
+  rim_light: false
+
+###############################################################################
+
+shadows:
+
+  multiplier:
+
+    0.65
+
+  edge:
+
+    hard
+
+###############################################################################
+
+highlights:
+
+  enabled: true
+
+  intensity:
+
+    medium
+
+  gradient:
+
+    false
+
+###############################################################################
+
+damage:
+
+  scratches:
+
+    allowed
+
+  chipped_paint:
+
+    allowed
+
+  exposed_metal:
+
+    minimal
+
+  rust:
+
+    forbidden
+
+###############################################################################
+
+aging:
+
+  wear:
+
+    low
+
+  dirt:
+
+    low
+
+  grime:
+
+    minimal
+
+###############################################################################
+
+allowed_usage:
+
+  player
+
+  enemies
+
+  props
+
+  weapons
+
+###############################################################################
+
+forbidden_usage:
+
+  alien_flesh
+
+  visor
+
+  energy
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    - palette
+
+    - roughness
+
+    - reflectivity
+
+  manual:
+
+    - readability
+
+###############################################################################
+
+prompt_translation:
+
+  material:
+
+    "Matte painted military steel"
+
+  finish:
+
+    "Minimal reflections"
+
+  wear:
+
+    "Light combat wear"
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial painted steel material specification.
