@@ -1,1 +1,299 @@
+###############################################################################
+# GameArtBible
+# Export.yaml
+#
+# Global Export Contract
+#
+# Defines file formats, canvas sizes, sprite geometry, transparency,
+# naming, sprite sheet layout, pivots, and Unity import requirements.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_EXPORT
+
+  version: 1.0.0
+
+  status: APPROVED
+
+  owner: GameArtBible
+
+  category: Core
+
+###############################################################################
+
+export_profile:
+
+  name: Unity 2D Sprite Pipeline
+
+  target_engine: Unity
+
+  compatible_engines:
+
+    - Unity
+
+    - Unreal
+
+###############################################################################
+
+image_format:
+
+  master:
+
+    png
+
+  compression:
+
+    none
+
+  color_depth:
+
+    32_bit
+
+  transparency:
+
+    alpha
+
+###############################################################################
+
+color_space:
+
+  value:
+
+    sRGB
+
+###############################################################################
+
+canvas_sizes:
+
+  player:
+
+    width: 1024
+
+    height: 1024
+
+  enemy_small:
+
+    width: 512
+
+    height: 512
+
+  enemy_large:
+
+    width: 1024
+
+    height: 1024
+
+  boss:
+
+    width: 2048
+
+    height: 2048
+
+  ui:
+
+    width: 512
+
+    height: 512
+
+  fx:
+
+    width: 512
+
+    height: 512
+
+###############################################################################
+
+sprite_origin:
+
+  horizontal:
+
+    center
+
+  vertical:
+
+    bottom
+
+###############################################################################
+
+pivot:
+
+  x: 0.5
+
+  y: 0.0
+
+###############################################################################
+
+safe_padding:
+
+  pixels:
+
+    value: 24
+
+  trim_transparency:
+
+    false
+
+###############################################################################
+
+sprite_alignment:
+
+  center_on_canvas: true
+
+  maintain_scale: true
+
+###############################################################################
+
+sprite_sheet:
+
+  spacing:
+
+    4
+
+  margin:
+
+    8
+
+  layout:
+
+    horizontal
+
+  frame_order:
+
+    left_to_right
+
+###############################################################################
+
+animation_export:
+
+  one_action_per_sheet: true
+
+  mixed_actions: false
+
+###############################################################################
+
+alpha_rules:
+
+  background:
+
+    transparent
+
+  premultiplied_alpha:
+
+    false
+
+###############################################################################
+
+unity_import:
+
+  texture_type:
+
+    Sprite_2D
+
+  sprite_mode:
+
+    Multiple
+
+  mesh_type:
+
+    FullRect
+
+  filter_mode:
+
+    Point
+
+  compression:
+
+    None
+
+  generate_mipmaps:
+
+    false
+
+###############################################################################
+
+pixels_per_unit:
+
+  player:
+
+    100
+
+  enemy:
+
+    100
+
+  boss:
+
+    100
+
+  ui:
+
+    100
+
+###############################################################################
+
+naming_reference:
+
+  use_core_naming_contract: true
+
+###############################################################################
+
+forbidden:
+
+  - jpg
+
+  - jpeg
+
+  - webp
+
+  - gif_as_master
+
+  - cropped_sprite
+
+  - nontransparent_background
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    - canvas_size
+
+    - pivot
+
+    - alpha
+
+    - padding
+
+    - naming
+
+###############################################################################
+
+prompt_translation:
+
+  export:
+
+    "Centered sprite on transparent background"
+
+  framing:
+
+    "Full body fully visible"
+
+  padding:
+
+    "Leave transparent padding around sprite"
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial export specification created.
+
+###############################################################################
