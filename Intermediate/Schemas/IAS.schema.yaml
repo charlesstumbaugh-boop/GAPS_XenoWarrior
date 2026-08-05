@@ -1,0 +1,2134 @@
+###############################################################################
+# GAPS_XenoWarrior
+# IAS.schema.yaml
+#
+# Intermediate Asset Specification Schema
+#
+# Defines the required structure, field names, value types, approval states,
+# inheritance rules, and validation requirements for every IAS document.
+#
+# This is a project-level specification. It is not currently intended to be
+# executed by a YAML-schema validator.
+###############################################################################
+
+metadata:
+  document:
+    id: SCHEMA_IAS
+    name: Intermediate Asset Specification Schema
+    version: "1.0.0"
+    status: APPROVED
+    type: schema_specification
+
+  project:
+    id: GAPS_XENOWARRIOR
+    repository: GAPS_XenoWarrior
+    game_art_bible_version: "0.1.0"
+
+  ownership:
+    authority: Project Owner
+    maintained_by: GameArtBible
+    approval_required: true
+
+  dates:
+    created: "2026-08-05"
+    last_modified: "2026-08-05"
+
+###############################################################################
+# SCHEMA PURPOSE
+###############################################################################
+
+purpose:
+  summary: >
+    Define the complete structure required for an AI-independent Intermediate
+    Asset Specification.
+
+  objectives:
+    - prevent undocumented artistic decisions
+    - preserve project-wide visual consistency
+    - provide stable input for future prompt translators
+    - record all inherited specifications
+    - make asset generation reproducible
+    - separate permanent asset data from temporary prompt wording
+    - support manual production before automation is introduced
+
+  schema_authority:
+    source_of_truth: true
+    prompts_may_override_schema: false
+    generated_images_may_override_schema: false
+    human_approval_required_for_changes: true
+
+###############################################################################
+# DOCUMENT TYPES
+###############################################################################
+
+supported_document_types:
+  - character
+  - enemy
+  - boss
+  - weapon
+  - prop
+  - pickup
+  - projectile
+  - visual_effect
+  - environment
+  - background
+  - user_interface
+  - animation
+  - material
+  - construction
+  - pose
+  - sprite_sheet
+  - reference_asset
+
+###############################################################################
+# REQUIRED TOP-LEVEL SECTIONS
+###############################################################################
+
+required_top_level_sections:
+  - metadata
+  - identity
+  - source_versions
+  - inheritance
+  - classification
+  - visual_contract
+  - construction
+  - materials
+  - palette
+  - camera
+  - lighting
+  - animation
+  - export
+  - restrictions
+  - validation
+  - approval
+  - history
+
+optional_top_level_sections:
+  - gameplay_function
+  - equipment
+  - weapons
+  - effects
+  - environment
+  - user_interface
+  - variants
+  - reference_images
+  - generation_guidance
+  - unresolved_requirements
+  - notes
+
+###############################################################################
+# FIELD RULES
+###############################################################################
+
+field_rules:
+  naming:
+    key_format: snake_case
+    asset_id_format: UPPER_SNAKE_CASE
+    version_format: semantic_version
+    date_format: YYYY-MM-DD
+    palette_reference_format: PALETTE_UPPER_SNAKE_CASE
+    material_reference_format: MAT_UPPER_SNAKE_CASE
+    specification_reference_format: UPPER_SNAKE_CASE
+
+  values:
+    null_allowed_only_when_declared_unresolved: true
+    undocumented_free_text_allowed: false
+    raw_hex_in_asset_files_allowed: false
+    raw_rgb_in_asset_files_allowed: false
+    raw_material_descriptions_allowed: false
+    inherited_values_must_be_traceable: true
+
+  booleans:
+    allowed_values:
+      - true
+      - false
+
+  approval_status:
+    allowed_values:
+      - DRAFT
+      - IN_REVIEW
+      - APPROVED
+      - REJECTED
+      - ARCHIVED
+
+  resolution_status:
+    allowed_values:
+      - RESOLVED
+      - REQUIRES_REVIEW
+      - NOT_APPLICABLE
+      - INHERITED
+
+  requirement_level:
+    allowed_values:
+      - REQUIRED
+      - RECOMMENDED
+      - OPTIONAL
+      - FORBIDDEN
+
+  severity:
+    allowed_values:
+      - CRITICAL
+      - MAJOR
+      - MINOR
+      - COSMETIC
+
+###############################################################################
+# IAS TEMPLATE DEFINITION
+###############################################################################
+
+ias_template:
+
+  metadata:
+    required: true
+
+    fields:
+      document:
+        required: true
+
+        fields:
+          id:
+            required: true
+            type: string
+            description: Unique IAS document identifier.
+            example: IAS_PLAYER_001
+
+          name:
+            required: true
+            type: string
+            description: Human-readable IAS name.
+            example: Player Character Intermediate Asset Specification
+
+          type:
+            required: true
+            type: string
+            fixed_value: intermediate_asset_specification
+
+          version:
+            required: true
+            type: semantic_version
+            example: "1.0.0"
+
+          status:
+            required: true
+            type: enum
+            allowed_values:
+              - DRAFT
+              - IN_REVIEW
+              - APPROVED
+              - REJECTED
+              - ARCHIVED
+
+      dates:
+        required: true
+
+        fields:
+          created:
+            required: true
+            type: date
+
+          last_modified:
+            required: true
+            type: date
+
+          approved:
+            required: false
+            type:
+              - date
+              - null
+
+      ownership:
+        required: true
+
+        fields:
+          owner:
+            required: true
+            type: string
+            default: Project Owner
+
+          maintained_by:
+            required: true
+            type: string
+            default: GameArtBible
+
+          approval_authority:
+            required: true
+            type: string
+            default: Project Owner
+
+  identity:
+    required: true
+
+    fields:
+      asset_id:
+        required: true
+        type: string
+        description: Permanent unique asset identifier.
+        example: PLAYER_001
+
+      asset_name:
+        required: true
+        type: string
+        example: Xeno Warrior Player
+
+      asset_type:
+        required: true
+        type: enum
+        allowed_values:
+          - character
+          - enemy
+          - boss
+          - weapon
+          - prop
+          - pickup
+          - projectile
+          - visual_effect
+          - environment
+          - background
+          - user_interface
+          - animation
+          - material
+          - construction
+          - pose
+          - sprite_sheet
+          - reference_asset
+
+      asset_subtype:
+        required: false
+        type:
+          - string
+          - null
+        example: humanoid_player
+
+      lifecycle_state:
+        required: true
+        type: enum
+        allowed_values:
+          - concept
+          - specification
+          - generation_ready
+          - generated
+          - review
+          - approved
+          - production
+          - deprecated
+          - archived
+
+      canonical:
+        required: true
+        type: boolean
+
+      replaces_asset_id:
+        required: false
+        type:
+          - string
+          - null
+
+  source_versions:
+    required: true
+
+    fields:
+      repository:
+        required: true
+
+        fields:
+          repository_name:
+            required: true
+            type: string
+            fixed_value: GAPS_XenoWarrior
+
+          repository_version:
+            required: true
+            type: semantic_version
+
+          game_art_bible_version:
+            required: true
+            type: semantic_version
+
+      core_contracts:
+        required: true
+        type: mapping
+
+        required_entries:
+          - CORE_RENDERING
+          - CORE_PALETTE
+          - CORE_CAMERA
+          - CORE_LIGHTING
+          - CORE_ANIMATION
+          - CORE_EXPORT
+          - CORE_VALIDATION
+
+        entry_structure:
+          version:
+            required: true
+            type: semantic_version
+
+          file:
+            required: true
+            type: repository_path
+
+          status:
+            required: true
+            type: enum
+            allowed_values:
+              - APPROVED
+
+      asset_specifications:
+        required: false
+        type: list
+
+        item_structure:
+          id:
+            required: true
+            type: string
+
+          version:
+            required: true
+            type: semantic_version
+
+          file:
+            required: true
+            type: repository_path
+
+  inheritance:
+    required: true
+
+    fields:
+      enabled:
+        required: true
+        type: boolean
+
+      parents:
+        required: true
+        type: list
+
+        item_structure:
+          id:
+            required: true
+            type: string
+            example: SPEC_HUMANOID
+
+          version:
+            required: true
+            type: semantic_version
+
+          file:
+            required: true
+            type: repository_path
+
+          inheritance_type:
+            required: true
+            type: enum
+            allowed_values:
+              - full
+              - partial
+              - reference_only
+
+          sections_inherited:
+            required: true
+            type: list
+
+          sections_excluded:
+            required: false
+            type: list
+
+      overrides:
+        required: true
+        type: list
+
+        item_structure:
+          path:
+            required: true
+            type: yaml_path
+
+          inherited_value:
+            required: true
+
+          override_value:
+            required: true
+
+          reason:
+            required: true
+            type: string
+
+          approval_reference:
+            required: true
+            type: string
+
+      unresolved_inheritance_conflicts:
+        required: true
+        type: list
+
+        rule:
+          must_be_empty_for_approval: true
+
+  classification:
+    required: true
+
+    fields:
+      asset_class:
+        required: true
+        type: string
+        example: HUMANOID
+
+      gameplay_role:
+        required: false
+        type:
+          - string
+          - null
+
+      faction:
+        required: false
+        type:
+          - string
+          - null
+
+      threat_level:
+        required: false
+        type:
+          - enum
+          - null
+        allowed_values:
+          - none
+          - low
+          - medium
+          - high
+          - boss
+
+      size_class:
+        required: true
+        type: enum
+        allowed_values:
+          - tiny
+          - small
+          - medium
+          - large
+          - extra_large
+          - boss_scale
+          - environment_scale
+
+      mobility_class:
+        required: false
+        type:
+          - enum
+          - null
+        allowed_values:
+          - stationary
+          - humanoid_ground
+          - quadruped_ground
+          - tracked_ground
+          - wheeled_ground
+          - hovering
+          - flying
+          - swimming
+          - environmental
+          - not_applicable
+
+  visual_contract:
+    required: true
+
+    fields:
+      visual_style:
+        required: true
+
+        fields:
+          rendering_profile:
+            required: true
+            type: specification_reference
+            example: CORE_RENDERING
+
+          style_name:
+            required: true
+            type: string
+            fixed_value: Military Retro Sci-Fi
+
+          realism_level:
+            required: true
+            type: enum
+            allowed_values:
+              - low
+
+          arcade_readability:
+            required: true
+            type: enum
+            allowed_values:
+              - maximum
+
+      silhouette:
+        required: true
+
+        fields:
+          description:
+            required: true
+            type: string
+
+          primary_readability_features:
+            required: true
+            type: list
+
+          prohibited_silhouette_changes:
+            required: true
+            type: list
+
+          recognition_distance:
+            required: false
+            type:
+              - number
+              - null
+
+          recognition_distance_units:
+            required: false
+            type:
+              - string
+              - null
+
+      shape_language:
+        required: true
+
+        fields:
+          primary_shapes:
+            required: true
+            type: list
+
+          secondary_shapes:
+            required: false
+            type: list
+
+          corner_language:
+            required: true
+            type: enum
+            allowed_values:
+              - rounded
+              - angular
+              - mixed
+              - mechanical
+              - organic
+
+          symmetry:
+            required: true
+            type: enum
+            allowed_values:
+              - symmetrical
+              - mostly_symmetrical
+              - asymmetrical
+
+      outline:
+        required: true
+
+        fields:
+          inherited_from:
+            required: true
+            type: specification_reference
+            fixed_value: CORE_RENDERING
+
+          width_px:
+            required: true
+            type: number
+
+          color_reference:
+            required: true
+            type: palette_reference
+
+          uniform:
+            required: true
+            type: boolean
+
+  construction:
+    required: true
+
+    fields:
+      construction_specification:
+        required: true
+
+        fields:
+          id:
+            required: true
+            type: string
+
+          version:
+            required: true
+            type: semantic_version
+
+          file:
+            required: true
+            type: repository_path
+
+      measurement_system:
+        required: true
+        type: enum
+        allowed_values:
+          - percent_height
+          - pixels
+          - normalized
+          - world_units
+          - not_applicable
+
+      reference_height:
+        required: false
+        type:
+          - number
+          - null
+
+      proportions:
+        required: true
+        type: mapping
+
+        rule:
+          every_measurement_requires:
+            - value
+            - units
+            - source
+            - tolerance
+
+      landmarks:
+        required: false
+        type: mapping
+
+        rule:
+          every_landmark_requires:
+            - value
+            - units
+            - source
+
+      mount_points:
+        required: false
+        type: mapping
+
+        rule:
+          every_mount_point_requires:
+            - name
+            - position
+            - orientation
+            - usage
+            - required
+
+      pose_defaults:
+        required: false
+        type: mapping
+
+      construction_overrides:
+        required: true
+        type: list
+
+        rule:
+          must_reference_approved_change: true
+
+  materials:
+    required: true
+
+    fields:
+      assignments:
+        required: true
+        type: list
+
+        item_structure:
+          component:
+            required: true
+            type: string
+            example: helmet_shell
+
+          material_id:
+            required: true
+            type: material_reference
+            example: MAT_PAINTED_STEEL
+
+          material_version:
+            required: true
+            type: semantic_version
+
+          material_file:
+            required: true
+            type: repository_path
+
+          surface_area_priority:
+            required: false
+            type: enum
+            allowed_values:
+              - primary
+              - secondary
+              - accent
+              - detail
+              - hidden
+
+          override_allowed:
+            required: true
+            type: boolean
+            default: false
+
+      prohibited_materials:
+        required: true
+        type: list
+
+      unresolved_materials:
+        required: true
+        type: list
+
+        rule:
+          must_be_empty_for_generation: true
+
+  palette:
+    required: true
+
+    fields:
+      palette_contract:
+        required: true
+        type: specification_reference
+        fixed_value: CORE_PALETTE
+
+      assignments:
+        required: true
+        type: list
+
+        item_structure:
+          component:
+            required: true
+            type: string
+
+          palette_id:
+            required: true
+            type: palette_reference
+
+          usage_role:
+            required: true
+            type: enum
+            allowed_values:
+              - primary
+              - secondary
+              - accent
+              - emissive
+              - damage
+              - warning
+              - biological
+              - outline
+              - shadow
+              - interface
+
+          percentage_target:
+            required: false
+            type:
+              - number
+              - null
+
+          percentage_tolerance:
+            required: false
+            type:
+              - number
+              - null
+
+      shadow_multiplier:
+        required: true
+        type: number
+        inherited_value: 0.65
+
+      raw_color_values_present:
+        required: true
+        type: boolean
+        fixed_value: false
+
+      prohibited_palette_ids:
+        required: true
+        type: list
+
+  camera:
+    required: true
+
+    fields:
+      camera_contract:
+        required: true
+        type: specification_reference
+        fixed_value: CORE_CAMERA
+
+      projection:
+        required: true
+        type: enum
+        allowed_values:
+          - perspective
+
+      orientation:
+        required: true
+        type: enum
+        allowed_values:
+          - forward_facing
+          - camera_facing
+          - gameplay_facing
+
+      pitch_degrees:
+        required: true
+        type: number
+
+      yaw_degrees:
+        required: true
+        type: number
+
+      roll_degrees:
+        required: true
+        type: number
+
+      field_of_view_degrees:
+        required: true
+        type: number
+
+      horizon_position:
+        required: true
+        type: enum
+        allowed_values:
+          - center
+
+      vanishing_point:
+        required: true
+
+        fields:
+          horizontal:
+            required: true
+            type: enum
+            allowed_values:
+              - center
+
+          vertical:
+            required: true
+            type: enum
+            allowed_values:
+              - center
+
+      framing:
+        required: true
+
+        fields:
+          full_asset_visible:
+            required: true
+            type: boolean
+
+          clipping_allowed:
+            required: true
+            type: boolean
+
+          head_margin_percent:
+            required: false
+            type:
+              - number
+              - null
+
+          foot_margin_percent:
+            required: false
+            type:
+              - number
+              - null
+
+          side_margin_percent:
+            required: false
+            type:
+              - number
+              - null
+
+      pivot:
+        required: true
+
+        fields:
+          x:
+            required: true
+            type: number
+
+          y:
+            required: true
+            type: number
+
+          units:
+            required: true
+            type: enum
+            allowed_values:
+              - normalized
+
+  lighting:
+    required: true
+
+    fields:
+      lighting_contract:
+        required: true
+        type: specification_reference
+        fixed_value: CORE_LIGHTING
+
+      primary_light:
+        required: true
+
+        fields:
+          horizontal_direction:
+            required: true
+            type: enum
+            allowed_values:
+              - left
+
+          vertical_direction:
+            required: true
+            type: enum
+            allowed_values:
+              - above
+
+          angle_degrees:
+            required: true
+            type: number
+
+          intensity:
+            required: true
+            type: number
+
+      fill_light_enabled:
+        required: true
+        type: boolean
+
+      ambient_light_enabled:
+        required: true
+        type: boolean
+
+      rim_light:
+        required: true
+
+        fields:
+          enabled:
+            required: true
+            type: boolean
+
+          exception_reference:
+            required: false
+            type:
+              - string
+              - null
+
+      shadow:
+        required: true
+
+        fields:
+          multiplier:
+            required: true
+            type: number
+
+          edge:
+            required: true
+            type: enum
+            allowed_values:
+              - hard
+
+          blur_allowed:
+            required: true
+            type: boolean
+            fixed_value: false
+
+      emissive_components:
+        required: true
+        type: list
+
+  animation:
+    required: true
+
+    fields:
+      applicable:
+        required: true
+        type: boolean
+
+      animation_contract:
+        required: true
+        type: specification_reference
+        fixed_value: CORE_ANIMATION
+
+      action:
+        required: false
+        type:
+          - string
+          - null
+
+      frame_count:
+        required: false
+        type:
+          - integer
+          - null
+
+      authoring_fps:
+        required: true
+        type: integer
+
+      playback_fps:
+        required: true
+        type: integer
+
+      looping:
+        required: false
+        type:
+          - boolean
+          - null
+
+      frame_order:
+        required: true
+        type: enum
+        allowed_values:
+          - left_to_right
+
+      frame_requirements:
+        required: true
+        type: list
+
+        item_structure:
+          frame_number:
+            required: true
+            type: integer
+
+          pose_name:
+            required: true
+            type: string
+
+          action_phase:
+            required: true
+            type: enum
+            allowed_values:
+              - anticipation
+              - startup
+              - active
+              - impact
+              - recoil
+              - recovery
+              - follow_through
+              - hold
+              - loop_transition
+
+          description:
+            required: true
+            type: string
+
+          required_visible_features:
+            required: true
+            type: list
+
+          prohibited_changes:
+            required: true
+            type: list
+
+          reference_frame:
+            required: false
+            type:
+              - string
+              - null
+
+      continuity:
+        required: true
+
+        fields:
+          maintain_scale:
+            required: true
+            type: boolean
+
+          maintain_pivot:
+            required: true
+            type: boolean
+
+          maintain_orientation:
+            required: true
+            type: boolean
+
+          maintain_design:
+            required: true
+            type: boolean
+
+          maintain_palette:
+            required: true
+            type: boolean
+
+          maintain_material_assignments:
+            required: true
+            type: boolean
+
+  export:
+    required: true
+
+    fields:
+      export_contract:
+        required: true
+        type: specification_reference
+        fixed_value: CORE_EXPORT
+
+      output_type:
+        required: true
+        type: enum
+        allowed_values:
+          - individual_frame
+          - sprite_sheet
+          - static_image
+          - layered_background
+          - user_interface_asset
+          - effect_sheet
+
+      image_format:
+        required: true
+        type: enum
+        allowed_values:
+          - png
+
+      width_px:
+        required: true
+        type: integer
+
+      height_px:
+        required: true
+        type: integer
+
+      color_space:
+        required: true
+        type: enum
+        allowed_values:
+          - sRGB
+
+      alpha:
+        required: true
+        type: enum
+        allowed_values:
+          - straight
+
+      transparent_background:
+        required: true
+        type: boolean
+
+      safe_padding_px:
+        required: true
+        type: integer
+
+      trim_transparency:
+        required: true
+        type: boolean
+
+      sprite_sheet:
+        required: false
+        type:
+          - mapping
+          - null
+
+        fields:
+          columns:
+            required: false
+            type:
+              - integer
+              - null
+
+          rows:
+            required: false
+            type:
+              - integer
+              - null
+
+          frame_width_px:
+            required: false
+            type:
+              - integer
+              - null
+
+          frame_height_px:
+            required: false
+            type:
+              - integer
+              - null
+
+          margin_px:
+            required: false
+            type:
+              - integer
+              - null
+
+          spacing_px:
+            required: false
+            type:
+              - integer
+              - null
+
+      unity_import:
+        required: true
+
+        fields:
+          texture_type:
+            required: true
+            type: string
+            fixed_value: Sprite_2D
+
+          sprite_mode:
+            required: true
+            type: enum
+            allowed_values:
+              - Single
+              - Multiple
+
+          mesh_type:
+            required: true
+            type: enum
+            allowed_values:
+              - FullRect
+
+          pixels_per_unit:
+            required: true
+            type: integer
+
+          filter_mode:
+            required: true
+            type: enum
+            allowed_values:
+              - Point
+
+          compression:
+            required: true
+            type: enum
+            allowed_values:
+              - None
+
+          generate_mipmaps:
+            required: true
+            type: boolean
+            fixed_value: false
+
+  restrictions:
+    required: true
+
+    fields:
+      immutable_features:
+        required: true
+        type: list
+
+      prohibited_changes:
+        required: true
+        type: list
+
+      prohibited_styles:
+        required: true
+        type: list
+
+      prohibited_camera_views:
+        required: true
+        type: list
+
+      prohibited_rendering_features:
+        required: true
+        type: list
+
+      prohibited_export_conditions:
+        required: true
+        type: list
+
+      redesign_allowed:
+        required: true
+        type: boolean
+        fixed_value: false
+
+      change_requires_approval:
+        required: true
+        type: boolean
+        fixed_value: true
+
+  validation:
+    required: true
+
+    fields:
+      validation_contract:
+        required: true
+        type: specification_reference
+        fixed_value: CORE_VALIDATION
+
+      minimum_score:
+        required: true
+        type: number
+
+      mandatory_categories:
+        required: true
+        type: list
+
+      automatic_failures:
+        required: true
+        type: list
+
+      category_targets:
+        required: true
+        type: mapping
+
+        required_entries:
+          - silhouette
+          - proportions
+          - palette
+          - rendering
+          - perspective
+          - lighting
+          - materials
+          - animation
+          - export
+
+        entry_structure:
+          target_score:
+            required: true
+            type: number
+
+          minimum_score:
+            required: true
+            type: number
+
+          severity_if_failed:
+            required: true
+            type: enum
+            allowed_values:
+              - CRITICAL
+              - MAJOR
+              - MINOR
+              - COSMETIC
+
+      manual_review_required:
+        required: true
+        type: boolean
+
+      review_template:
+        required: true
+        type: repository_path
+
+  approval:
+    required: true
+
+    fields:
+      status:
+        required: true
+        type: enum
+        allowed_values:
+          - DRAFT
+          - IN_REVIEW
+          - APPROVED
+          - REJECTED
+          - ARCHIVED
+
+      approved_by:
+        required: false
+        type:
+          - string
+          - null
+
+      approval_date:
+        required: false
+        type:
+          - date
+          - null
+
+      approval_reference:
+        required: false
+        type:
+          - string
+          - null
+
+      generation_authorized:
+        required: true
+        type: boolean
+
+      production_authorized:
+        required: true
+        type: boolean
+
+      locked:
+        required: true
+        type: boolean
+
+  history:
+    required: true
+
+    fields:
+      current_version:
+        required: true
+        type: semantic_version
+
+      entries:
+        required: true
+        type: list
+
+        item_structure:
+          version:
+            required: true
+            type: semantic_version
+
+          date:
+            required: true
+            type: date
+
+          change_type:
+            required: true
+            type: enum
+            allowed_values:
+              - created
+              - corrected
+              - expanded
+              - revised
+              - approved
+              - rejected
+              - deprecated
+              - archived
+
+          summary:
+            required: true
+            type: string
+
+          approved_by:
+            required: false
+            type:
+              - string
+              - null
+
+          review_reference:
+            required: false
+            type:
+              - string
+              - null
+
+###############################################################################
+# OPTIONAL SECTIONS
+###############################################################################
+
+optional_sections:
+
+  gameplay_function:
+    fields:
+      purpose:
+        type: string
+
+      player_read:
+        type: string
+
+      threat_behavior:
+        type: string
+
+      weak_points:
+        type: list
+
+      gameplay_feedback:
+        type: list
+
+  equipment:
+    fields:
+      equipped_assets:
+        type: list
+
+        item_structure:
+          asset_id:
+            required: true
+            type: string
+
+          version:
+            required: true
+            type: semantic_version
+
+          mount_point:
+            required: true
+            type: string
+
+          required:
+            required: true
+            type: boolean
+
+  weapons:
+    fields:
+      primary_weapon:
+        type:
+          - string
+          - null
+
+      secondary_weapon:
+        type:
+          - string
+          - null
+
+      integrated_weapons:
+        type: list
+
+  effects:
+    fields:
+      attached_effects:
+        type: list
+
+      impact_effects:
+        type: list
+
+      death_effects:
+        type: list
+
+      ambient_effects:
+        type: list
+
+  environment:
+    fields:
+      foreground:
+        type: mapping
+
+      midground:
+        type: mapping
+
+      background:
+        type: mapping
+
+      movement_direction:
+        type: string
+
+      vanishing_point_behavior:
+        type: string
+
+  user_interface:
+    fields:
+      screen_region:
+        type: string
+
+      interaction_state:
+        type: string
+
+      readability_distance:
+        type: number
+
+      safe_area:
+        type: mapping
+
+  variants:
+    fields:
+      variants_allowed:
+        type: boolean
+
+      variant_definitions:
+        type: list
+
+        item_structure:
+          variant_id:
+            required: true
+            type: string
+
+          base_asset_id:
+            required: true
+            type: string
+
+          allowed_changes:
+            required: true
+            type: list
+
+          prohibited_changes:
+            required: true
+            type: list
+
+  reference_images:
+    fields:
+      approved_references:
+        type: list
+
+        item_structure:
+          reference_id:
+            required: true
+            type: string
+
+          file:
+            required: true
+            type: repository_path
+
+          purpose:
+            required: true
+            type: string
+
+          authority_level:
+            required: true
+            type: enum
+            allowed_values:
+              - concept
+              - design
+              - proportion
+              - material
+              - palette
+              - pose
+              - animation
+              - production_master
+
+      rejected_references:
+        type: list
+
+  generation_guidance:
+    fields:
+      positive_requirements:
+        type: list
+
+      negative_requirements:
+        type: list
+
+      provider_neutral_description:
+        type: string
+
+      provider_specific_overrides_allowed:
+        type: boolean
+        default: false
+
+  unresolved_requirements:
+    fields:
+      items:
+        type: list
+
+        item_structure:
+          path:
+            required: true
+            type: yaml_path
+
+          value:
+            required: true
+            allowed_value: null
+
+          resolution_status:
+            required: true
+            type: enum
+            allowed_values:
+              - REQUIRES_REVIEW
+
+          question:
+            required: true
+            type: string
+
+          blocks_generation:
+            required: true
+            type: boolean
+
+          blocks_approval:
+            required: true
+            type: boolean
+
+  notes:
+    fields:
+      internal_notes:
+        type: list
+
+      owner_notes:
+        type: list
+
+      production_notes:
+        type: list
+
+###############################################################################
+# APPROVAL GATES
+###############################################################################
+
+approval_gates:
+
+  generation_ready:
+    required_conditions:
+      - metadata.document.status is APPROVED
+      - approval.status is APPROVED
+      - approval.generation_authorized is true
+      - approval.locked is true
+      - unresolved_requirements.items is empty
+      - inheritance.unresolved_inheritance_conflicts is empty
+      - materials.unresolved_materials is empty
+      - palette.raw_color_values_present is false
+      - restrictions.redesign_allowed is false
+      - validation.manual_review_required is true
+
+  production_ready:
+    required_conditions:
+      - generation_ready gate passed
+      - approval.production_authorized is true
+      - approved reference image exists
+      - approved review document exists
+      - validation score meets minimum
+      - changelog entry exists
+      - export settings validated
+      - asset manifest updated
+
+###############################################################################
+# AUTOMATIC REJECTION CONDITIONS
+###############################################################################
+
+automatic_rejection_conditions:
+  - missing_required_top_level_section
+  - duplicate_asset_id
+  - invalid_semantic_version
+  - unapproved_parent_specification
+  - unresolved_inheritance_conflict
+  - raw_hex_color_used
+  - undefined_palette_reference
+  - undefined_material_reference
+  - camera_override_without_approval
+  - lighting_override_without_approval
+  - rendering_override_without_approval
+  - palette_override_without_approval
+  - frame_count_missing_for_animation
+  - incomplete_frame_requirements
+  - cropped_asset_requested
+  - nontransparent_sprite_background
+  - invalid_output_resolution
+  - redesign_allowed
+  - unresolved_required_value
+  - generation_authorized_without_approval
+
+###############################################################################
+# MINIMUM IAS EXAMPLE
+#
+# This section is illustrative only. It is not an approved asset.
+###############################################################################
+
+minimum_ias_example:
+
+  metadata:
+    document:
+      id: IAS_EXAMPLE_001
+      name: Example Intermediate Asset Specification
+      type: intermediate_asset_specification
+      version: "0.0.1"
+      status: DRAFT
+
+    dates:
+      created: "2026-08-05"
+      last_modified: "2026-08-05"
+      approved: null
+
+    ownership:
+      owner: Project Owner
+      maintained_by: GameArtBible
+      approval_authority: Project Owner
+
+  identity:
+    asset_id: EXAMPLE_001
+    asset_name: Example Asset
+    asset_type: prop
+    asset_subtype: null
+    lifecycle_state: specification
+    canonical: false
+    replaces_asset_id: null
+
+  source_versions:
+    repository:
+      repository_name: GAPS_XenoWarrior
+      repository_version: "0.1.0"
+      game_art_bible_version: "0.1.0"
+
+    core_contracts:
+      CORE_RENDERING:
+        version: "1.0.0"
+        file: GameArtBible/Core/Rendering.yaml
+        status: APPROVED
+
+      CORE_PALETTE:
+        version: "1.0.0"
+        file: GameArtBible/Core/Palette.yaml
+        status: APPROVED
+
+      CORE_CAMERA:
+        version: "1.0.0"
+        file: GameArtBible/Core/Camera.yaml
+        status: APPROVED
+
+      CORE_LIGHTING:
+        version: "1.0.0"
+        file: GameArtBible/Core/Lighting.yaml
+        status: APPROVED
+
+      CORE_ANIMATION:
+        version: "1.0.0"
+        file: GameArtBible/Core/Animation.yaml
+        status: APPROVED
+
+      CORE_EXPORT:
+        version: "1.0.0"
+        file: GameArtBible/Core/Export.yaml
+        status: APPROVED
+
+      CORE_VALIDATION:
+        version: "1.0.0"
+        file: GameArtBible/Core/Validation.yaml
+        status: APPROVED
+
+    asset_specifications: []
+
+  inheritance:
+    enabled: false
+    parents: []
+    overrides: []
+    unresolved_inheritance_conflicts: []
+
+  classification:
+    asset_class: PROP
+    gameplay_role: example
+    faction: null
+    threat_level: none
+    size_class: medium
+    mobility_class: stationary
+
+  visual_contract:
+    visual_style:
+      rendering_profile: CORE_RENDERING
+      style_name: Military Retro Sci-Fi
+      realism_level: low
+      arcade_readability: maximum
+
+    silhouette:
+      description: Example silhouette pending definition.
+      primary_readability_features: []
+      prohibited_silhouette_changes: []
+      recognition_distance: null
+      recognition_distance_units: null
+
+    shape_language:
+      primary_shapes: []
+      secondary_shapes: []
+      corner_language: mechanical
+      symmetry: symmetrical
+
+    outline:
+      inherited_from: CORE_RENDERING
+      width_px: 4
+      color_reference: PALETTE_SHADOW_BLACK
+      uniform: true
+
+  construction:
+    construction_specification:
+      id: REQUIRES_REVIEW
+      version: "0.0.0"
+      file: null
+
+    measurement_system: normalized
+    reference_height: null
+    proportions: {}
+    landmarks: {}
+    mount_points: {}
+    pose_defaults: {}
+    construction_overrides: []
+
+  materials:
+    assignments: []
+    prohibited_materials: []
+    unresolved_materials:
+      - material assignment required
+
+  palette:
+    palette_contract: CORE_PALETTE
+    assignments: []
+    shadow_multiplier: 0.65
+    raw_color_values_present: false
+    prohibited_palette_ids: []
+
+  camera:
+    camera_contract: CORE_CAMERA
+    projection: perspective
+    orientation: gameplay_facing
+    pitch_degrees: 0
+    yaw_degrees: 0
+    roll_degrees: 0
+    field_of_view_degrees: 60
+    horizon_position: center
+
+    vanishing_point:
+      horizontal: center
+      vertical: center
+
+    framing:
+      full_asset_visible: true
+      clipping_allowed: false
+      head_margin_percent: null
+      foot_margin_percent: null
+      side_margin_percent: 5
+
+    pivot:
+      x: 0.5
+      y: 0.0
+      units: normalized
+
+  lighting:
+    lighting_contract: CORE_LIGHTING
+
+    primary_light:
+      horizontal_direction: left
+      vertical_direction: above
+      angle_degrees: 45
+      intensity: 1.0
+
+    fill_light_enabled: false
+    ambient_light_enabled: false
+
+    rim_light:
+      enabled: false
+      exception_reference: null
+
+    shadow:
+      multiplier: 0.65
+      edge: hard
+      blur_allowed: false
+
+    emissive_components: []
+
+  animation:
+    applicable: false
+    animation_contract: CORE_ANIMATION
+    action: null
+    frame_count: null
+    authoring_fps: 12
+    playback_fps: 12
+    looping: null
+    frame_order: left_to_right
+    frame_requirements: []
+
+    continuity:
+      maintain_scale: true
+      maintain_pivot: true
+      maintain_orientation: true
+      maintain_design: true
+      maintain_palette: true
+      maintain_material_assignments: true
+
+  export:
+    export_contract: CORE_EXPORT
+    output_type: static_image
+    image_format: png
+    width_px: 512
+    height_px: 512
+    color_space: sRGB
+    alpha: straight
+    transparent_background: true
+    safe_padding_px: 24
+    trim_transparency: false
+    sprite_sheet: null
+
+    unity_import:
+      texture_type: Sprite_2D
+      sprite_mode: Single
+      mesh_type: FullRect
+      pixels_per_unit: 100
+      filter_mode: Point
+      compression: None
+      generate_mipmaps: false
+
+  restrictions:
+    immutable_features: []
+    prohibited_changes:
+      - redesign
+      - palette substitution
+      - perspective change
+      - material substitution
+
+    prohibited_styles:
+      - photorealistic
+      - painterly
+      - watercolor
+      - anime
+
+    prohibited_camera_views:
+      - profile
+      - rear
+      - top_down
+      - isometric
+
+    prohibited_rendering_features:
+      - soft gradients
+      - motion blur
+      - depth_of_field
+      - bloom_everywhere
+
+    prohibited_export_conditions:
+      - cropped_sprite
+      - opaque_background
+      - lossy_format
+
+    redesign_allowed: false
+    change_requires_approval: true
+
+  validation:
+    validation_contract: CORE_VALIDATION
+    minimum_score: 95
+
+    mandatory_categories:
+      - silhouette
+      - proportions
+      - palette
+      - rendering
+      - perspective
+
+    automatic_failures:
+      - perspective_changed
+      - palette_changed
+      - missing_outline
+      - redesign
+      - incorrect_resolution
+      - cropped_sprite
+
+    category_targets:
+      silhouette:
+        target_score: 100
+        minimum_score: 95
+        severity_if_failed: CRITICAL
+
+      proportions:
+        target_score: 100
+        minimum_score: 95
+        severity_if_failed: CRITICAL
+
+      palette:
+        target_score: 100
+        minimum_score: 95
+        severity_if_failed: CRITICAL
+
+      rendering:
+        target_score: 100
+        minimum_score: 95
+        severity_if_failed: CRITICAL
+
+      perspective:
+        target_score: 100
+        minimum_score: 95
+        severity_if_failed: CRITICAL
+
+      lighting:
+        target_score: 100
+        minimum_score: 90
+        severity_if_failed: MAJOR
+
+      materials:
+        target_score: 100
+        minimum_score: 90
+        severity_if_failed: MAJOR
+
+      animation:
+        target_score: 100
+        minimum_score: 95
+        severity_if_failed: MAJOR
+
+      export:
+        target_score: 100
+        minimum_score: 100
+        severity_if_failed: CRITICAL
+
+    manual_review_required: true
+    review_template: Reviews/Templates/AssetReviewTemplate.yaml
+
+  approval:
+    status: DRAFT
+    approved_by: null
+    approval_date: null
+    approval_reference: null
+    generation_authorized: false
+    production_authorized: false
+    locked: false
+
+  unresolved_requirements:
+    items:
+      - path: construction.construction_specification
+        value: null
+        resolution_status: REQUIRES_REVIEW
+        question: Which approved construction specification should this asset use?
+        blocks_generation: true
+        blocks_approval: true
+
+  history:
+    current_version: "0.0.1"
+
+    entries:
+      - version: "0.0.1"
+        date: "2026-08-05"
+        change_type: created
+        summary: Minimum IAS example created for schema documentation.
+        approved_by: null
+        review_reference: null
+
+###############################################################################
+# SCHEMA HISTORY
+###############################################################################
+
+history:
+  current_version: "1.0.0"
+
+  entries:
+    - version: "1.0.0"
+      date: "2026-08-05"
+      change_type: created
+      summary: >
+        Established the first complete Intermediate Asset Specification schema
+        for GAPS_XenoWarrior.
+      approved_by: Project Owner
+      review_reference: null
