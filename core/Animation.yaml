@@ -1,1 +1,321 @@
+###############################################################################
+# GameArtBible
+# Animation.yaml
+#
+# Global Motion Contract
+#
+# Defines motion language, animation philosophy, timing, frame standards,
+# readability rules, and sprite animation requirements.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_ANIMATION
+
+  version: 1.0.0
+
+  status: APPROVED
+
+  owner: GameArtBible
+
+  category: Core
+
+###############################################################################
+
+motion_profile:
+
+  name: Arcade Responsive Motion
+
+  objective: >
+    Every animation must communicate gameplay information immediately.
+    Readability always takes priority over realism.
+
+###############################################################################
+
+global_rules:
+
+  animation_style:
+
+    value: arcade
+
+  realism:
+
+    value: low
+
+  responsiveness:
+
+    value: maximum
+
+###############################################################################
+
+frame_rate:
+
+  authoring:
+
+    fps: 12
+
+  playback:
+
+    fps: 12
+
+###############################################################################
+
+timing:
+
+  anticipation:
+
+    allowed: true
+
+    maximum_frames: 2
+
+  follow_through:
+
+    allowed: true
+
+    maximum_frames: 2
+
+  recovery:
+
+    required: true
+
+###############################################################################
+
+interpolation:
+
+  enabled: false
+
+  frame_blending: false
+
+###############################################################################
+
+sprite_motion:
+
+  camera_motion:
+
+    forbidden
+
+  sprite_rotation:
+
+    minimal
+
+  body_translation:
+
+    minimal
+
+###############################################################################
+
+silhouette_rules:
+
+  readability:
+
+    maximum
+
+  overlapping_limbs:
+
+    forbidden
+
+  weapon_visibility:
+
+    required
+
+###############################################################################
+
+idle:
+
+  default_frames:
+
+    6
+
+  looping:
+
+    true
+
+  breathing_motion:
+
+    subtle
+
+###############################################################################
+
+fire:
+
+  default_frames:
+
+    4
+
+  recoil:
+
+    required
+
+  muzzle_flash:
+
+    required
+
+###############################################################################
+
+reload:
+
+  default_frames:
+
+    8
+
+  magazine_visibility:
+
+    required
+
+###############################################################################
+
+hit:
+
+  default_frames:
+
+    3
+
+  reaction:
+
+    immediate
+
+###############################################################################
+
+death:
+
+  default_frames:
+
+    10
+
+  readability:
+
+    required
+
+###############################################################################
+
+boss_animation:
+
+  anticipation:
+
+    exaggerated
+
+  impact:
+
+    high
+
+  recovery:
+
+    extended
+
+###############################################################################
+
+secondary_motion:
+
+  cape:
+
+    forbidden
+
+  loose_cloth:
+
+    minimal
+
+  cables:
+
+    allowed
+
+###############################################################################
+
+effects_timing:
+
+  muzzle_flash:
+
+    1_frame
+
+  explosion_small:
+
+    4_frames
+
+  explosion_medium:
+
+    6_frames
+
+  explosion_large:
+
+    10_frames
+
+###############################################################################
+
+frame_consistency:
+
+  maintain_pivot:
+
+    true
+
+  maintain_scale:
+
+    true
+
+  maintain_orientation:
+
+    true
+
+###############################################################################
+
+prohibited_animation:
+
+  smear_frames
+
+  motion_blur
+
+  frame_interpolation
+
+  excessive_stretch
+
+  exaggerated_squash
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    - frame_count
+
+    - pivot_consistency
+
+    - canvas_size
+
+    - orientation
+
+  manual:
+
+    - readability
+
+    - impact
+
+    - responsiveness
+
+###############################################################################
+
+prompt_translation:
+
+  animation:
+
+    "Snappy arcade animation"
+
+  timing:
+
+    "Fast readable motion"
+
+  silhouette:
+
+    "Maintain clear silhouette every frame"
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial motion contract established.
+
+###############################################################################
