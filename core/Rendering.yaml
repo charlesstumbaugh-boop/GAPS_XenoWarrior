@@ -1,1 +1,355 @@
+###############################################################################
+# GameArtBible
+# Rendering.yaml
+#
+# Global Rendering Contract
+#
+# Every visual asset in the project SHALL comply with these rendering rules.
+#
+# This document is inherited by all CharacterDNA, EnemyDNA, WeaponDNA,
+# EnvironmentDNA, UI, FX, and Animation specifications.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_RENDERING
+    version: 1.0.0
+    status: APPROVED
+
+  owner: GameArtBible
+
+  category: Core
+
+  description: >
+    Defines the immutable rendering language for the entire project.
+
+###############################################################################
+
+rendering_profile:
+
+  name: Military Retro Sci-Fi
+
+  style: Stylized
+
+  realism: Low
+
+  arcade: High
+
+  vr_readability: Maximum
+
+###############################################################################
+
+art_direction:
+
+  objective:
+
+    value: >
+      Instantly readable arcade combat.
+
+    reason: >
+      VR players have very little time to identify threats.
+
+    validation:
+
+      measurable: true
+
+###############################################################################
+
+style:
+
+  rendering:
+
+    value: Cel Shaded
+
+    reason: >
+      Maximum silhouette clarity.
+
+    validation:
+
+      allowed:
+
+        - cel
+
+      forbidden:
+
+        - painterly
+
+        - photorealistic
+
+        - watercolor
+
+        - comic
+
+        - anime
+
+###############################################################################
+
+shading:
+
+  levels:
+
+    value: 2
+
+    reason: >
+      Consistent arcade appearance.
+
+    validation:
+
+      minimum: 2
+
+      maximum: 2
+
+  gradients:
+
+    value: false
+
+    reason: >
+      Prevent muddy rendering.
+
+###############################################################################
+
+lighting:
+
+  primary:
+
+    direction: upper_left
+
+    angle: 45
+
+  secondary:
+
+    enabled: false
+
+  ambient:
+
+    enabled: false
+
+###############################################################################
+
+outline:
+
+  enabled: true
+
+  width:
+
+    value: 4
+
+    units: px
+
+    tolerance: 0
+
+  color:
+
+    value: "#000000"
+
+    tolerance: 0
+
+  anti_alias:
+
+    true
+
+###############################################################################
+
+surface_finish:
+
+  armor:
+
+    finish: painted_metal
+
+    roughness: medium
+
+    reflectivity: low
+
+  visor:
+
+    finish: glass
+
+    reflectivity: medium
+
+    glow: true
+
+###############################################################################
+
+materials:
+
+  allowed:
+
+    painted_steel
+
+    matte_polymer
+
+    reinforced_glass
+
+    rubber
+
+    carbon
+
+  forbidden:
+
+    chrome
+
+    mirror
+
+    cloth
+
+    skin_shader
+
+###############################################################################
+
+camera:
+
+  projection:
+
+    perspective
+
+  orientation:
+
+    forward
+
+  enemy_rotation:
+
+    faces_player
+
+  player_rotation:
+
+    faces_camera
+
+###############################################################################
+
+readability:
+
+  silhouette:
+
+    priority: maximum
+
+  overlap:
+
+    allowed: false
+
+  hidden_details:
+
+    allowed: false
+
+###############################################################################
+
+scale:
+
+  exaggeration:
+
+    value: slight
+
+  realism:
+
+    value: low
+
+###############################################################################
+
+edge_definition:
+
+  hard_edges:
+
+    required: true
+
+  soft_edges:
+
+    forbidden: true
+
+###############################################################################
+
+effects:
+
+  bloom:
+
+    visor_only: true
+
+  motion_blur:
+
+    false
+
+  lens_flare:
+
+    false
+
+  depth_of_field:
+
+    false
+
+###############################################################################
+
+background_separation:
+
+  foreground:
+
+    highest_contrast
+
+  gameplay_objects:
+
+    always_visible
+
+###############################################################################
+
+forbidden_styles:
+
+  - realistic_skin
+
+  - oil_painting
+
+  - watercolor
+
+  - airbrush
+
+  - sketch
+
+  - pencil
+
+  - manga
+
+  - anime
+
+  - comic_book
+
+###############################################################################
+
+rendering_contract:
+
+  no_redesign_without_review: true
+
+  no_palette_override: true
+
+  no_camera_override: true
+
+  no_outline_override: true
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    outline_width
+
+    shading_levels
+
+    lighting_direction
+
+    material_types
+
+    style
+
+  manual:
+
+    readability
+
+    silhouette
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial rendering contract established.
