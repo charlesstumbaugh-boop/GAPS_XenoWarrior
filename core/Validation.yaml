@@ -1,1 +1,350 @@
+###############################################################################
+# GameArtBible
+# Validation.yaml
+#
+# Canonical Asset Validation Specification
+#
+# This document defines HOW every generated asset is evaluated.
+#
+# Validation determines whether an asset may become an Approved Reference Image.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_VALIDATION
+    version: 1.0.0
+    status: APPROVED
+
+  description: >
+    Defines the validation rules used to compare generated artwork against
+    GameArtBible specifications.
+
+###############################################################################
+
+validation_engine:
+
+  enabled: true
+
+  review_required: true
+
+  automated_checks: true
+
+  manual_review: true
+
+  approval_required: true
+
+###############################################################################
+
+pass_requirements:
+
+  minimum_score: 95
+
+  mandatory_rules:
+
+    - silhouette
+    - palette
+    - rendering
+    - perspective
+    - proportions
+
+###############################################################################
+
+grading:
+
+  pass:
+
+    minimum: 95
+
+  conditional:
+
+    minimum: 90
+
+  fail:
+
+    below: 90
+
+###############################################################################
+
+severity:
+
+  critical:
+
+    description: >
+      Asset must be rejected.
+
+  major:
+
+    description: >
+      Asset requires regeneration.
+
+  minor:
+
+    description: >
+      Acceptable with review.
+
+  cosmetic:
+
+    description: >
+      Optional improvement.
+
+###############################################################################
+
+validation_categories:
+
+  silhouette:
+
+    weight: 20
+
+    checks:
+
+      - recognizable
+
+      - readable
+
+      - consistent
+
+      - matches_dna
+
+  proportions:
+
+    weight: 15
+
+    checks:
+
+      - body_ratio
+
+      - limb_length
+
+      - shoulder_width
+
+      - weapon_scale
+
+      - head_size
+
+  palette:
+
+    weight: 15
+
+    checks:
+
+      - approved_colors_only
+
+      - saturation
+
+      - contrast
+
+      - color_balance
+
+  rendering:
+
+    weight: 15
+
+    checks:
+
+      - cel_shading
+
+      - outline_width
+
+      - shadow_depth
+
+      - highlight_style
+
+  perspective:
+
+    weight: 10
+
+    checks:
+
+      - forward_facing
+
+      - camera_angle
+
+      - horizon_alignment
+
+  lighting:
+
+    weight: 5
+
+    checks:
+
+      - light_direction
+
+      - shadow_direction
+
+      - consistency
+
+  materials:
+
+    weight: 5
+
+    checks:
+
+      - painted_metal
+
+      - visor_glow
+
+      - matte_finish
+
+  animation:
+
+    weight: 10
+
+    checks:
+
+      - frame_count
+
+      - timing
+
+      - readability
+
+      - anticipation
+
+      - follow_through
+
+  export:
+
+    weight: 5
+
+    checks:
+
+      - transparent_background
+
+      - padding
+
+      - resolution
+
+      - pivot
+
+###############################################################################
+
+automatic_failures:
+
+  - perspective_changed
+
+  - palette_changed
+
+  - missing_outline
+
+  - redesign
+
+  - missing_animation_frames
+
+  - incorrect_resolution
+
+  - cropped_sprite
+
+###############################################################################
+
+comparison_order:
+
+  01_repository
+
+  02_asset_dna
+
+  03_reference_image
+
+  04_generated_image
+
+###############################################################################
+
+review_output:
+
+  required:
+
+    - score
+
+    - differences
+
+    - recommendation
+
+    - reviewer_notes
+
+###############################################################################
+
+recommendations:
+
+  approve:
+
+    score: 95
+
+  conditional:
+
+    score: 90
+
+  regenerate:
+
+    score: 89
+
+###############################################################################
+
+difference_reporting:
+
+  required: true
+
+  include:
+
+    - changed_parts
+
+    - missing_parts
+
+    - added_parts
+
+    - color_changes
+
+    - proportion_changes
+
+    - rendering_changes
+
+###############################################################################
+
+review_status:
+
+  DRAFT
+
+  REVIEW
+
+  APPROVED
+
+  REJECTED
+
+  ARCHIVED
+
+###############################################################################
+
+approved_asset_requirements:
+
+  reference_image: required
+
+  review_document: required
+
+  dna_version: required
+
+  changelog: required
+
+###############################################################################
+
+future_validation:
+
+  ai_assisted_review: true
+
+  pixel_comparison: true
+
+  palette_analysis: true
+
+  silhouette_analysis: true
+
+  sprite_sheet_validation: true
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  changes:
+
+    - Initial validation framework created
+
+###############################################################################
