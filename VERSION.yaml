@@ -1,1 +1,338 @@
+###############################################################################
+# GameArtBible
+# VERSION.yaml
+#
+# Repository Identity
+#
+# This file defines the canonical identity of the GameArtBible repository.
+#
+# Every specification within this repository references this file.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: GAB_VERSION
+    name: VERSION
+    type: RepositorySpecification
+
+  project:
+    name: VR Rail Shooter
+    codename: Project Sentinel
+    genre: VR Arcade Rail Shooter
+    style: Military Retro Sci-Fi
+
+  repository:
+
+    name: GameArtBible
+
+    description: >
+      Canonical production specification used to create all visual assets
+      for the VR Rail Shooter project.
+
+    owner: TBD
+
+    repository_id: GAB-001
+
+    uuid: AUTO_GENERATE
+
+    created: 2026-08-05
+
+    current_release: 0.1.0
+
+    release_stage: FOUNDATION
+
+    status: ACTIVE
+
+###############################################################################
+
+versioning:
+
+  semantic_versioning: true
+
+  current:
+
+    major: 0
+    minor: 1
+    patch: 0
+
+    string: "0.1.0"
+
+  release_channel:
+
+    - foundation
+    - alpha
+    - beta
+    - release
+    - archived
+
+###############################################################################
+
+approval:
+
+  specification_status: APPROVED
+
+  approved_by: Project Owner
+
+  approval_date: 2026-08-05
+
+  review_required: true
+
+###############################################################################
+
+compatibility:
+
+  yaml_version: "1.2"
+
+  schema_version: 1.0
+
+  repository_version: 0.1.0
+
+  unity:
+
+    minimum_version: "6000"
+
+  unreal:
+
+    minimum_version: "5.5"
+
+###############################################################################
+
+project_rules:
+
+  specification_priority: true
+
+  prompts_are_source: false
+
+  yaml_is_source: true
+
+  images_are_reference: true
+
+  generated_images_are_authoritative: false
+
+###############################################################################
+
+repository_rules:
+
+  overwrite_existing_files: false
+
+  delete_history: false
+
+  allow_branching: true
+
+  allow_experimental_branch: true
+
+  production_branch: main
+
+###############################################################################
+
+approval_workflow:
+
+  draft
+
+  review
+
+  approved
+
+  archived
+
+###############################################################################
+
+asset_identifiers:
+
+  player_prefix: PLAYER
+
+  enemy_prefix: ENEMY
+
+  boss_prefix: BOSS
+
+  weapon_prefix: WEAPON
+
+  prop_prefix: PROP
+
+  background_prefix: BG
+
+  ui_prefix: UI
+
+  fx_prefix: FX
+
+###############################################################################
+
+asset_numbering:
+
+  digits: 3
+
+  examples:
+
+    PLAYER_001
+
+    ENEMY_001
+
+    BOSS_001
+
+    WEAPON_001
+
+###############################################################################
+
+revision_policy:
+
+  major:
+    description: >
+      Breaking visual changes.
+
+  minor:
+    description: >
+      New approved production assets.
+
+  patch:
+    description: >
+      Documentation corrections and bug fixes.
+
+###############################################################################
+
+approval_rules:
+
+  approved_assets_are_locked: true
+
+  overwrite_reference_images: false
+
+  update_requires_review: true
+
+  changelog_required: true
+
+###############################################################################
+
+ai_generation:
+
+  required_inputs:
+
+    - VERSION.yaml
+
+    - Rendering.yaml
+
+    - Palette.yaml
+
+    - Camera.yaml
+
+    - AssetDNA
+
+    - PromptTemplate
+
+  forbidden:
+
+    - Ignore palette
+
+    - Ignore rendering rules
+
+    - Redesign approved characters
+
+    - Change proportions
+
+###############################################################################
+
+generation_pipeline:
+
+  01_read_repository
+
+  02_load_core_rules
+
+  03_load_asset_dna
+
+  04_load_reference_images
+
+  05_generate
+
+  06_compare
+
+  07_review
+
+  08_approve
+
+  09_update_repository
+
+###############################################################################
+
+change_management:
+
+  automatic_updates: false
+
+  human_review_required: true
+
+  specification_change_requires:
+
+    - review
+
+    - approval
+
+    - version_increment
+
+    - changelog
+
+###############################################################################
+
+future_modules:
+
+  planned:
+
+    - Rendering
+
+    - Palette
+
+    - Camera
+
+    - Lighting
+
+    - Animation
+
+    - Export
+
+    - Validation
+
+    - CharacterDNA
+
+    - EnemyDNA
+
+    - BossDNA
+
+    - WeaponDNA
+
+    - EnvironmentDNA
+
+    - SpriteRules
+
+    - PromptLibrary
+
+    - ReviewEngine
+
+    - AssetComparer
+
+###############################################################################
+
+repository_goal:
+
+  objective: >
+    Produce visually identical production assets through structured
+    specifications instead of prompt engineering.
+
+###############################################################################
+
+history:
+
+  created:
+
+    version: 0.1.0
+
+    date: 2026-08-05
+
+    notes:
+
+      - Initial repository created
+
+      - Repository identity established
+
+      - Semantic versioning enabled
+
+      - AI workflow defined
+
+###############################################################################
