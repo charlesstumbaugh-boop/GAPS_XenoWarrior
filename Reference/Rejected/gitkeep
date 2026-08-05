@@ -1,0 +1,18 @@
+Contains failed generations.
+
+Why?
+
+Because over time, we'll start to recognize patterns of failure.
+
+For example:
+Rejected/
+
+Player/
+
+    WrongPerspective/
+
+    WrongPalette/
+
+    WrongOutline/
+
+    WrongLighting/
