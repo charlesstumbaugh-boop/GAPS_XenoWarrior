@@ -1,1 +1,261 @@
+###############################################################################
+# GameArtBible
+# Palette.yaml
+#
+# Global Color Contract
+#
+# Defines every approved production color used throughout the project.
+#
+# Individual assets SHALL reference palette IDs rather than hard-coded colors.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_PALETTE
+    version: 1.0.0
+    status: APPROVED
+
+  owner: GameArtBible
+
+  category: Core
+
+###############################################################################
+
+palette_profile:
+
+  name: Military Retro Sci-Fi
+
+  purpose: >
+    High readability, arcade-inspired military science fiction palette
+    optimized for VR gameplay.
+
+###############################################################################
+
+global_rules:
+
+  color_space: sRGB
+
+  gamma: 2.2
+
+  alpha_mode: Straight
+
+  use_palette_ids: true
+
+  allow_custom_colors: false
+
+###############################################################################
+
+colors:
+
+  PALETTE_PRIMARY_STEEL:
+
+    hex: "#7A8A99"
+
+    rgb: [122,138,153]
+
+    role: Armor Primary
+
+    material: painted_steel
+
+    finish: matte
+
+    usage:
+      - player
+      - enemies
+      - props
+
+  PALETTE_GUNMETAL:
+
+    hex: "#2F3A45"
+
+    rgb: [47,58,69]
+
+    role: Secondary Armor
+
+    material: painted_steel
+
+    finish: matte
+
+  PALETTE_HAZARD_YELLOW:
+
+    hex: "#F2C94C"
+
+    rgb: [242,201,76]
+
+    role: Warning Accent
+
+    material: painted_paint
+
+    usage:
+      - warnings
+      - weapon_details
+      - pickups
+
+  PALETTE_PLASMA_BLUE:
+
+    hex: "#4DA8FF"
+
+    rgb: [77,168,255]
+
+    role: Energy
+
+    material: emissive
+
+    glow: true
+
+    usage:
+      - visor
+      - plasma
+      - ui
+
+  PALETTE_BIO_GREEN:
+
+    hex: "#7DF57D"
+
+    rgb: [125,245,125]
+
+    role: Alien Biology
+
+    material: emissive
+
+    glow: true
+
+  PALETTE_WARNING_RED:
+
+    hex: "#FF4D4D"
+
+    rgb: [255,77,77]
+
+    role: Damage
+
+    material: emissive
+
+    glow: true
+
+  PALETTE_SHADOW_BLACK:
+
+    hex: "#0D0D0D"
+
+    rgb: [13,13,13]
+
+    role: Outline
+
+    material: flat
+
+###############################################################################
+
+shadows:
+
+  multiplier:
+
+    value: 0.65
+
+    tolerance: 0.02
+
+###############################################################################
+
+highlight_rules:
+
+  enabled: true
+
+  color_shift: false
+
+  white_specular: false
+
+###############################################################################
+
+color_usage_rules:
+
+  visor:
+
+    allowed:
+
+      - PALETTE_PLASMA_BLUE
+
+  alien_energy:
+
+    allowed:
+
+      - PALETTE_BIO_GREEN
+
+  damage:
+
+    allowed:
+
+      - PALETTE_WARNING_RED
+
+###############################################################################
+
+forbidden_combinations:
+
+  - PALETTE_BIO_GREEN + PlayerArmor
+
+  - PALETTE_WARNING_RED + FriendlyUI
+
+  - PALETTE_PLASMA_BLUE + EnemyWeakPoint
+
+###############################################################################
+
+vr_readability:
+
+  minimum_contrast_ratio: 4.5
+
+  silhouette_priority: true
+
+  emissive_limit: medium
+
+###############################################################################
+
+future_expansion:
+
+  reserve_slots:
+
+    PALETTE_ORANGE
+
+    PALETTE_PURPLE
+
+    PALETTE_CYAN
+
+###############################################################################
+
+prompt_translation:
+
+  palette:
+    "Military Retro Sci-Fi palette"
+
+  armor:
+    "Matte painted steel"
+
+  visor:
+    "Plasma Blue emissive visor"
+
+  outline:
+    "Shadow Black 4 px outline"
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    - approved_palette_only
+
+    - shadow_multiplier
+
+    - contrast
+
+    - forbidden_combination_check
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial production palette established.
+
+###############################################################################
