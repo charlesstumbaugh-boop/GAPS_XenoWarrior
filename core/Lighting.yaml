@@ -1,1 +1,308 @@
+###############################################################################
+# GameArtBible
+# Lighting.yaml
+#
+# Global Lighting Contract
+#
+# Defines all lighting behavior for production artwork.
+#
+# Lighting exists to improve readability, not realism.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_LIGHTING
+
+  version: 1.0.0
+
+  status: APPROVED
+
+  owner: GameArtBible
+
+  category: Core
+
+###############################################################################
+
+lighting_profile:
+
+  name: Arcade Combat Lighting
+
+  objective: >
+    Produce consistent, highly readable sprites optimized for
+    VR gameplay and rapid target recognition.
+
+###############################################################################
+
+global_rules:
+
+  lighting_style:
+
+    value: stylized
+
+    reason: >
+      Consistency is preferred over realism.
+
+  realism:
+
+    value: false
+
+  dynamic_lighting:
+
+    value: false
+
+###############################################################################
+
+primary_light:
+
+  enabled: true
+
+  direction:
+
+    horizontal: left
+
+    vertical: above
+
+    angle: 45
+
+  intensity:
+
+    value: 1.0
+
+    tolerance: 0.05
+
+  color:
+
+    palette_reference: PALETTE_PRIMARY_STEEL
+
+    tint: neutral
+
+###############################################################################
+
+fill_light:
+
+  enabled: false
+
+  reason: >
+    Secondary fill introduces unwanted gradients and reduces
+    silhouette readability.
+
+###############################################################################
+
+rim_light:
+
+  enabled: false
+
+  exception:
+
+    boss_assets: true
+
+    energy_objects: true
+
+###############################################################################
+
+ambient_light:
+
+  enabled: false
+
+###############################################################################
+
+shadow_rules:
+
+  enabled: true
+
+  source:
+
+    primary_light
+
+  multiplier:
+
+    value: 0.65
+
+    tolerance: 0.02
+
+  edge:
+
+    hard
+
+  blur:
+
+    forbidden
+
+###############################################################################
+
+highlight_rules:
+
+  enabled: true
+
+  style:
+
+    flat
+
+  gradients:
+
+    forbidden
+
+  bloom:
+
+    visor_only
+
+###############################################################################
+
+emissive_materials:
+
+  allowed:
+
+    - PALETTE_PLASMA_BLUE
+
+    - PALETTE_BIO_GREEN
+
+    - PALETTE_WARNING_RED
+
+  glow_strength:
+
+    low
+
+  glow_bleed:
+
+    forbidden
+
+###############################################################################
+
+material_response:
+
+  painted_steel:
+
+    highlight: medium
+
+    reflection: low
+
+  matte_polymer:
+
+    highlight: low
+
+    reflection: none
+
+  reinforced_glass:
+
+    highlight: medium
+
+    glow_allowed: true
+
+  rubber:
+
+    highlight: none
+
+###############################################################################
+
+environment_lighting:
+
+  inherit_global_rules: true
+
+  directional_override: forbidden
+
+###############################################################################
+
+animation_rules:
+
+  lighting_changes_between_frames:
+
+    forbidden
+
+  flicker:
+
+    allowed_for:
+
+      - plasma
+
+      - warning_lights
+
+      - alien_energy
+
+###############################################################################
+
+boss_exceptions:
+
+  allow_rim_light: true
+
+  allow_core_glow: true
+
+  allow_energy_pulses: true
+
+###############################################################################
+
+forbidden_effects:
+
+  - volumetric_light
+
+  - god_rays
+
+  - lens_flare
+
+  - bloom_everywhere
+
+  - realistic_reflections
+
+  - ray_tracing
+
+###############################################################################
+
+vr_readability:
+
+  silhouette_priority: maximum
+
+  glare_limit: low
+
+  shadow_contrast: high
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    - primary_direction
+
+    - shadow_multiplier
+
+    - emissive_palette
+
+    - rim_light_usage
+
+  manual:
+
+    - readability
+
+    - silhouette
+
+###############################################################################
+
+prompt_translation:
+
+  lighting:
+    "Single directional light from upper left"
+
+  shading:
+    "Two-tone cel shading with hard shadow edge"
+
+  highlights:
+    "Flat highlights only"
+
+  shadows:
+    "65 percent shadow brightness"
+
+  realism:
+    "Stylized arcade lighting"
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial lighting contract established.
+
+###############################################################################
