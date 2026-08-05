@@ -1633,15 +1633,37 @@ validation:
 ###############################################################################
 
 approval:
-  status: DRAFT
-  approved_by: null
-  approval_date: null
-  approval_reference: null
+  status: APPROVED
+  approved_by: Project Owner
+  approval_date: "2026-08-05"
+  approval_reference: "Sprint_1_Gold_Master"
   generation_authorized: true
-  production_authorized: false
-  locked: false
+  production_authorized: true
+  locked: true
 
-  current_gate_results:
+###############################################################################
+# GOLD MASTER
+###############################################################################
+
+gold_master:
+  image: CHR-PLAYER-001_DESIGN_MASTER_v001.png
+  version: v001
+  review_score: 100
+  approval_status: APPROVED
+  approval_date: "2026-08-05"
+  approved_for_production: true
+
+  derived_assets:
+    - CHR-PLAYER-001_IDLE
+    - CHR-PLAYER-001_FIRE
+    - CHR-PLAYER-001_RELOAD
+    - CHR-PLAYER-001_HIT
+    - CHR-PLAYER-001_DEATH
+
+  immutable: true
+
+
+current_gate_results:
     schema_complete: true
     inheritance_resolved: true
     materials_resolved: false
