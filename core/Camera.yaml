@@ -1,1 +1,328 @@
+###############################################################################
+# GameArtBible
+# Camera.yaml
+#
+# Global Camera Contract
+#
+# Defines the canonical camera, framing, orientation, and composition rules
+# for every render, sprite, animation, environment, and UI preview.
+#
+###############################################################################
 
+metadata:
+
+  document:
+    id: CORE_CAMERA
+    version: 1.0.0
+    status: APPROVED
+
+  owner: GameArtBible
+
+  category: Core
+
+###############################################################################
+
+camera_profile:
+
+  name: VR Rail Shooter
+
+  gameplay: Forward Motion
+
+  projection: Perspective
+
+  target_platform: VR
+
+###############################################################################
+
+projection:
+
+  type:
+
+    value: perspective
+
+    reason: >
+      Provides depth while maintaining arcade readability.
+
+    validation:
+
+      allowed:
+        - perspective
+
+      forbidden:
+        - orthographic
+
+###############################################################################
+
+field_of_view:
+
+  value: 60
+
+  units: degrees
+
+  tolerance: 5
+
+  reason: >
+    Maintains consistent apparent scale across characters.
+
+###############################################################################
+
+camera_rotation:
+
+  pitch:
+
+    value: 0
+
+    tolerance: 2
+
+  yaw:
+
+    value: 0
+
+    tolerance: 2
+
+  roll:
+
+    value: 0
+
+    tolerance: 0
+
+###############################################################################
+
+camera_height:
+
+  value: chest_level
+
+  reason: >
+    Simulates player eye height while keeping enemy silhouettes readable.
+
+###############################################################################
+
+horizon:
+
+  position:
+
+    value: center
+
+    tolerance: 5_percent
+
+###############################################################################
+
+vanishing_point:
+
+  horizontal:
+
+    value: center
+
+  vertical:
+
+    value: center
+
+###############################################################################
+
+sprite_orientation:
+
+  player:
+
+    faces_camera
+
+  enemies:
+
+    faces_player
+
+  bosses:
+
+    faces_player
+
+  pickups:
+
+    camera_facing
+
+  props:
+
+    gameplay_facing
+
+###############################################################################
+
+allowed_views:
+
+  primary:
+
+    - front
+
+  secondary:
+
+    none
+
+###############################################################################
+
+forbidden_views:
+
+  - profile
+
+  - rear
+
+  - top_down
+
+  - isometric
+
+  - extreme_perspective
+
+###############################################################################
+
+framing:
+
+  sprite_centering:
+
+    enabled: true
+
+  head_margin:
+
+    value: 8_percent
+
+  foot_margin:
+
+    value: 2_percent
+
+  left_margin:
+
+    value: 5_percent
+
+  right_margin:
+
+    value: 5_percent
+
+###############################################################################
+
+pivot:
+
+  location:
+
+    bottom_center
+
+  validation:
+
+    tolerance: 0_pixels
+
+###############################################################################
+
+composition:
+
+  subject_priority:
+
+    maximum
+
+  clipping:
+
+    forbidden
+
+  cropped_limbs:
+
+    forbidden
+
+###############################################################################
+
+boss_rules:
+
+  maintain_forward_orientation: true
+
+  allow_partial_offscreen: true
+
+  preserve_core_visibility: true
+
+###############################################################################
+
+background_rules:
+
+  layers:
+
+    foreground
+
+    midground
+
+    background
+
+  scrolling:
+
+    forward_only
+
+###############################################################################
+
+animation_capture:
+
+  camera_motion:
+
+    forbidden
+
+  zoom:
+
+    forbidden
+
+  rotation:
+
+    forbidden
+
+###############################################################################
+
+vr_readability:
+
+  enemy_face_visibility:
+
+    required
+
+  weapon_visibility:
+
+    required
+
+  silhouette_priority:
+
+    maximum
+
+###############################################################################
+
+validation:
+
+  automatic:
+
+    - camera_angle
+
+    - framing
+
+    - margins
+
+    - pivot
+
+    - sprite_orientation
+
+  manual:
+
+    - readability
+
+    - composition
+
+###############################################################################
+
+prompt_translation:
+
+  camera:
+    "Forward-facing perspective camera"
+
+  orientation:
+    "Enemies always face the player"
+
+  framing:
+    "Centered sprite with safe margins"
+
+  gameplay:
+    "VR rail shooter composition"
+
+###############################################################################
+
+history:
+
+  version: 1.0.0
+
+  notes:
+
+    - Initial camera contract established.
+
+###############################################################################
