@@ -1,1 +1,1775 @@
-CHR-PLAYER-001_DESIGN_MASTER_v001.png
+###############################################################################
+# GAPS_XenoWarrior
+# PLAYER_001.yaml
+#
+# Xeno Warrior Player
+# Intermediate Asset Specification
+#
+# Reverse-engineered from the approved VR Rail-Shooter Unified Art Bible
+# poster and inherited GameArtBible contracts.
+#
+# This document defines the canonical player design at the level currently
+# supported by the available reference artwork.
+###############################################################################
+
+metadata:
+  document:
+    id: IAS_PLAYER_001
+    name: Xeno Warrior Player Intermediate Asset Specification
+    type: intermediate_asset_specification
+    version: "1.0.0"
+    status: Approved
+
+  dates:
+    created: "2026-08-05"
+    last_modified: "2026-08-05"
+    approved: null
+
+  ownership:
+    owner: Project Owner
+    maintained_by: GameArtBible
+    approval_authority: Project Owner
+
+  provenance:
+    creation_method: reverse_engineered_from_reference_art
+    confidence_level: medium
+    original_prompt_data_available: false
+    internal_generation_parameters_available: false
+    visual_measurements_are_estimates: true
+
+###############################################################################
+# IDENTITY
+###############################################################################
+
+identity:
+  asset_id: PLAYER_001
+  asset_name: Xeno Warrior Player
+  asset_type: character
+  asset_subtype: humanoid_player
+  lifecycle_state: specification
+  canonical: true
+  replaces_asset_id: null
+
+  narrative_role:
+    classification: player_character
+    faction: human_military
+    alignment: friendly
+    setting: military_retro_scifi
+
+  production_role:
+    primary_use: player_facing_sprite
+    secondary_use:
+      - loading_screen_art
+      - character_selection_art
+      - tutorial_diagrams
+      - promotional_art
+    gameplay_camera_relationship: faces_camera
+
+###############################################################################
+# SOURCE VERSIONS
+###############################################################################
+
+source_versions:
+  repository:
+    repository_name: GAPS_XenoWarrior
+    repository_version: "0.1.0"
+    game_art_bible_version: "0.1.0"
+
+  core_contracts:
+    CORE_RENDERING:
+      version: "1.0.0"
+      file: GameArtBible/Core/Rendering.yaml
+      status: APPROVED
+
+    CORE_PALETTE:
+      version: "1.0.0"
+      file: GameArtBible/Core/Palette.yaml
+      status: APPROVED
+
+    CORE_CAMERA:
+      version: "1.0.0"
+      file: GameArtBible/Core/Camera.yaml
+      status: APPROVED
+
+    CORE_LIGHTING:
+      version: "1.0.0"
+      file: GameArtBible/Core/Lighting.yaml
+      status: APPROVED
+
+    CORE_ANIMATION:
+      version: "1.0.0"
+      file: GameArtBible/Core/Animation.yaml
+      status: APPROVED
+
+    CORE_EXPORT:
+      version: "1.0.0"
+      file: GameArtBible/Core/Export.yaml
+      status: APPROVED
+
+    CORE_VALIDATION:
+      version: "1.0.0"
+      file: GameArtBible/Core/Validation.yaml
+      status: APPROVED
+
+  asset_specifications:
+    - id: SPEC_HUMANOID
+      version: "1.0.0"
+      file: GameArtBible/Specifications/Construction/Humanoid.yaml
+
+    - id: MAT_PAINTED_STEEL
+      version: "1.0.0"
+      file: GameArtBible/Specifications/Materials/PaintedSteel.yaml
+
+  reference_sources:
+    - reference_id: REF_PLAYER_POSTER_001
+      type: concept
+      status: available
+      authority_level: design
+      purpose: >
+        Establish the approved military retro science-fiction appearance,
+        broad silhouette, helmet language, visor color, armor character,
+        weapon readability, and front-facing presentation.
+      limitations:
+        - player artwork is small relative to the poster
+        - no clean isolated transparent player asset exists
+        - no rear view exists
+        - no side view exists
+        - exact panel geometry cannot be measured reliably
+        - exact weapon dimensions cannot be measured reliably
+        - individual animation frames are not available at production size
+
+###############################################################################
+# INHERITANCE
+###############################################################################
+
+inheritance:
+  enabled: true
+
+  parents:
+    - id: SPEC_HUMANOID
+      version: "1.0.0"
+      file: GameArtBible/Specifications/Construction/Humanoid.yaml
+      inheritance_type: full
+      sections_inherited:
+        - units
+        - proportions
+        - vertical_landmarks
+        - arms
+        - legs
+        - stance
+        - pose
+        - weapon_mounts
+        - center_of_mass
+        - allowed_variation
+        - forbidden
+        - validation
+      sections_excluded: []
+
+    - id: CORE_RENDERING
+      version: "1.0.0"
+      file: GameArtBible/Core/Rendering.yaml
+      inheritance_type: full
+      sections_inherited:
+        - rendering_profile
+        - style
+        - shading
+        - outline
+        - surface_finish
+        - materials
+        - readability
+        - edge_definition
+        - effects
+        - rendering_contract
+      sections_excluded: []
+
+    - id: CORE_PALETTE
+      version: "1.0.0"
+      file: GameArtBible/Core/Palette.yaml
+      inheritance_type: full
+      sections_inherited:
+        - global_rules
+        - colors
+        - shadows
+        - highlight_rules
+        - color_usage_rules
+        - vr_readability
+      sections_excluded: []
+
+    - id: CORE_CAMERA
+      version: "1.0.0"
+      file: GameArtBible/Core/Camera.yaml
+      inheritance_type: full
+      sections_inherited:
+        - projection
+        - field_of_view
+        - camera_rotation
+        - horizon
+        - vanishing_point
+        - sprite_orientation
+        - allowed_views
+        - forbidden_views
+        - framing
+        - pivot
+        - animation_capture
+      sections_excluded: []
+
+    - id: CORE_LIGHTING
+      version: "1.0.0"
+      file: GameArtBible/Core/Lighting.yaml
+      inheritance_type: full
+      sections_inherited:
+        - global_rules
+        - primary_light
+        - fill_light
+        - rim_light
+        - ambient_light
+        - shadow_rules
+        - highlight_rules
+        - emissive_materials
+        - material_response
+      sections_excluded: []
+
+    - id: CORE_ANIMATION
+      version: "1.0.0"
+      file: GameArtBible/Core/Animation.yaml
+      inheritance_type: full
+      sections_inherited:
+        - motion_profile
+        - global_rules
+        - frame_rate
+        - timing
+        - interpolation
+        - silhouette_rules
+        - idle
+        - fire
+        - reload
+        - hit
+        - death
+        - frame_consistency
+        - prohibited_animation
+      sections_excluded: []
+
+    - id: CORE_EXPORT
+      version: "1.0.0"
+      file: GameArtBible/Core/Export.yaml
+      inheritance_type: full
+      sections_inherited:
+        - image_format
+        - color_space
+        - canvas_sizes
+        - sprite_origin
+        - pivot
+        - safe_padding
+        - sprite_alignment
+        - sprite_sheet
+        - animation_export
+        - alpha_rules
+        - unity_import
+        - pixels_per_unit
+      sections_excluded: []
+
+  overrides:
+    - path: construction.proportions.shoulders.width
+      inherited_value: 42.0
+      override_value: 44.0
+      reason: >
+        The approved poster depicts a broader-than-standard armored player
+        silhouette intended to remain readable in VR.
+      approval_reference: PENDING_PLAYER_DESIGN_REVIEW
+
+    - path: construction.proportions.waist.width
+      inherited_value: 24.0
+      override_value: 23.0
+      reason: >
+        The reference presents a compact torso with a visibly narrower waist
+        relative to the armored shoulders.
+      approval_reference: PENDING_PLAYER_DESIGN_REVIEW
+
+  unresolved_inheritance_conflicts: []
+
+###############################################################################
+# CLASSIFICATION
+###############################################################################
+
+classification:
+  asset_class: HUMANOID
+  gameplay_role: armed_player_character
+  faction: human_military
+  threat_level: none
+  size_class: medium
+  mobility_class: humanoid_ground
+
+  visual_archetype:
+    primary: armored_space_soldier
+    secondary: retro_arcade_commando
+
+  gameplay_readability:
+    intended_recognition: immediate
+    weapon_identification: required
+    visor_identification: required
+    silhouette_priority: maximum
+
+###############################################################################
+# GAMEPLAY FUNCTION
+###############################################################################
+
+gameplay_function:
+  purpose: >
+    Serve as the canonical armored player character and establish the baseline
+    humanoid military visual language for the project.
+
+  player_read: >
+    Broad, compact, heavily armored human combatant with a bright Plasma Blue
+    visor and a clearly readable two-handed futuristic rifle.
+
+  friendly_identification_features:
+    - Plasma Blue visor
+    - Primary Steel armor
+    - Gunmetal structural components
+    - compact military rifle
+    - symmetrical armored silhouette
+    - absence of Bio-Green biological weak points
+    - absence of Warning Red hostile identification markings
+
+  gameplay_feedback:
+    - muzzle flash during firing
+    - visible recoil during firing
+    - readable magazine handling during reload
+    - immediate backward or lateral response during hit
+    - backward fall during death
+    - Warning Red hit burst when damaged
+
+###############################################################################
+# VISUAL CONTRACT
+###############################################################################
+
+visual_contract:
+  visual_style:
+    rendering_profile: CORE_RENDERING
+    style_name: Military Retro Sci-Fi
+    realism_level: low
+    arcade_readability: maximum
+
+  silhouette:
+    description: >
+      Broad-shouldered armored humanoid with a compact torso, reinforced limbs,
+      enclosed helmet, luminous horizontal visor, and a prominent two-handed
+      rifle held across the front of the body.
+
+    primary_readability_features:
+      - broad armored shoulder line
+      - enclosed rounded military helmet
+      - horizontal Plasma Blue visor
+      - narrow waist relative to shoulder armor
+      - compact armored torso
+      - rifle visible across the central body mass
+      - reinforced forearms
+      - armored knees and lower legs
+      - stable two-foot stance
+
+    prohibited_silhouette_changes:
+      - narrow shoulders
+      - oversized head
+      - exposed human face
+      - long thin limbs
+      - unarmored torso
+      - hidden weapon
+      - one-handed pistol stance
+      - extreme bodybuilder proportions
+      - anime body proportions
+      - crouched default posture
+      - three-quarter default presentation
+
+    recognition_distance: null
+    recognition_distance_units: null
+
+  shape_language:
+    primary_shapes:
+      - rounded_rectangles
+      - compact_armor_blocks
+      - beveled_mechanical_panels
+      - horizontal_visor_band
+
+    secondary_shapes:
+      - short_cylinders
+      - reinforced_joint_discs
+      - angular_weapon_panels
+      - compact_trapezoids
+
+    corner_language: mixed
+    symmetry: mostly_symmetrical
+
+  outline:
+    inherited_from: CORE_RENDERING
+    width_px: 4
+    color_reference: PALETTE_SHADOW_BLACK
+    uniform: true
+
+  rendering:
+    shading_method: two_tone_cel
+    shading_levels: 2
+    shadow_brightness_multiplier: 0.65
+    gradients_allowed: false
+    soft_airbrush_allowed: false
+    painterly_texture_allowed: false
+    photorealism_allowed: false
+    hard_edge_definition_required: true
+
+  visual_density:
+    detail_level: medium
+    micro_detail_priority: low
+    large_shape_priority: high
+    armor_panel_count_target: moderate
+    surface_noise: minimal
+
+###############################################################################
+# CONSTRUCTION
+###############################################################################
+
+construction:
+  construction_specification:
+    id: SPEC_HUMANOID
+    version: "1.0.0"
+    file: GameArtBible/Specifications/Construction/Humanoid.yaml
+
+  measurement_system: percent_height
+  reference_height: 100.0
+
+  proportions:
+    total_height:
+      value: 100.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 0.0
+
+    head_height:
+      value: 13.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.0
+
+    head_width:
+      value: 12.5
+      units: percent_height
+      source: reference_estimate
+      tolerance: 1.0
+
+    helmet_total_width:
+      value: 15.0
+      units: percent_height
+      source: reference_estimate
+      tolerance: 1.5
+
+    shoulder_width:
+      value: 44.0
+      units: percent_height
+      source: reference_estimate
+      tolerance: 2.0
+
+    chest_width:
+      value: 35.0
+      units: percent_height
+      source: reference_estimate
+      tolerance: 2.0
+
+    waist_width:
+      value: 23.0
+      units: percent_height
+      source: reference_estimate
+      tolerance: 1.5
+
+    hip_width:
+      value: 28.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 2.0
+
+    upper_arm_length:
+      value: 26.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.5
+
+    forearm_length:
+      value: 22.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.5
+
+    hand_length:
+      value: 9.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.0
+
+    thigh_length:
+      value: 27.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.5
+
+    shin_length:
+      value: 25.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.5
+
+    foot_length:
+      value: 12.0
+      units: percent_height
+      source: SPEC_HUMANOID
+      tolerance: 1.0
+
+    weapon_visible_width:
+      value: 42.0
+      units: percent_height
+      source: reference_estimate
+      tolerance: 5.0
+
+    weapon_visible_height:
+      value: 13.0
+      units: percent_height
+      source: reference_estimate
+      tolerance: 3.0
+
+  landmarks:
+    top_of_helmet:
+      value: 0.0
+      units: percent_height
+      source: normalized_character_bounds
+
+    eye_line:
+      value: 10.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    shoulder_line:
+      value: 18.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    elbow_line:
+      value: 44.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    waist_line:
+      value: 48.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    hip_line:
+      value: 58.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    knee_line:
+      value: 79.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    ankle_line:
+      value: 94.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+    foot_baseline:
+      value: 100.0
+      units: percent_height
+      source: SPEC_HUMANOID
+
+  mount_points:
+    right_hand_primary_grip:
+      name: right_hand_primary_grip
+      position:
+        x: 0.57
+        y: 0.53
+        units: normalized_character_bounds
+      orientation:
+        yaw_degrees: 0
+        pitch_degrees: 0
+        roll_degrees: 0
+      usage: weapon_trigger_grip
+      required: true
+
+    left_hand_support_grip:
+      name: left_hand_support_grip
+      position:
+        x: 0.41
+        y: 0.55
+        units: normalized_character_bounds
+      orientation:
+        yaw_degrees: 0
+        pitch_degrees: 0
+        roll_degrees: 0
+      usage: weapon_foregrip_support
+      required: true
+
+    muzzle_effect_mount:
+      name: muzzle_effect_mount
+      position:
+        x: 0.24
+        y: 0.52
+        units: normalized_character_bounds
+      orientation:
+        yaw_degrees: 180
+        pitch_degrees: 0
+        roll_degrees: 0
+      usage: muzzle_flash_origin
+      required: true
+
+    visor_effect_mount:
+      name: visor_effect_mount
+      position:
+        x: 0.50
+        y: 0.105
+        units: normalized_character_bounds
+      orientation:
+        yaw_degrees: 0
+        pitch_degrees: 0
+        roll_degrees: 0
+      usage: visor_emissive_center
+      required: true
+
+  pose_defaults:
+    stance: stable_combat_ready
+    body_facing: forward
+    head_facing: forward
+    feet_spacing: shoulder_width
+    weight_distribution: centered
+    knee_flexion: slight
+    elbow_flexion: moderate
+    rifle_position: horizontal_across_lower_chest
+    trigger_hand: right
+    support_hand: left
+
+  construction_overrides:
+    - path: proportions.shoulder_width
+      inherited_value: 42.0
+      override_value: 44.0
+      reason: Establish the broad player silhouette visible in the poster.
+      approval_reference: PENDING_PLAYER_DESIGN_REVIEW
+
+    - path: proportions.waist_width
+      inherited_value: 24.0
+      override_value: 23.0
+      reason: Preserve the compact armored torso shown in the poster.
+      approval_reference: PENDING_PLAYER_DESIGN_REVIEW
+
+###############################################################################
+# COMPONENT DESIGN
+###############################################################################
+
+component_design:
+  helmet:
+    required: true
+    enclosure: fully_enclosed
+    overall_shape: rounded_military_shell
+    symmetry: symmetrical
+
+    silhouette_features:
+      - rounded_upper_shell
+      - reinforced_side_sections
+      - recessed_horizontal_visor
+      - short_integrated_neck_guard
+
+    visor:
+      shape: horizontal_band
+      width_relationship: wide
+      height_relationship: narrow
+      color_reference: PALETTE_PLASMA_BLUE
+      emissive: true
+      glow_strength: low
+      eye_details_visible: false
+
+    prohibited_features:
+      - exposed_face
+      - visible_human_eyes
+      - open_mouth
+      - large antenna
+      - decorative horns
+      - fantasy crest
+      - transparent full-face dome
+
+    unresolved_details:
+      - exact rear helmet geometry
+      - exact visor width percentage
+      - exact side-panel arrangement
+      - exact lower-face plate construction
+
+  torso_armor:
+    required: true
+    overall_shape: compact_armored_block
+    chest_profile: broad
+    waist_profile: narrow
+    symmetry: mostly_symmetrical
+
+    chest_panel_language:
+      center_panels:
+        estimated_count: 3
+        confidence: medium
+      panel_orientation: vertical_and_diagonal
+      panel_depth: shallow
+      visible_fasteners: minimal
+
+    abdomen:
+      construction: segmented_protective_plates
+      flexibility_read: moderate
+      exposed_cloth_allowed: false
+
+    back_design_status: unresolved
+
+  shoulder_armor:
+    required: true
+    size: large
+    shape: rounded_mechanical
+    profile: broad
+    symmetry: symmetrical
+    separate_from_upper_arm: visually_separated
+
+    prohibited:
+      - pointed_fantasy_pauldrons
+      - tiny_shoulder_caps
+      - exposed_bare_shoulders
+      - asymmetrical_default_design
+
+  arm_armor:
+    upper_arms:
+      construction: segmented_armor
+      bulk: medium
+
+    elbows:
+      construction: reinforced_joint
+      exposed_joint_gap: minimal
+
+    forearms:
+      construction: reinforced_gauntlet
+      bulk: medium_large
+      silhouette_priority: high
+
+    hands:
+      construction: armored_gloves
+      finger_detail: simplified
+      weapon_contact_required: true
+
+  hip_armor:
+    construction: compact_segmented_belt
+    bulk: low_medium
+    hanging_fabric: forbidden
+    pouches:
+      allowed: true
+      quantity: minimal
+
+  leg_armor:
+    thighs:
+      construction: armored_front_plates
+      bulk: medium
+
+    knees:
+      construction: reinforced_knee_pads
+      visibility: required
+
+    shins:
+      construction: armored_greaves
+      bulk: medium
+
+    boots:
+      construction: reinforced_military_boots
+      sole_profile: stable
+      heel_exaggeration: none
+
+  under_suit:
+    visibility: limited_to_joint_gaps
+    finish: matte
+    pattern: none
+    color_reference: PALETTE_GUNMETAL
+
+###############################################################################
+# MATERIALS
+###############################################################################
+
+materials:
+  assignments:
+    - component: helmet_shell
+      material_id: MAT_PAINTED_STEEL
+      material_version: "1.0.0"
+      material_file: GameArtBible/Specifications/Materials/PaintedSteel.yaml
+      surface_area_priority: primary
+      override_allowed: false
+
+    - component: chest_armor
+      material_id: MAT_PAINTED_STEEL
+      material_version: "1.0.0"
+      material_file: GameArtBible/Specifications/Materials/PaintedSteel.yaml
+      surface_area_priority: primary
+      override_allowed: false
+
+    - component: shoulder_armor
+      material_id: MAT_PAINTED_STEEL
+      material_version: "1.0.0"
+      material_file: GameArtBible/Specifications/Materials/PaintedSteel.yaml
+      surface_area_priority: primary
+      override_allowed: false
+
+    - component: arm_armor
+      material_id: MAT_PAINTED_STEEL
+      material_version: "1.0.0"
+      material_file: GameArtBible/Specifications/Materials/PaintedSteel.yaml
+      surface_area_priority: secondary
+      override_allowed: false
+
+    - component: leg_armor
+      material_id: MAT_PAINTED_STEEL
+      material_version: "1.0.0"
+      material_file: GameArtBible/Specifications/Materials/PaintedSteel.yaml
+      surface_area_priority: primary
+      override_allowed: false
+
+  provisional_assignments:
+    - component: visor
+      proposed_material_id: MAT_VISOR_GLASS
+      status: REQUIRES_REVIEW
+      reason: >
+        The poster clearly depicts luminous reinforced visor material, but the
+        VisorGlass material specification has not yet been created.
+
+    - component: under_suit
+      proposed_material_id: MAT_MILITARY_POLYMER
+      status: REQUIRES_REVIEW
+      reason: >
+        The joint material appears matte and flexible, but the reusable polymer
+        material specification has not yet been created.
+
+    - component: gloves_and_boot_flex_sections
+      proposed_material_id: MAT_RUBBER
+      status: REQUIRES_REVIEW
+      reason: >
+        Flexible dark joint surfaces require a reusable rubber specification.
+
+    - component: rifle_body
+      proposed_material_id: MAT_PAINTED_STEEL
+      status: REQUIRES_REVIEW
+      reason: >
+        The rifle appears to use the same military hard-surface language, but a
+        dedicated weapon specification is still required.
+
+  prohibited_materials:
+    - chrome
+    - mirror_finish
+    - polished_gold
+    - bare_human_skin
+    - fabric_cape
+    - leather
+    - wood
+    - organic_alien_tissue
+
+  unresolved_materials:
+    - MAT_VISOR_GLASS
+    - MAT_MILITARY_POLYMER
+    - MAT_RUBBER
+    - canonical weapon material assignment
+
+###############################################################################
+# PALETTE
+###############################################################################
+
+palette:
+  palette_contract: CORE_PALETTE
+
+  assignments:
+    - component: primary_armor
+      palette_id: PALETTE_PRIMARY_STEEL
+      usage_role: primary
+      percentage_target: 48
+      percentage_tolerance: 10
+
+    - component: secondary_armor_and_under_suit
+      palette_id: PALETTE_GUNMETAL
+      usage_role: secondary
+      percentage_target: 30
+      percentage_tolerance: 8
+
+    - component: visor
+      palette_id: PALETTE_PLASMA_BLUE
+      usage_role: emissive
+      percentage_target: 4
+      percentage_tolerance: 2
+
+    - component: warning_and_weapon_accents
+      palette_id: PALETTE_HAZARD_YELLOW
+      usage_role: accent
+      percentage_target: 5
+      percentage_tolerance: 3
+
+    - component: outlines_and_deep_separation
+      palette_id: PALETTE_SHADOW_BLACK
+      usage_role: outline
+      percentage_target: 13
+      percentage_tolerance: 5
+
+  shadow_multiplier: 0.65
+  raw_color_values_present: false
+
+  prohibited_palette_ids:
+    - PALETTE_BIO_GREEN
+
+  conditional_palette_ids:
+    PALETTE_WARNING_RED:
+      allowed_for:
+        - hit_effect
+        - damage_feedback
+      forbidden_for:
+        - default_armor
+        - default_visor
+        - friendly_identification
+
+  color_distribution_rules:
+    primary_steel_must_dominate_armor: true
+    plasma_blue_limited_to_energy_and_visor: true
+    hazard_yellow_used_as_small_accent_only: true
+    warning_red_not_present_in_default_idle_design: true
+    bio_green_not_present_in_player_design: true
+
+###############################################################################
+# CAMERA
+###############################################################################
+
+camera:
+  camera_contract: CORE_CAMERA
+  projection: perspective
+  orientation: forward_facing
+  pitch_degrees: 0
+  yaw_degrees: 0
+  roll_degrees: 0
+  field_of_view_degrees: 60
+  horizon_position: center
+
+  vanishing_point:
+    horizontal: center
+    vertical: center
+
+  framing:
+    full_asset_visible: true
+    clipping_allowed: false
+    head_margin_percent: 8
+    foot_margin_percent: 2
+    side_margin_percent: 5
+
+  pivot:
+    x: 0.5
+    y: 0.0
+    units: normalized
+
+  pose_presentation:
+    head_orientation: forward
+    torso_orientation: forward
+    pelvis_orientation: forward
+    weapon_orientation: player_readable
+    three_quarter_rotation_allowed: false
+    profile_rotation_allowed: false
+
+###############################################################################
+# LIGHTING
+###############################################################################
+
+lighting:
+  lighting_contract: CORE_LIGHTING
+
+  primary_light:
+    horizontal_direction: left
+    vertical_direction: above
+    angle_degrees: 45
+    intensity: 1.0
+
+  fill_light_enabled: false
+  ambient_light_enabled: false
+
+  rim_light:
+    enabled: false
+    exception_reference: null
+
+  shadow:
+    multiplier: 0.65
+    edge: hard
+    blur_allowed: false
+
+  emissive_components:
+    - component: visor
+      palette_id: PALETTE_PLASMA_BLUE
+      glow_strength: low
+      glow_bleed_allowed: false
+
+  lighting_continuity:
+    fixed_between_frames: true
+    light_direction_may_change: false
+    shadow_direction_may_change: false
+    visor_glow_may_flicker: false
+
+###############################################################################
+# EQUIPMENT AND WEAPON
+###############################################################################
+
+equipment:
+  equipped_assets:
+    - asset_id: WEAPON_PLAYER_RIFLE_001
+      version: "0.0.0"
+      mount_point: right_hand_primary_grip
+      required: true
+      specification_status: REQUIRES_REVIEW
+
+  armor_components:
+    - helmet
+    - chest_armor
+    - shoulder_armor_left
+    - shoulder_armor_right
+    - forearm_armor_left
+    - forearm_armor_right
+    - hip_armor
+    - thigh_armor_left
+    - thigh_armor_right
+    - knee_armor_left
+    - knee_armor_right
+    - shin_armor_left
+    - shin_armor_right
+    - reinforced_boot_left
+    - reinforced_boot_right
+
+weapons:
+  primary_weapon: WEAPON_PLAYER_RIFLE_001
+  secondary_weapon: null
+  integrated_weapons: []
+
+  rifle_visual_requirements:
+    category: compact_futuristic_assault_rifle
+    grip: two_handed
+    stock: compact
+    barrel: short_to_medium
+    optic: integrated
+    silhouette: clearly_readable
+    body_position: across_lower_chest
+    muzzle_direction: camera_left_in_reference_pose
+    exact_dimensions_status: REQUIRES_REVIEW
+
+  weapon_continuity:
+    same_weapon_all_frames: true
+    weapon_scale_fixed: true
+    weapon_panel_design_fixed: true
+    weapon_color_assignments_fixed: true
+    weapon_hand_contacts_fixed_except_when_action_requires_change: true
+
+###############################################################################
+# ANIMATION
+###############################################################################
+
+animation:
+  applicable: true
+  animation_contract: CORE_ANIMATION
+  action: complete_player_action_set
+  frame_count: 31
+  authoring_fps: 12
+  playback_fps: 12
+  looping: null
+  frame_order: left_to_right
+
+  action_set:
+    idle:
+      animation_id: PLAYER_001_IDLE
+      frame_count: 6
+      looping: true
+      required: true
+      status: specification_required
+
+    fire:
+      animation_id: PLAYER_001_FIRE
+      frame_count: 4
+      looping: false
+      required: true
+      status: specification_required
+
+    reload:
+      animation_id: PLAYER_001_RELOAD
+      frame_count: 8
+      looping: false
+      required: true
+      status: specification_required
+
+    hit:
+      animation_id: PLAYER_001_HIT
+      frame_count: 3
+      looping: false
+      required: true
+      status: specification_required
+
+    death:
+      animation_id: PLAYER_001_DEATH
+      frame_count: 10
+      looping: false
+      required: true
+      status: specification_required
+
+  frame_requirements: []
+
+  frame_plan_status:
+    value: null
+    resolution_status: REQUIRES_REVIEW
+    reason: >
+      Exact frame-by-frame poses cannot be accurately reconstructed from the
+      small poster examples. Separate approved motion plans are required for
+      idle, fire, reload, hit, and death.
+
+  continuity:
+    maintain_scale: true
+    maintain_pivot: true
+    maintain_orientation: true
+    maintain_design: true
+    maintain_palette: true
+    maintain_material_assignments: true
+
+  continuity_locks:
+    helmet_shape: locked
+    visor_shape: locked
+    visor_position: locked
+    shoulder_width: locked
+    chest_panel_language: locked
+    waist_width: locked
+    armor_component_count: locked
+    rifle_identity: locked
+    rifle_scale: locked
+    outline_width: locked
+    lighting_direction: locked
+    palette_assignments: locked
+
+  motion_style:
+    responsiveness: maximum
+    realism: low
+    arcade_timing: required
+    camera_motion: forbidden
+    character_scale_change: forbidden
+    automatic_perspective_change: forbidden
+    motion_blur: forbidden
+    smear_frames: forbidden
+    frame_interpolation: forbidden
+
+###############################################################################
+# EFFECTS
+###############################################################################
+
+effects:
+  attached_effects:
+    - effect_id: FX_MUZZLE_FLASH_PLAYER_001
+      trigger: fire_active_frame
+      required: true
+      status: REQUIRES_REVIEW
+
+  impact_effects:
+    - effect_id: FX_PLAYER_HIT_RING_001
+      trigger: hit_animation
+      required: true
+      palette_id: PALETTE_WARNING_RED
+      status: REQUIRES_REVIEW
+
+  death_effects: []
+
+  ambient_effects:
+    - effect_id: FX_VISOR_GLOW_PLAYER_001
+      trigger: continuous
+      required: true
+      palette_id: PALETTE_PLASMA_BLUE
+      status: specification_only
+
+  muzzle_flash_requirements:
+    shape: triangular
+    primary_palette_id: PALETTE_HAZARD_YELLOW
+    secondary_color_status: REQUIRES_REVIEW
+    duration_frames: 1
+    origin_mount: muzzle_effect_mount
+
+###############################################################################
+# EXPORT
+###############################################################################
+
+export:
+  export_contract: CORE_EXPORT
+  output_type: sprite_sheet
+  image_format: png
+  width_px: 1024
+  height_px: 1024
+  color_space: sRGB
+  alpha: straight
+  transparent_background: true
+  safe_padding_px: 24
+  trim_transparency: false
+
+  export_strategy:
+    master_frame_resolution:
+      width_px: 1024
+      height_px: 1024
+
+    individual_frames_required: true
+    sprite_sheets_required: true
+    preview_gif_required: true
+    preview_contact_sheet_required: true
+
+    one_action_per_sheet: true
+    mixed_actions_allowed: false
+
+  sprite_sheet:
+    columns: null
+    rows: 1
+    frame_width_px: 1024
+    frame_height_px: 1024
+    margin_px: 8
+    spacing_px: 4
+
+  sprite_sheet_layouts:
+    idle:
+      columns: 6
+      rows: 1
+      total_width_px: 6172
+      total_height_px: 1040
+
+    fire:
+      columns: 4
+      rows: 1
+      total_width_px: 4116
+      total_height_px: 1040
+
+    reload:
+      columns: 8
+      rows: 1
+      total_width_px: 8228
+      total_height_px: 1040
+
+    hit:
+      columns: 3
+      rows: 1
+      total_width_px: 3088
+      total_height_px: 1040
+
+    death:
+      columns: 10
+      rows: 1
+      total_width_px: 10284
+      total_height_px: 1040
+
+  unity_import:
+    texture_type: Sprite_2D
+    sprite_mode: Multiple
+    mesh_type: FullRect
+    pixels_per_unit: 100
+    filter_mode: Point
+    compression: None
+    generate_mipmaps: false
+
+  pivot_requirements:
+    normalized_x: 0.5
+    normalized_y: 0.0
+    unchanged_between_frames: true
+
+  file_outputs:
+    individual_frame_pattern: military_char_player_{action}_f{frame}_v{version}.png
+    sprite_sheet_pattern: military_char_player_{action}_sheet_v{version}.png
+    preview_pattern: military_char_player_{action}_preview_v{version}.gif
+    contact_sheet_pattern: military_char_player_{action}_contact_v{version}.png
+
+###############################################################################
+# NAMING
+###############################################################################
+
+naming:
+  asset_namespace: military_char_player
+  asset_id: PLAYER_001
+
+  action_names:
+    - idle
+    - fire
+    - reload
+    - hit
+    - death
+
+  frame_number_format:
+    digits: 2
+    first_frame: 1
+    example: f01
+
+  version_number_format:
+    digits: 2
+    first_version: 1
+    example: v01
+
+  canonical_examples:
+    - military_char_player_idle_f01_v01.png
+    - military_char_player_fire_f01_v01.png
+    - military_char_player_reload_f01_v01.png
+    - military_char_player_hit_f01_v01.png
+    - military_char_player_death_f01_v01.png
+    - military_char_player_idle_sheet_v01.png
+
+###############################################################################
+# VARIANTS
+###############################################################################
+
+variants:
+  variants_allowed: true
+
+  variant_rules:
+    base_design_must_remain_identical: true
+    silhouette_changes_allowed: false
+    construction_changes_allowed: false
+    armor_panel_changes_allowed: false
+    helmet_shape_changes_allowed: false
+    weapon_identity_changes_allowed: false
+    palette_changes_require_named_variant: true
+    material_changes_require_named_variant: true
+
+  variant_definitions:
+    - variant_id: PLAYER_001_DEFAULT
+      base_asset_id: PLAYER_001
+      status: canonical
+      allowed_changes: []
+      prohibited_changes:
+        - all_unapproved_changes
+
+    - variant_id: PLAYER_001_ELITE
+      base_asset_id: PLAYER_001
+      status: future
+      allowed_changes:
+        - approved accent palette substitution
+        - approved insignia addition
+        - approved emissive intensity adjustment
+      prohibited_changes:
+        - silhouette change
+        - helmet redesign
+        - proportion change
+        - weapon redesign
+
+###############################################################################
+# REFERENCE IMAGES
+###############################################################################
+
+reference_images:
+  approved_references:
+    - reference_id: REF_PLAYER_POSTER_001
+      file: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png
+      purpose: >
+        Establish the intended overall player appearance and project-wide visual
+        language.
+      authority_level: concept
+
+  required_future_references:
+    - reference_id: REF_PLAYER_FRONT_MASTER_001
+      purpose: canonical front-facing isolated player design
+      required_before_generation: true
+
+    - reference_id: REF_PLAYER_HELMET_DETAIL_001
+      purpose: canonical helmet and visor construction
+      required_before_generation: true
+
+    - reference_id: REF_PLAYER_RIFLE_MASTER_001
+      purpose: canonical rifle design and proportions
+      required_before_generation: true
+
+    - reference_id: REF_PLAYER_ARMOR_DETAIL_001
+      purpose: canonical chest, shoulder, arm, and leg panel geometry
+      required_before_generation: true
+
+  rejected_references: []
+
+###############################################################################
+# GENERATION GUIDANCE
+###############################################################################
+
+generation_guidance:
+  provider_neutral_description: >
+    A forward-facing armored human player character for a retro military
+    science-fiction VR rail shooter. The character has broad rounded shoulder
+    armor, a compact segmented torso, reinforced limbs, a fully enclosed rounded
+    military helmet, a narrow horizontal Plasma Blue luminous visor, and a
+    compact two-handed futuristic assault rifle held visibly across the lower
+    chest. Artwork uses only the approved Military Retro Sci-Fi palette,
+    two-tone cel shading, hard shadow edges, and uniform four-pixel Shadow Black
+    outlines. The complete body and weapon remain visible on a transparent
+    background with a fixed bottom-center pivot.
+
+  positive_requirements:
+    - forward-facing full-body armored humanoid
+    - broad shoulder silhouette
+    - compact torso
+    - rounded enclosed military helmet
+    - narrow horizontal Plasma Blue visor
+    - Primary Steel armor
+    - Gunmetal secondary armor and under-suit
+    - small Hazard Yellow accents
+    - two-tone cel shading
+    - hard shadow boundaries
+    - uniform four-pixel Shadow Black outlines
+    - compact two-handed futuristic rifle
+    - both hands visibly contact the weapon
+    - transparent background
+    - full body visible
+    - consistent scale and pivot
+    - upper-left directional lighting
+    - low visor glow without glow bleed
+
+  negative_requirements:
+    - no redesign
+    - no photorealism
+    - no painterly texture
+    - no gradients
+    - no soft shading
+    - no three-quarter view
+    - no profile view
+    - no rear view
+    - no top-down view
+    - no isometric view
+    - no cropped limbs
+    - no cropped weapon
+    - no opaque background
+    - no weapon substitution
+    - no helmet substitution
+    - no exposed face
+    - no Bio-Green player armor
+    - no Warning Red default armor
+    - no anime proportions
+    - no exaggerated head size
+    - no random armor panels
+    - no random accessories
+    - no antenna
+    - no cape
+    - no cloth coat
+    - no motion blur
+    - no depth of field
+    - no lens flare
+    - no excessive bloom
+
+  provider_specific_overrides_allowed: false
+
+###############################################################################
+# RESTRICTIONS
+###############################################################################
+
+restrictions:
+  immutable_features:
+    - humanoid body class
+    - broad shoulder silhouette
+    - compact torso proportions
+    - fully enclosed helmet
+    - horizontal Plasma Blue visor
+    - Primary Steel dominant armor
+    - Gunmetal secondary surfaces
+    - two-handed rifle
+    - forward-facing orientation
+    - two-tone cel shading
+    - four-pixel uniform outline
+    - bottom-center pivot
+    - upper-left lighting direction
+
+  prohibited_changes:
+    - redesign
+    - helmet shape replacement
+    - visor shape replacement
+    - visor color replacement
+    - shoulder width reduction
+    - torso elongation
+    - body proportion drift
+    - weapon substitution
+    - rifle scale drift
+    - armor panel randomization
+    - palette substitution
+    - material substitution
+    - perspective change
+    - camera change
+    - lighting direction change
+    - outline width change
+    - frame-to-frame detail mutation
+    - frame-to-frame handedness reversal
+
+  prohibited_styles:
+    - photorealistic
+    - painterly
+    - watercolor
+    - oil_painting
+    - sketch
+    - pencil
+    - anime
+    - manga
+    - comic_book
+    - airbrush
+    - three_dimensional_photoreal_render
+
+  prohibited_camera_views:
+    - profile
+    - rear
+    - top_down
+    - isometric
+    - extreme_low_angle
+    - extreme_high_angle
+    - three_quarter
+
+  prohibited_rendering_features:
+    - soft_gradients
+    - blurred_shadows
+    - motion_blur
+    - depth_of_field
+    - lens_flare
+    - global_bloom
+    - realistic_reflections
+    - chrome_finish
+    - ray_traced_appearance
+
+  prohibited_export_conditions:
+    - cropped_sprite
+    - cropped_weapon
+    - cropped_effect
+    - opaque_background
+    - lossy_format
+    - inconsistent_canvas_size
+    - inconsistent_pivot
+    - inconsistent_frame_scale
+    - automatic_transparency_trimming
+
+  redesign_allowed: false
+  change_requires_approval: true
+
+###############################################################################
+# VALIDATION
+###############################################################################
+
+validation:
+  validation_contract: CORE_VALIDATION
+  minimum_score: 95
+
+  mandatory_categories:
+    - silhouette
+    - proportions
+    - palette
+    - rendering
+    - perspective
+
+  automatic_failures:
+    - perspective_changed
+    - palette_changed
+    - missing_outline
+    - redesign
+    - missing_animation_frames
+    - incorrect_resolution
+    - cropped_sprite
+    - cropped_weapon
+    - inconsistent_pivot
+    - inconsistent_frame_scale
+    - frame_to_frame_design_change
+    - exposed_face
+    - visor_color_changed
+    - weapon_identity_changed
+
+  category_targets:
+    silhouette:
+      target_score: 100
+      minimum_score: 95
+      severity_if_failed: CRITICAL
+
+    proportions:
+      target_score: 100
+      minimum_score: 95
+      severity_if_failed: CRITICAL
+
+    palette:
+      target_score: 100
+      minimum_score: 95
+      severity_if_failed: CRITICAL
+
+    rendering:
+      target_score: 100
+      minimum_score: 95
+      severity_if_failed: CRITICAL
+
+    perspective:
+      target_score: 100
+      minimum_score: 95
+      severity_if_failed: CRITICAL
+
+    lighting:
+      target_score: 100
+      minimum_score: 90
+      severity_if_failed: MAJOR
+
+    materials:
+      target_score: 100
+      minimum_score: 90
+      severity_if_failed: MAJOR
+
+    animation:
+      target_score: 100
+      minimum_score: 95
+      severity_if_failed: MAJOR
+
+    export:
+      target_score: 100
+      minimum_score: 100
+      severity_if_failed: CRITICAL
+
+  manual_review_required: true
+  review_template: Reviews/Templates/AssetReviewTemplate.yaml
+
+  reference_comparison_required: true
+
+  comparison_priorities:
+    - silhouette
+    - helmet
+    - visor
+    - shoulder_width
+    - torso_proportions
+    - weapon_identity
+    - weapon_scale
+    - palette
+    - outline
+    - perspective
+    - lighting
+    - pivot
+    - frame_continuity
+
+###############################################################################
+# APPROVAL
+###############################################################################
+
+approval:
+  status: DRAFT
+  approved_by: null
+  approval_date: null
+  approval_reference: null
+  generation_authorized: true
+  production_authorized: false
+  locked: false
+
+  current_gate_results:
+    schema_complete: true
+    inheritance_resolved: true
+    materials_resolved: false
+    palette_resolved: true
+    construction_resolved: partially
+    weapon_resolved: false
+    reference_master_available: false
+    animation_frame_plans_available: false
+    generation_ready: false
+    production_ready: false
+
+###############################################################################
+# UNRESOLVED REQUIREMENTS
+###############################################################################
+
+unresolved_requirements:
+  items:
+    - path: materials.provisional_assignments.visor
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Approve and create the canonical MAT_VISOR_GLASS material specification.
+      blocks_generation: true
+      blocks_approval: true
+
+    - path: materials.provisional_assignments.under_suit
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Approve and create the canonical MAT_MILITARY_POLYMER material
+        specification.
+      blocks_generation: true
+      blocks_approval: true
+
+    - path: materials.provisional_assignments.gloves_and_boot_flex_sections
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Approve and create the canonical MAT_RUBBER material specification.
+      blocks_generation: true
+      blocks_approval: true
+
+    - path: equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Create the canonical player rifle Design and Production specifications.
+      blocks_generation: true
+      blocks_approval: true
+
+    - path: component_design.helmet
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Create a clean isolated front-facing helmet reference to lock visor
+        width, faceplate geometry, and side-panel construction.
+      blocks_generation: true
+      blocks_approval: true
+
+    - path: component_design.torso_armor.back_design_status
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Define whether rear-facing construction is required for the current
+        sprite pipeline.
+      blocks_generation: false
+      blocks_approval: true
+
+    - path: animation.frame_requirements
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Create approved frame-by-frame pose specifications for Idle, Fire,
+        Reload, Hit, and Death.
+      blocks_generation: true
+      blocks_approval: true
+
+    - path: reference_images.REF_PLAYER_FRONT_MASTER_001
+      value: null
+      resolution_status: REQUIRES_REVIEW
+      question: >
+        Generate and approve a clean, isolated, full-resolution canonical
+        front-facing player design before producing animation frames.
+      blocks_generation: true
+      blocks_approval: true
+
+###############################################################################
+# NOTES
+###############################################################################
+
+notes:
+  internal_notes:
+    - >
+      This IAS captures the player design language visible in the poster but
+      does not claim access to the original model's hidden generation data.
+    - >
+      Numerical proportions marked reference_estimate were reconstructed from
+      visual inspection and must be confirmed against a clean player master.
+    - >
+      The next image-generation task should not be an animation sheet. It
+      should be a single canonical player master used to settle unresolved
+      design geometry.
+    - >
+      Once the player master is approved, this IAS should be revised to 0.2.0
+      with measured proportions and final component definitions.
+
+  owner_notes: []
+
+  production_notes:
+    - Preserve individual 1024 by 1024 frames in addition to sprite sheets.
+    - Do not rely on a poster-sized thumbnail as the sole animation reference.
+    - Store every approved master image in Reference/Approved.
+    - Store rejected player generations under Reference/Rejected/PLAYER_001.
+
+###############################################################################
+# HISTORY
+###############################################################################
+
+history:
+  current_version: "0.1.0"
+
+  entries:
+    - version: "0.1.0"
+      date: "2026-08-05"
+      change_type: created
+      summary: >
+        Created the first PLAYER_001 Intermediate Asset Specification by
+        reverse-engineering the approved style poster and resolving all
+        currently available GameArtBible contracts.
+      approved_by: null
+      review_reference: null
