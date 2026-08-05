@@ -1,0 +1,881 @@
+###############################################################################
+# GAPS_XenoWarrior
+# PoseLibrary.yaml
+#
+# Canonical Pose Library
+#
+# Defines reusable pose identifiers, body alignment rules, weapon-hand
+# relationships, and animation continuity requirements.
+#
+# These poses do not redesign an asset. They only describe how an approved
+# asset may be positioned.
+###############################################################################
+
+metadata:
+  document:
+    id: SPEC_POSE_LIBRARY
+    name: Canonical Pose Library
+    type: pose_specification
+    version: "1.0.0"
+    status: APPROVED
+
+  project:
+    id: GAPS_XENOWARRIOR
+    repository: GAPS_XenoWarrior
+
+  dates:
+    created: "2026-08-05"
+    last_modified: "2026-08-05"
+
+  ownership:
+    owner: Project Owner
+    maintained_by: GameArtBible
+    approval_authority: Project Owner
+
+###############################################################################
+# PURPOSE
+###############################################################################
+
+purpose:
+  summary: >
+    Provide a reusable pose vocabulary for humanoid characters while
+    preserving approved construction, silhouette, camera, weapon, material,
+    palette, and rendering contracts.
+
+  objectives:
+    - maintain consistent body alignment between generated frames
+    - preserve fixed hand-to-weapon relationships
+    - prevent random pose reinterpretation
+    - define canonical player-facing combat poses
+    - support animation planning
+    - support visual review
+    - prevent perspective drift
+    - prevent scale and pivot drift
+
+###############################################################################
+# DEPENDENCIES
+###############################################################################
+
+dependencies:
+  required:
+    CORE_CAMERA:
+      version: "1.0.0"
+      file: GameArtBible/Core/Camera.yaml
+      status: APPROVED
+
+    CORE_ANIMATION:
+      version: "1.0.0"
+      file: GameArtBible/Core/Animation.yaml
+      status: APPROVED
+
+    CORE_EXPORT:
+      version: "1.0.0"
+      file: GameArtBible/Core/Export.yaml
+      status: APPROVED
+
+    CORE_VALIDATION:
+      version: "1.0.0"
+      file: GameArtBible/Core/Validation.yaml
+      status: APPROVED
+
+    SPEC_HUMANOID:
+      version: "1.0.0"
+      file: GameArtBible/Specifications/Construction/Humanoid.yaml
+      status: APPROVED
+
+###############################################################################
+# COORDINATE SYSTEM
+###############################################################################
+
+coordinate_system:
+  type: normalized_character_bounds
+
+  origin:
+    x: 0.5
+    y: 0.0
+    description: Bottom-center sprite pivot.
+
+  axes:
+    horizontal:
+      minimum: 0.0
+      maximum: 1.0
+      positive_direction: screen_right
+
+    vertical:
+      minimum: 0.0
+      maximum: 1.0
+      positive_direction: upward
+
+  rotation:
+    units: degrees
+    zero_direction: forward_facing
+    positive_direction: clockwise_from_viewer
+
+  character_height:
+    normalized_value: 1.0
+
+###############################################################################
+# GLOBAL POSE RULES
+###############################################################################
+
+global_pose_rules:
+  camera:
+    fixed: true
+    projection: perspective
+    pitch_degrees: 0
+    yaw_degrees: 0
+    roll_degrees: 0
+    camera_motion_allowed: false
+    zoom_allowed: false
+
+  orientation:
+    default: forward_facing
+    three_quarter_allowed: false
+    profile_allowed: false
+    rear_allowed: false
+    top_down_allowed: false
+    isometric_allowed: false
+
+  pivot:
+    x: 0.5
+    y: 0.0
+    units: normalized
+    movement_between_frames_allowed: false
+
+  scale:
+    fixed_between_frames: true
+    automatic_resizing_allowed: false
+    perspective_scale_change_allowed: false
+
+  body:
+    preserve_construction_specification: true
+    preserve_proportions: true
+    preserve_silhouette_identity: true
+    preserve_limb_lengths: true
+    preserve_head_size: true
+    preserve_shoulder_width: true
+    preserve_hand_size: true
+
+  design:
+    preserve_helmet: true
+    preserve_armor_panels: true
+    preserve_material_assignments: true
+    preserve_palette_assignments: true
+    preserve_weapon_identity: true
+    redesign_allowed: false
+
+  visibility:
+    face_or_visor_visible: true
+    primary_weapon_visible: true
+    both_feet_visible_unless_pose_exception: true
+    hands_visible_when interacting_with_weapon: true
+
+  overlap:
+    limbs_may_overlap_torso: minimally
+    weapon_may_overlap_torso: true
+    weapon_may_hide_visor: false
+    hands_may_disappear_behind_weapon: false
+
+###############################################################################
+# LANDMARK DEFINITIONS
+###############################################################################
+
+landmarks:
+  head_center:
+    x: 0.50
+    y: 0.90
+
+  visor_center:
+    x: 0.50
+    y: 0.895
+
+  neck_center:
+    x: 0.50
+    y: 0.84
+
+  shoulder_left:
+    x: 0.28
+    y: 0.82
+
+  shoulder_right:
+    x: 0.72
+    y: 0.82
+
+  chest_center:
+    x: 0.50
+    y: 0.70
+
+  waist_center:
+    x: 0.50
+    y: 0.52
+
+  hip_center:
+    x: 0.50
+    y: 0.42
+
+  knee_left:
+    x: 0.42
+    y: 0.21
+
+  knee_right:
+    x: 0.58
+    y: 0.21
+
+  foot_left:
+    x: 0.40
+    y: 0.00
+
+  foot_right:
+    x: 0.60
+    y: 0.00
+
+###############################################################################
+# CANONICAL POSES
+###############################################################################
+
+poses:
+
+  POSE_HUMANOID_NEUTRAL_FRONT:
+    name: Humanoid Neutral Front
+    category: reference
+    status: APPROVED
+
+    purpose: >
+      Canonical construction pose used to verify proportions, armor placement,
+      palette assignments, material assignments, and silhouette.
+
+    suitable_for:
+      - design_master
+      - proportion_review
+      - material_review
+      - palette_review
+      - armor_review
+
+    body:
+      torso_rotation_degrees: 0
+      pelvis_rotation_degrees: 0
+      head_rotation_degrees: 0
+      spine_lean_degrees: 0
+
+    arms:
+      left:
+        shoulder_abduction_degrees: 8
+        elbow_flexion_degrees: 5
+        hand_position: relaxed
+
+      right:
+        shoulder_abduction_degrees: 8
+        elbow_flexion_degrees: 5
+        hand_position: relaxed
+
+    legs:
+      stance_width: shoulder_width
+      left_knee_flexion_degrees: 0
+      right_knee_flexion_degrees: 0
+      weight_distribution:
+        left_percent: 50
+        right_percent: 50
+
+    weapon:
+      equipped: false
+
+    exceptions:
+      gameplay_ready_pose: false
+
+    validation:
+      full_body_visible: true
+      both_hands_visible: true
+      both_feet_visible: true
+      left_right_symmetry_required: true
+      maximum_landmark_tolerance_percent: 2
+
+  POSE_PLAYER_MASTER_FRONT:
+    name: Player Master Combat Front
+    category: production_master
+    status: APPROVED
+
+    purpose: >
+      Canonical pose for PLAYER_001_MASTER. This image becomes the primary
+      reference for all future player animations and variants.
+
+    suitable_for:
+      - PLAYER_001_MASTER
+      - player_design_approval
+      - weapon_scale_approval
+      - animation_reference
+      - silhouette_reference
+
+    body:
+      torso_rotation_degrees: 0
+      pelvis_rotation_degrees: 0
+      head_rotation_degrees: 0
+      spine_lean_degrees: 0
+      center_of_mass:
+        x: 0.50
+        y: 0.56
+
+    head:
+      orientation: forward
+      visor_visible: true
+      visor_horizontal: true
+      chin_tilt_degrees: 0
+
+    arms:
+      right:
+        role: trigger_hand
+        shoulder_position: slightly_lowered
+        elbow_flexion_degrees: 72
+        wrist_rotation_degrees: 0
+        hand_contact: right_hand_primary_grip
+
+      left:
+        role: support_hand
+        shoulder_position: slightly_lowered
+        elbow_flexion_degrees: 82
+        wrist_rotation_degrees: 0
+        hand_contact: left_hand_support_grip
+
+    legs:
+      stance_width: shoulder_width
+      left_knee_flexion_degrees: 4
+      right_knee_flexion_degrees: 4
+      feet_rotation:
+        left_degrees: -4
+        right_degrees: 4
+      weight_distribution:
+        left_percent: 50
+        right_percent: 50
+
+    weapon:
+      equipped: true
+      asset_id: WEAPON_PLAYER_RIFLE_001
+      orientation: horizontal_across_lower_chest
+      muzzle_direction: screen_left
+      trigger_hand: right
+      support_hand: left
+      stock_contact: right_shoulder_region
+      weapon_center:
+        x: 0.48
+        y: 0.56
+      weapon_scale_status: REQUIRES_MASTER_APPROVAL
+
+    silhouette:
+      shoulder_line_clear: true
+      helmet_clear: true
+      visor_clear: true
+      rifle_clear: true
+      feet_separated: true
+
+    validation:
+      full_body_visible: true
+      full_weapon_visible: true
+      both_hand_contacts_visible: true
+      visor_unobstructed: true
+      bottom_center_pivot_required: true
+      maximum_landmark_tolerance_percent: 2
+
+  POSE_PLAYER_IDLE_A:
+    name: Player Idle Base
+    category: animation
+    status: APPROVED
+
+    purpose: First and looping anchor pose for the player idle animation.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      vertical_offset_percent: 0
+      chest_expansion_percent: 0
+      spine_lean_degrees: 0
+
+    head:
+      vertical_offset_percent: 0
+      rotation_degrees: 0
+
+    weapon:
+      vertical_offset_percent: 0
+      rotation_degrees: 0
+
+    animation_role:
+      phase: hold
+      preferred_frame_numbers:
+        - 1
+        - 6
+
+  POSE_PLAYER_IDLE_B:
+    name: Player Idle Inhale
+    category: animation
+    status: APPROVED
+
+    purpose: Subtle upward breathing pose.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      vertical_offset_percent: 0.5
+      chest_expansion_percent: 1.0
+      spine_lean_degrees: 0
+
+    head:
+      vertical_offset_percent: 0.3
+      rotation_degrees: 0
+
+    weapon:
+      vertical_offset_percent: 0.4
+      rotation_degrees: -0.5
+
+    animation_role:
+      phase: active
+      preferred_frame_numbers:
+        - 3
+        - 4
+
+  POSE_PLAYER_FIRE_ANTICIPATION:
+    name: Player Fire Anticipation
+    category: animation
+    status: APPROVED
+
+    purpose: Brief pre-fire tension without changing weapon identity or aim.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: 1
+      shoulder_tension: increased
+
+    arms:
+      trigger_hand_grip: tightened
+      support_hand_grip: fixed
+
+    weapon:
+      rotation_degrees: 0
+      rearward_offset_percent: 0
+
+    animation_role:
+      phase: anticipation
+      preferred_frame_numbers:
+        - 1
+
+  POSE_PLAYER_FIRE_ACTIVE:
+    name: Player Fire Active
+    category: animation
+    status: APPROVED
+
+    purpose: Weapon discharge and muzzle-flash frame.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: 0
+      shoulder_recoil_degrees: 1
+
+    arms:
+      elbow_recoil_degrees:
+        right: 2
+        left: 2
+
+    weapon:
+      rearward_offset_percent: 0.8
+      upward_rotation_degrees: 1
+      muzzle_flash_required: true
+      muzzle_flash_mount: muzzle_effect_mount
+
+    animation_role:
+      phase: impact
+      preferred_frame_numbers:
+        - 2
+
+  POSE_PLAYER_FIRE_RECOIL:
+    name: Player Fire Recoil
+    category: animation
+    status: APPROVED
+
+    purpose: Maximum readable recoil before recovery.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: -1
+      shoulder_recoil_degrees: 2
+
+    arms:
+      elbow_recoil_degrees:
+        right: 4
+        left: 3
+
+    weapon:
+      rearward_offset_percent: 1.2
+      upward_rotation_degrees: 2
+      muzzle_flash_required: false
+
+    animation_role:
+      phase: recoil
+      preferred_frame_numbers:
+        - 3
+
+  POSE_PLAYER_FIRE_RECOVERY:
+    name: Player Fire Recovery
+    category: animation
+    status: APPROVED
+
+    purpose: Return toward the canonical master pose.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: 0
+      shoulder_recoil_degrees: 0
+
+    weapon:
+      rearward_offset_percent: 0.3
+      upward_rotation_degrees: 0.5
+      muzzle_flash_required: false
+
+    animation_role:
+      phase: recovery
+      preferred_frame_numbers:
+        - 4
+
+  POSE_PLAYER_HIT_REACTION:
+    name: Player Hit Reaction
+    category: animation
+    status: APPROVED
+
+    purpose: Immediate readable damage response while preserving front view.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: -4
+      torso_horizontal_offset_percent: 1
+      pelvis_rotation_degrees: 0
+
+    head:
+      backward_tilt_degrees: 3
+      visor_visible: true
+
+    arms:
+      weapon_contact_preserved: true
+      grip_release_allowed: false
+
+    weapon:
+      identity_preserved: true
+      maximum_rotation_degrees: 4
+
+    effects:
+      effect_id: FX_PLAYER_HIT_RING_001
+      required: true
+
+    animation_role:
+      phase: impact
+
+  POSE_PLAYER_DEATH_START:
+    name: Player Death Start
+    category: animation
+    status: APPROVED
+
+    purpose: First transition from combat-ready pose into backward fall.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: -5
+      center_of_mass_vertical_shift_percent: -1
+
+    weapon:
+      grip_state: retained
+      identity_preserved: true
+
+    animation_role:
+      phase: anticipation
+
+  POSE_PLAYER_DEATH_FALL:
+    name: Player Death Backward Fall
+    category: animation
+    status: APPROVED
+
+    purpose: Main readable backward-fall phase.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      spine_lean_degrees: -18
+      center_of_mass_vertical_shift_percent: -8
+      forward_orientation_preserved: true
+
+    head:
+      backward_tilt_degrees: 8
+      visor_visible: true
+
+    legs:
+      knee_flexion_degrees:
+        left: 12
+        right: 8
+
+    weapon:
+      grip_state: partially_released
+      weapon_may_rotate: true
+      maximum_rotation_degrees: 15
+      weapon_may_leave_hands: false
+
+    animation_role:
+      phase: active
+
+  POSE_PLAYER_DEATH_END:
+    name: Player Death End
+    category: animation
+    status: APPROVED
+
+    purpose: Final non-looping death pose.
+
+    derived_from: POSE_PLAYER_MASTER_FRONT
+
+    body:
+      position: fallen_backward
+      vertical_bounds_exception: allowed
+      forward_identity_readable: true
+
+    weapon:
+      remains_visible: true
+      may_contact_ground: true
+      identity_preserved: true
+
+    animation_role:
+      phase: hold
+
+###############################################################################
+# RELOAD POSE POLICY
+###############################################################################
+
+reload_pose_policy:
+  status: REQUIRES_WEAPON_SPECIFICATION
+
+  reason: >
+    Exact reload poses depend on the approved magazine position, charging
+    mechanism, hand grips, and geometry of WEAPON_PLAYER_RIFLE_001.
+
+  provisional_sequence:
+    - maintain_weapon_identity
+    - release_support_hand
+    - move_support_hand_to_magazine
+    - remove_magazine
+    - insert_magazine
+    - return_support_hand_to_foregrip
+    - settle_into_master_pose
+
+  forbidden:
+    - weapon_model_change
+    - magazine_location_change_between_frames
+    - trigger_hand_switch
+    - left_right_mirroring
+    - weapon_disappearing
+    - unexplained hand movement
+    - hidden_reload_action
+
+  blocks:
+    PLAYER_001_RELOAD_FRAME_PLAN: true
+
+###############################################################################
+# ANIMATION CONTINUITY
+###############################################################################
+
+animation_continuity:
+  fixed_features:
+    - helmet_geometry
+    - visor_geometry
+    - visor_position
+    - shoulder_width
+    - torso_length
+    - armor_panel_layout
+    - hand_count
+    - finger_simplification_style
+    - weapon_identity
+    - weapon_scale
+    - palette_assignments
+    - material_assignments
+    - outline_width
+    - light_direction
+    - shadow_multiplier
+    - canvas_size
+    - pivot
+
+  allowed_motion:
+    head_translation_percent:
+      minimum: -1
+      maximum: 1
+
+    head_rotation_degrees:
+      minimum: -5
+      maximum: 5
+
+    torso_translation_percent:
+      minimum: -3
+      maximum: 3
+
+    torso_rotation_degrees:
+      minimum: -5
+      maximum: 5
+
+    weapon_translation_percent:
+      minimum: -3
+      maximum: 3
+
+    weapon_rotation_degrees:
+      minimum: -5
+      maximum: 5
+
+  exceptions:
+    hit:
+      maximum_torso_rotation_degrees: 8
+
+    death:
+      maximum_torso_rotation_degrees: 30
+      pivot_must_remain_fixed: true
+      canvas_bounds_may_be_used_fully: true
+
+###############################################################################
+# VALIDATION
+###############################################################################
+
+validation:
+  contract: CORE_VALIDATION
+
+  mandatory_checks:
+    - pose_id_exists
+    - derived_pose_exists
+    - construction_proportions_preserved
+    - forward_orientation_preserved
+    - pivot_preserved
+    - scale_preserved
+    - weapon_identity_preserved
+    - required_hand_contacts_preserved
+    - full_body_visibility
+    - full_weapon_visibility
+    - visor_visibility
+    - frame_to_frame_design_continuity
+
+  automatic_failures:
+    - unapproved_pose_used
+    - profile_view
+    - three_quarter_view
+    - rear_view
+    - top_down_view
+    - pivot_shift
+    - scale_shift
+    - weapon_substitution
+    - handedness_reversal
+    - missing_limb
+    - armor_panel_mutation
+    - helmet_mutation
+    - visor_mutation
+    - cropped_body
+    - cropped_weapon
+
+  tolerance:
+    general_landmark_percent: 2
+    hand_contact_percent: 1
+    weapon_scale_percent: 2
+    shoulder_width_percent: 2
+    head_size_percent: 1.5
+
+###############################################################################
+# PROMPT TRANSLATION
+###############################################################################
+
+prompt_translation:
+  POSE_HUMANOID_NEUTRAL_FRONT:
+    text: >
+      Neutral forward-facing humanoid construction pose, upright symmetrical
+      stance, arms relaxed beside the body, both feet visible and evenly
+      weighted, no weapon.
+
+  POSE_PLAYER_MASTER_FRONT:
+    text: >
+      Forward-facing combat-ready player master pose, centered upright armored
+      humanoid, broad shoulders, stable shoulder-width stance, head and torso
+      facing directly toward the camera, compact rifle held horizontally across
+      the lower chest with the right hand on the trigger grip and the left hand
+      on the forward support grip, both hands and the complete weapon visible.
+
+  POSE_PLAYER_IDLE_A:
+    text: >
+      Exact canonical player master pose with no design changes, stable centered
+      combat stance and subtle resting posture.
+
+  POSE_PLAYER_IDLE_B:
+    text: >
+      Exact canonical player master pose with only a very subtle upward
+      breathing motion of the chest, head, and rifle.
+
+  POSE_PLAYER_FIRE_ACTIVE:
+    text: >
+      Exact canonical player design at the weapon-discharge moment, minimal
+      rearward recoil, one-frame triangular muzzle flash, no silhouette or
+      equipment changes.
+
+###############################################################################
+# RESTRICTIONS
+###############################################################################
+
+restrictions:
+  poses_may_not:
+    - redefine_character_anatomy
+    - redefine_asset_design
+    - redefine_materials
+    - redefine_palette
+    - redefine_camera
+    - redefine_lighting
+    - redefine_weapon_identity
+    - approve_missing_weapon_geometry
+    - introduce_random_accessories
+    - introduce_unapproved_asymmetry
+
+  change_requires:
+    - review_record
+    - project_owner_approval
+    - version_increment
+    - changelog_entry
+
+###############################################################################
+# APPROVAL
+###############################################################################
+
+approval:
+  status: APPROVED
+  approved_by: Project Owner
+  approval_date: "2026-08-05"
+  locked: true
+
+  generation_authorized_for:
+    - POSE_HUMANOID_NEUTRAL_FRONT
+    - POSE_PLAYER_MASTER_FRONT
+    - POSE_PLAYER_IDLE_A
+    - POSE_PLAYER_IDLE_B
+    - POSE_PLAYER_FIRE_ANTICIPATION
+    - POSE_PLAYER_FIRE_ACTIVE
+    - POSE_PLAYER_FIRE_RECOIL
+    - POSE_PLAYER_FIRE_RECOVERY
+    - POSE_PLAYER_HIT_REACTION
+    - POSE_PLAYER_DEATH_START
+    - POSE_PLAYER_DEATH_FALL
+    - POSE_PLAYER_DEATH_END
+
+  generation_blocked_for:
+    - PLAYER_001_RELOAD_FRAME_PLAN
+
+###############################################################################
+# HISTORY
+###############################################################################
+
+history:
+  current_version: "1.0.0"
+
+  entries:
+    - version: "1.0.0"
+      date: "2026-08-05"
+      change_type: created
+      summary: >
+        Established the canonical humanoid and PLAYER_001 pose vocabulary,
+        including the player master pose and preliminary animation poses.
+      approved_by: Project Owner
+      review_reference: null
