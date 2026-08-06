@@ -1,0 +1,65 @@
+metadata:
+  type: generation_manifest
+  compiler: GAPS build_prompt.py
+  compiler_version: 0.4.0
+  generated_at_utc: '2026-08-06T17:45:53.456045+00:00'
+  draft_override_used: true
+  validation_passed: true
+  validation_check_count: 15
+  production_authorized: false
+output:
+  prompt_file: Intermediate/Builds/CHR-GRUNT-001/DESIGN_MASTER/v001/Prompt.md
+  prompt_sha256: 847d15b9c423d9633674899c7382d9db62478a5c03729c8c6736e4d0a67adc01
+validation:
+  checks:
+  - No handwritten prompt fields are present.
+  - Output file names and extensions are valid and distinct.
+  - Execution policy requires repository authority and forbids handwritten prompts.
+  - Build objective contains no prohibited presentation or background request.
+  - Build identity and IAS reference are present.
+  - All mandatory IAS sections are present.
+  - IAS approval state is compatible with requested build mode.
+  - Generation-blocking unresolved requirements were evaluated.
+  - PNG, transparency, canvas dimensions, and untrimmed alignment are valid.
+  - Camera orientation, full visibility, and no-clipping rules are valid.
+  - Palette uses approved references rather than raw colors.
+  - Redesign is forbidden and changes require approval.
+  - Outline contract is explicit and valid.
+  - Reference policy separates visual style from asset identity.
+  - 'Reference image inventory evaluated: 1 declared.'
+  warnings:
+  - IAS document status is DRAFT, not APPROVED.
+sources:
+- file: Intermediate/Builds/CHR-GRUNT-001/DESIGN_MASTER/v001/Build.yaml
+  sha256: 67c1750d2fbf2203ba5b7863155e32a6204674a46fba6cec60453111f763aa97
+- file: Intermediate/Assets/CHR-GRUNT-001.yaml
+  sha256: 5dd03cba48d3841902872bab470c761fa6f4137902d78c24a3b775baa219aea2
+- file: Core/Rendering.yaml
+  sha256: 38264a309c87c4f04b6a7e0d17ce5e5564fa684a823a17ab3aa343dd00f01891
+- file: Core/Palette.yaml
+  sha256: f9b8a731e3830cb8fe6272bcd52be3db21278ef4025bc7519c489ce53a08cbc0
+- file: Core/Camera.yaml
+  sha256: 83b6f4b9da2a683e7dd26582a59af7face9daae56b4be47b5383f0c24437339a
+- file: Core/Lighting.yaml
+  sha256: 140f7f29ab8aee67b8bc5b2626ca1b4f4926200e74e029433484eb82352a5d58
+- file: Core/Export.yaml
+  sha256: 2aad0a7ee2a98ef8051c6f07f8da75409526f33b8b523305652434cf1007bf87
+- file: Core/Validation.yaml
+  sha256: 1ac2a7a408a5ebd2c88a75ce5ec54b843b71acdaff67b7f111d65855e94ce71c
+- file: Core/Naming.yaml
+  sha256: 64e25b3cd59f232dd89345f1926875dfa7d7bacb9a689884766ef13fa62f6795
+- file: Core/PromptRules.yaml
+  sha256: d0ff31f5aa2203996b7bc154ab92ad9683c3a7390c1ff3523bb89bbb5b233cea
+- file: Core/Gameplay.yaml
+  sha256: 83581625fe8165d928d26c31a807f40b339abaabf25da8fc471c99587ba397d2
+- file: Specifications/Construction/Humanoid.yaml
+  sha256: 875b17d81f81d8fa8038d5ad0da8793a6cb815c24dd18c4a6424aa908c38ce36
+reference_images:
+- reference_id: REF_CHR_PLAYER_001_GOLD_MASTER
+  file: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+  sha256: 562e09547e78d60af04d6c1e5755b2e21f8ab051ab255e21ae5e7ec228ee17e8
+  relationship: style_only
+  authority_level: style_reference
+  purpose: Style-only authority for rendering language, palette discipline, outline
+    treatment, lighting language, and forward-facing presentation.
+  resolved: true
