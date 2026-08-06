@@ -2,12 +2,12 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T05:41:53.310696+00:00`
-- **Overall status:** **FAIL**
+- **Generated (UTC):** `2026-08-06T05:46:00.838658+00:00`
+- **Overall status:** **WARNING**
 - **Files scanned:** 35
-- **PASS:** 17
+- **PASS:** 18
 - **EMPTY:** 17
-- **FAIL:** 1
+- **FAIL:** 0
 
 ## Results
 
@@ -17,7 +17,7 @@
 | PASS | `Core/Camera.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Export.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Lighting.yaml` | Parsed 1 YAML document(s). |
-| FAIL | `Core/Naming.yaml` | line 92, column 21: found unknown escape character '.' |
+| PASS | `Core/Naming.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Palette.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/PromptRules.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Rendering.yaml` | Parsed 1 YAML document(s). |
