@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""GAPS_XenoWarrior deterministic prompt compiler, Phase 2.
+"""GAPS_XenoWarrior deterministic prompt compiler, Priority 4.
 
 Reads a Build Request YAML and an approved/draft IAS YAML, resolves repository
 references without inventing missing values, and writes Prompt.md, GenerationManifest.yaml, and BuildReport.md.
@@ -43,6 +43,17 @@ class ValidationResult:
     checks: tuple[str, ...]
     warnings: tuple[str, ...]
     production_authorized: bool
+
+
+@dataclass(frozen=True)
+class ReferenceImage:
+    reference_id: str
+    requested_path: str
+    resolved_path: Path | None
+    sha256: str | None
+    purpose: str
+    authority_level: str
+    relationship: str
 
 
 def parse_args() -> argparse.Namespace:
@@ -214,6 +225,127 @@ def collect_referenced_yaml(repo_root: Path, ias: dict[str, Any]) -> list[Loaded
             loaded.append(load_yaml(path))
             seen.add(path)
     return loaded
+
+
+def collect_reference_images(
+    repo_root: Path,
+    build: dict[str, Any],
+    ias: dict[str, Any],
+    allow_draft: bool,
+    production_requested: bool,
+) -> tuple[list[ReferenceImage], list[str], list[str]]:
+    """Resolve image references and enforce identity-vs-style relationships."""
+    checks: list[str] = []
+    warnings: list[str] = []
+    declared: dict[str, dict[str, Any]] = {}
+
+    reference_images = ias.get("reference_images", {})
+    if isinstance(reference_images, dict):
+        for entry in as_list(reference_images.get("approved_references")):
+            if isinstance(entry, dict) and entry.get("reference_id"):
+                declared[str(entry["reference_id"])] = entry
+
+    gold_master = ias.get("gold_master", {})
+    if isinstance(gold_master, dict) and gold_master.get("image"):
+        folder = str(gold_master.get("folder", "")).strip().replace("\\", "/")
+        image = str(gold_master["image"]).strip()
+        file_value = f"{folder.rstrip('/')}/{image}" if folder else image
+        declared.setdefault(
+            "GOLD_MASTER",
+            {
+                "reference_id": "GOLD_MASTER",
+                "file": file_value,
+                "purpose": "Canonical approved visual identity for this asset.",
+                "authority_level": "production_master",
+            },
+        )
+
+    policy = build.get("reference_policy", {})
+    if not isinstance(policy, dict):
+        policy = {}
+    identity_ids = set(text_list(as_list(policy.get("identity_reference_ids"))))
+    style_ids = set(text_list(as_list(policy.get("style_only_reference_ids"))))
+    overlap = identity_ids & style_ids
+    if overlap:
+        raise CompilerError(
+            "Reference IDs cannot be both identity and style-only references: "
+            + ", ".join(sorted(overlap))
+        )
+
+    policy_required = production_requested or bool(declared)
+    if not policy:
+        message = (
+            "Build.reference_policy is missing. Declare identity_reference_ids and "
+            "style_only_reference_ids before production use."
+        )
+        if allow_draft:
+            warnings.append(message)
+        elif policy_required:
+            raise CompilerError(message)
+    else:
+        if policy.get("copy_style_not_design") is not True:
+            raise CompilerError("Build.reference_policy.copy_style_not_design must be true.")
+        if policy.get("asset_identity_must_remain_distinct") is not True:
+            raise CompilerError(
+                "Build.reference_policy.asset_identity_must_remain_distinct must be true."
+            )
+        checks.append("Reference policy separates visual style from asset identity.")
+
+    unknown = (identity_ids | style_ids) - set(declared)
+    if unknown:
+        raise CompilerError(
+            "Build reference policy names undefined IAS reference IDs: "
+            + ", ".join(sorted(unknown))
+        )
+
+    records: list[ReferenceImage] = []
+    for ref_id, entry in declared.items():
+        requested = str(entry.get("file", "")).strip()
+        relationship = (
+            "identity" if ref_id in identity_ids else
+            "style_only" if ref_id in style_ids else
+            "unclassified"
+        )
+        resolved: Path | None = None
+        digest: str | None = None
+        if requested:
+            try:
+                resolved = resolve_repo_path(repo_root, requested)
+                digest = hashlib.sha256(resolved.read_bytes()).hexdigest()
+            except CompilerError as exc:
+                if allow_draft:
+                    warnings.append(f"Reference {ref_id} could not be resolved: {exc}")
+                else:
+                    raise
+        elif production_requested:
+            raise CompilerError(f"Reference {ref_id} has no file path.")
+        else:
+            warnings.append(f"Reference {ref_id} has no file path.")
+        records.append(
+            ReferenceImage(
+                reference_id=ref_id,
+                requested_path=requested,
+                resolved_path=resolved,
+                sha256=digest,
+                purpose=str(entry.get("purpose", "")).strip(),
+                authority_level=str(entry.get("authority_level", "unspecified")).strip(),
+                relationship=relationship,
+            )
+        )
+
+    if production_requested:
+        if not records:
+            raise CompilerError("Production build requires at least one resolved reference image.")
+        if not identity_ids:
+            raise CompilerError(
+                "Production build requires at least one identity_reference_id for the asset."
+            )
+        unresolved = [r.reference_id for r in records if r.relationship in {"identity", "style_only"} and r.resolved_path is None]
+        if unresolved:
+            raise CompilerError("Required reference images are unresolved: " + ", ".join(unresolved))
+    if records:
+        checks.append(f"Reference image inventory evaluated: {len(records)} declared.")
+    return records, checks, warnings
 
 
 def find_forbidden_keys(value: Any, path: str = "Build") -> list[str]:
@@ -414,7 +546,7 @@ def validate_ias(ias: dict[str, Any], allow_draft: bool, production_requested: b
     return ValidationResult(tuple(checks), tuple(warnings), production_requested and not allow_draft)
 
 
-def compile_prompt(build: dict[str, Any], ias: dict[str, Any]) -> str:
+def compile_prompt(build: dict[str, Any], ias: dict[str, Any], references: list[ReferenceImage]) -> str:
     identity = require_mapping(ias, "identity", "IAS")
     visual = require_mapping(ias, "visual_contract", "IAS")
     construction = require_mapping(ias, "construction", "IAS")
@@ -462,6 +594,25 @@ def compile_prompt(build: dict[str, Any], ias: dict[str, Any]) -> str:
         "no cropping of the body, equipment, or effects",
         "do not redesign or substitute unspecified components",
     ]
+
+    immutable_features = text_list(as_list(restrictions.get("immutable_features")))
+    prohibited_silhouette = text_list(as_list(silhouette.get("prohibited_silhouette_changes")))
+    component_design = ias.get("component_design", {})
+    component_names = list(component_design.keys()) if isinstance(component_design, dict) else []
+
+    identity_refs = [r for r in references if r.relationship == "identity"]
+    style_refs = [r for r in references if r.relationship == "style_only"]
+    unclassified_refs = [r for r in references if r.relationship == "unclassified"]
+
+    reference_lines: list[str] = []
+    for ref in references:
+        path_text = (
+            ref.resolved_path.as_posix() if ref.resolved_path is not None else ref.requested_path or "UNRESOLVED"
+        )
+        reference_lines.append(
+            f"{ref.reference_id}: {path_text} — relationship={ref.relationship}; "
+            f"authority={ref.authority_level}; purpose={ref.purpose or 'not stated'}"
+        )
 
     palette_assignments: list[str] = []
     for item in as_list(palette.get("assignments")):
@@ -515,6 +666,25 @@ def compile_prompt(build: dict[str, Any], ias: dict[str, Any]) -> str:
         "",
         "## Provider-Neutral Asset Definition",
         provider_neutral or silhouette_description or "No approved description supplied; compilation should have been blocked.",
+        "",
+        "## Reference Image Contract",
+        bullets(reference_lines, "No resolved visual references are available in this draft build."),
+        "",
+        "### Reference Relationship Rules",
+        f"- Identity references: {', '.join(r.reference_id for r in identity_refs) or 'none declared'}",
+        f"- Style-only references: {', '.join(r.reference_id for r in style_refs) or 'none declared'}",
+        f"- Unclassified references: {', '.join(r.reference_id for r in unclassified_refs) or 'none'}",
+        "- Identity references define this asset's own approved geometry and component design.",
+        "- Style-only references may transfer rendering language, line treatment, palette discipline, lighting, and finish only.",
+        "- Never copy helmet geometry, armor layout, silhouette, weapon design, proportions, markings, or component arrangement from a style-only reference.",
+        "- A new asset must remain immediately distinguishable from every style-only reference.",
+        "",
+        "## Asset Identity Lock",
+        f"- Immutable features: {', '.join(immutable_features) or 'none declared'}",
+        f"- Named component groups: {', '.join(component_names) or 'none declared'}",
+        bullets(prohibited_silhouette, "No additional silhouette prohibitions declared."),
+        "- Do not reduce this asset to a recolor, reskin, mirrored version, or equipment swap of another character.",
+        "- Preserve the asset-specific silhouette, helmet language, torso construction, limb proportions, weapon silhouette, and gameplay read defined by its IAS.",
         "",
         "## Rendering Contract",
         f"- Style: {style.get('style_name', 'Military Retro Sci-Fi')}",
@@ -579,13 +749,14 @@ def write_manifest(
     prompt_path: Path,
     allow_draft: bool,
     validation: ValidationResult,
+    references: list[ReferenceImage],
 ) -> None:
     all_sources = [build_yaml, ias_yaml, *dependencies]
     manifest = {
         "metadata": {
             "type": "generation_manifest",
             "compiler": "GAPS build_prompt.py",
-            "compiler_version": "0.3.0",
+            "compiler_version": "0.4.0",
             "generated_at_utc": datetime.now(timezone.utc).isoformat(),
             "draft_override_used": allow_draft,
             "validation_passed": True,
@@ -607,6 +778,22 @@ def write_manifest(
             }
             for source in all_sources
         ],
+        "reference_images": [
+            {
+                "reference_id": reference.reference_id,
+                "file": (
+                    reference.resolved_path.relative_to(repo_root).as_posix()
+                    if reference.resolved_path is not None
+                    else reference.requested_path
+                ),
+                "sha256": reference.sha256,
+                "relationship": reference.relationship,
+                "authority_level": reference.authority_level,
+                "purpose": reference.purpose,
+                "resolved": reference.resolved_path is not None,
+            }
+            for reference in references
+        ],
     }
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -623,6 +810,7 @@ def write_build_report(
     manifest_path: Path,
     allow_draft: bool,
     validation: ValidationResult,
+    references: list[ReferenceImage],
 ) -> None:
     """Write a human-readable, permanent record of one compiler execution."""
     build_meta = require_mapping(build_yaml.data, "metadata", "Build")
@@ -660,7 +848,7 @@ def write_build_report(
         "",
         f"**Build ID:** `{build_meta.get('build_id', 'UNKNOWN')}`  ",
         f"**Asset:** `{identity.get('asset_id', 'UNKNOWN')}` — {identity.get('asset_name', 'Unnamed asset')}  ",
-        f"**Compiler version:** `0.3.0`  ",
+        f"**Compiler version:** `0.4.0`  ",
         f"**Generated at (UTC):** `{generated_at}`  ",
         f"**Authorization:** **{authorization}**",
         "",
@@ -685,6 +873,18 @@ def write_build_report(
         "## Warnings",
         "",
         *( [f"- {warning}" for warning in warnings] if warnings else ["- None."] ),
+        "",
+        "## Visual Reference Enforcement",
+        "",
+        f"- Declared references: `{len(references)}`",
+        *([
+            f"- `{reference.reference_id}` — `{reference.relationship}` — "
+            + (
+                f"`{reference.resolved_path.relative_to(repo_root).as_posix()}`"
+                if reference.resolved_path is not None else "**UNRESOLVED**"
+            )
+            for reference in references
+        ] if references else ["- No references declared."]),
         "",
         "## Reproducibility Sources",
         "",
@@ -722,13 +922,25 @@ def main() -> int:
         validation.production_authorized,
     )
     dependencies = collect_referenced_yaml(repo_root, ias_yaml.data)
+    references, reference_checks, reference_warnings = collect_reference_images(
+        repo_root,
+        build_yaml.data,
+        ias_yaml.data,
+        args.allow_draft,
+        execution_cfg.get("production_authorized") is True,
+    )
+    validation = ValidationResult(
+        validation.checks + tuple(reference_checks),
+        validation.warnings + tuple(reference_warnings),
+        validation.production_authorized,
+    )
 
     prompt_path = resolve_output_path(repo_root, build_path.parent, output_cfg["prompt_file"])
     manifest_path = resolve_output_path(repo_root, build_path.parent, output_cfg["manifest_file"])
     report_path = resolve_output_path(repo_root, build_path.parent, output_cfg["report_file"])
 
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
-    prompt_path.write_text(compile_prompt(build_yaml.data, ias_yaml.data), encoding="utf-8")
+    prompt_path.write_text(compile_prompt(build_yaml.data, ias_yaml.data, references), encoding="utf-8")
     write_manifest(
         manifest_path,
         repo_root,
@@ -738,6 +950,7 @@ def main() -> int:
         prompt_path,
         args.allow_draft,
         validation,
+        references,
     )
     write_build_report(
         report_path,
@@ -749,12 +962,14 @@ def main() -> int:
         manifest_path,
         args.allow_draft,
         validation,
+        references,
     )
 
     print(f"Validation passed: {len(validation.checks)} checks")
     print(f"Compiled prompt: {prompt_path}")
     print(f"Wrote manifest: {manifest_path}")
     print(f"Wrote build report: {report_path}")
+    print(f"Reference images evaluated: {len(references)}")
     if args.allow_draft:
         print("WARNING: --allow-draft was used; output is not production-authorized.")
     return 0
