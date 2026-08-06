@@ -22,6 +22,7 @@ from Generators import (
     build_report_generator,
     checklist_generator,
     manifest_generator,
+    package_generator,
     prompt_generator,
     reference_generator,
 )
@@ -596,6 +597,7 @@ def main() -> int:
     report_path = resolve_output_path(repo_root, build_path.parent, output_cfg["report_file"])
     reference_list_path = resolve_output_path(repo_root, build_path.parent, "ReferenceList.md")
     review_checklist_path = resolve_output_path(repo_root, build_path.parent, "ReviewChecklist.md")
+    generation_package_path = resolve_output_path(repo_root, build_path.parent, "GenerationPackage.md")
 
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
     prompt_context = {
@@ -747,12 +749,47 @@ def main() -> int:
     review_checklist_path.parent.mkdir(parents=True, exist_ok=True)
     review_checklist_path.write_text(checklist_text, encoding="utf-8")
 
+    package_context = {
+        "build": build_yaml.data,
+        "ias": ias_yaml.data,
+        "validation": {
+            "checks": list(validation.checks),
+            "warnings": list(validation.warnings),
+            "production_authorized": validation.production_authorized,
+            "draft_override_used": args.allow_draft,
+        },
+        "references": [
+            {
+                "reference_id": reference.reference_id,
+                "relationship": reference.relationship,
+                "resolved": reference.resolved_path is not None,
+            }
+            for reference in references
+        ],
+        "outputs": {
+            "build_request": build_path.name,
+            "prompt": prompt_path.name,
+            "manifest": manifest_path.name,
+            "build_report": report_path.name,
+            "reference_list": reference_list_path.name,
+            "review_checklist": review_checklist_path.name,
+            "generation_package": generation_package_path.name,
+        },
+    }
+    try:
+        package_text = package_generator.generate(package_context)
+    except package_generator.PackageGeneratorError as exc:
+        raise CompilerError(f"Generation package failed: {exc}") from exc
+    generation_package_path.parent.mkdir(parents=True, exist_ok=True)
+    generation_package_path.write_text(package_text, encoding="utf-8")
+
     print(f"Validation passed: {len(validation.checks)} checks")
     print(f"Compiled prompt: {prompt_path}")
     print(f"Wrote manifest: {manifest_path}")
     print(f"Wrote build report: {report_path}")
     print(f"Wrote reference list: {reference_list_path}")
     print(f"Wrote review checklist: {review_checklist_path}")
+    print(f"Wrote generation package: {generation_package_path}")
     print(f"Reference images evaluated: {len(references)}")
     if args.allow_draft:
         print("WARNING: --allow-draft was used; output is not production-authorized.")
