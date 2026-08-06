@@ -1,0 +1,39 @@
+{
+  "tool": {
+    "name": "GAPS Candidate Repair Utility",
+    "version": "0.1.0"
+  },
+  "source": {
+    "path": "C:\\Projects\\GAPS_XenoWarrior\\Reference\\Rejected\\InvalidTransparency\\CHR-PLAYER-001\\CHR-PLAYER-001_DESIGN_MASTER_candidate_v001_INVALID.png",
+    "sha256": "c386181cf862bb841367964857fc21451ccbf32f891faea1bec53be4a27f8130",
+    "canvas": {
+      "width": 1254,
+      "height": 1254
+    }
+  },
+  "repair": {
+    "method": "border_connected_neutral_background_removal",
+    "removed_pixels": 1159770,
+    "kept_pixels": 412746,
+    "source_subject_bbox": [
+      282,
+      21,
+      989,
+      1199
+    ],
+    "scale": 0.7877758913412564
+  },
+  "output": {
+    "path": "C:\\Projects\\GAPS_XenoWarrior\\Reference\\Candidates\\CHR-PLAYER-001\\CHR-PLAYER-001_DESIGN_MASTER_candidate_v001.png",
+    "sha256": "562e09547e78d60af04d6c1e5755b2e21f8ab051ab255e21ae5e7ec228ee17e8",
+    "canvas": {
+      "width": 1024,
+      "height": 1024
+    },
+    "mode": "RGBA"
+  },
+  "review": {
+    "status": "REQUIRES_VISUAL_REVIEW",
+    "promotion_authorized": false
+  }
+}
