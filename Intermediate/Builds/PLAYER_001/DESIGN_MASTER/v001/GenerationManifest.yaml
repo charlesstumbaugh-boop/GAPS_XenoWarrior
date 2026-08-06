@@ -1,12 +1,35 @@
 metadata:
   type: generation_manifest
   compiler: GAPS build_prompt.py
-  compiler_version: 0.1.1
-  generated_at_utc: '2026-08-06T01:30:52.795561+00:00'
+  compiler_version: 0.2.0
+  generated_at_utc: '2026-08-06T02:32:44.406898+00:00'
   draft_override_used: true
+  validation_passed: true
+  validation_check_count: 13
+  production_authorized: false
 output:
   prompt_file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Prompt.md
   prompt_sha256: d820f4fb03bcde25ba37da883d730d7e21d0f6146fe2031b98d7052d5097b2ad
+validation:
+  checks:
+  - No handwritten prompt fields are present.
+  - Output file names and extensions are valid and distinct.
+  - Execution policy requires repository authority and forbids handwritten prompts.
+  - Build objective contains no prohibited presentation or background request.
+  - Build identity and IAS reference are present.
+  - All mandatory IAS sections are present.
+  - IAS approval state is compatible with requested build mode.
+  - Generation-blocking unresolved requirements were evaluated.
+  - PNG, transparency, canvas dimensions, and untrimmed alignment are valid.
+  - Camera orientation, full visibility, and no-clipping rules are valid.
+  - Palette uses approved references rather than raw colors.
+  - Redesign is forbidden and changes require approval.
+  - Outline contract is explicit and valid.
+  warnings:
+  - IAS document status is DRAFT, not APPROVED.
+  - 'Generation blockers remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit,
+    materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001,
+    component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001'
 sources:
 - file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml
   sha256: d6da5f111837ce0b1db653d365c68a6cc6c3af81e6afec19405cbf847696b0fb

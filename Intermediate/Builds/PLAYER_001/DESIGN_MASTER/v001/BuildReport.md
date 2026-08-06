@@ -2,8 +2,8 @@
 
 **Build ID:** `PLAYER_001_DESIGN_MASTER_v001`  
 **Asset:** `PLAYER_001` — Xeno Warrior Player  
-**Compiler version:** `0.1.1`  
-**Generated at (UTC):** `2026-08-06T01:30:52.801143+00:00`  
+**Compiler version:** `0.2.0`  
+**Generated at (UTC):** `2026-08-06T02:32:44.414289+00:00`  
 **Authorization:** **TEST BUILD — NOT PRODUCTION AUTHORIZED**
 
 ## Outputs
@@ -18,8 +18,28 @@
 - Draft override used: `True`
 - Dependency files loaded: `9`
 
+## Preflight Validation
+
+- Checks passed: `13`
+- Production authorized: `False`
+- PASS — No handwritten prompt fields are present.
+- PASS — Output file names and extensions are valid and distinct.
+- PASS — Execution policy requires repository authority and forbids handwritten prompts.
+- PASS — Build objective contains no prohibited presentation or background request.
+- PASS — Build identity and IAS reference are present.
+- PASS — All mandatory IAS sections are present.
+- PASS — IAS approval state is compatible with requested build mode.
+- PASS — Generation-blocking unresolved requirements were evaluated.
+- PASS — PNG, transparency, canvas dimensions, and untrimmed alignment are valid.
+- PASS — Camera orientation, full visibility, and no-clipping rules are valid.
+- PASS — Palette uses approved references rather than raw colors.
+- PASS — Redesign is forbidden and changes require approval.
+- PASS — Outline contract is explicit and valid.
+
 ## Warnings
 
+- IAS document status is DRAFT, not APPROVED.
+- Generation blockers remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit, materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001, component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001
 - The --allow-draft override was used. Generated outputs are for compiler testing only.
 - IAS status is DRAFT, not APPROVED.
 - Generation-blocking IAS requirements remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit, materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001, component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001
