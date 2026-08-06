@@ -1,0 +1,43 @@
+###############################################################################
+# GAPS_XenoWarrior
+# Build.yaml
+#
+# Phase 1 Build Request
+#
+# This file tells Compiler/build_prompt.py which IAS to compile and where to
+# write the generated Prompt.md and GenerationManifest.yaml.
+#
+# Do not place handwritten prompt text in this file.
+###############################################################################
+
+metadata:
+  build_id: PLAYER_001_DESIGN_MASTER_v001
+  build_type: design_master
+  version: "0.1.0"
+  status: DRAFT
+  requested_by: Project Owner
+  created: "2026-08-05"
+
+asset:
+  asset_id: PLAYER_001
+  ias_file: Intermediate/Assets/PLAYER_001.yaml
+
+objective: >
+  Compile the repository-authorized generation instructions for the canonical
+  full-body PLAYER_001 design master. The output must be a clean production
+  image suitable for review and later promotion to Gold Master status.
+
+output:
+  prompt_file: Prompt.md
+  manifest_file: GenerationManifest.yaml
+
+execution:
+  production_authorized: false
+  allow_draft_testing: true
+  handwritten_prompt_allowed: false
+  repository_is_source_of_truth: true
+
+notes:
+  - This request is for compiler testing until PLAYER_001.yaml is fully approved.
+  - Run with --allow-draft during Phase 1 testing.
+  - The generated Prompt.md must not be edited by hand.
