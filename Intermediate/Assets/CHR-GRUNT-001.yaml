@@ -12,7 +12,7 @@ metadata:
     id: IAS_CHR_GRUNT_001
     name: CHR-GRUNT-001 Intermediate Asset Specification
     type: intermediate_asset_specification
-    version: "1.1.0"
+    version: "1.2.0"
     status: DRAFT
 
   project:
@@ -42,6 +42,33 @@ identity:
     A secondary human military character who appears in the play space as a
     protected friendly NPC. The character may be accidentally hit by the player,
     causing score and life penalties. This asset is not an enemy.
+
+inheritance:
+  core:
+    rendering: Core/Rendering.yaml
+    palette: Core/Palette.yaml
+    camera: Core/Camera.yaml
+    lighting: Core/Lighting.yaml
+    export: Core/Export.yaml
+    validation: Core/Validation.yaml
+    naming: Core/Naming.yaml
+    prompt_rules: Core/PromptRules.yaml
+    gameplay: Core/Gameplay.yaml
+
+  specifications:
+    humanoid: Specifications/Humanoid.yaml
+
+  materials:
+    military_polymer: Specifications/Materials/MilitaryPolymer.yaml
+    rubber: Specifications/Materials/Rubber.yaml
+    visor_glass: Specifications/Materials/VisorGlass.yaml
+    carbon_fiber: Specifications/Materials/CarbonFiber.yaml
+
+  references:
+    player_gold_master:
+      reference_id: REF_CHR_PLAYER_001_GOLD_MASTER
+      path: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+      role: style_only
 
 source_versions:
   core:
@@ -85,6 +112,67 @@ source_versions:
       role: style_only
       approved: true
       version: v001
+
+visual_contract:
+  output_type: production_asset
+  asset_count: 1
+
+  canvas:
+    width: 1024
+    height: 1024
+    units: pixels
+    color_mode: RGBA
+    transparent_background: true
+    trim_transparency: false
+
+  composition:
+    full_body_required: true
+    entire_body_visible: true
+    feet_visible: true
+    clipping_allowed: false
+    centered_on_canvas: true
+    bottom_center_alignment: true
+
+  orientation:
+    forward_facing: true
+    rail_shooter_player_facing: true
+    head_toward_player: true
+    torso_toward_player: true
+
+  rendering:
+    style: 2D_arcade_cel_shaded
+    shading: two_tone
+    shadow_brightness_multiplier: 0.65
+    outline_width_pixels: 4
+    outline_color: Shadow Black
+    photorealistic: false
+    three_dimensional_rendering: false
+
+  identity:
+    distinct_from_player: true
+    friendly_npc_readability: true
+    player_clone_allowed: false
+    player_recolor_allowed: false
+    player_reskin_allowed: false
+    equipment_swap_clone_allowed: false
+
+  prohibited_output:
+    - poster
+    - infographic
+    - character_sheet
+    - labels
+    - title
+    - footer
+    - logo
+    - user_interface
+    - rendered_checkerboard
+    - opaque_background
+    - scenery
+    - floor
+    - pedestal
+    - cast_shadow
+    - cropped_body
+    - missing_feet
 
 construction:
   body_plan: adult_humanoid
@@ -456,7 +544,7 @@ gold_master:
   immutable: true
 
 history:
-  current_version: "1.1.0"
+  current_version: "1.2.0"
   entries:
     - version: "1.0.0"
       change_type: created
@@ -471,4 +559,10 @@ history:
         Added compiler-required identity, source_versions, construction,
         materials, palette, camera, lighting, animation, and restrictions
         mappings.
+      approved_by: Project Owner
+
+    - version: "1.2.0"
+      change_type: schema_correction
+      summary: >
+        Added compiler-required inheritance and visual_contract mappings.
       approved_by: Project Owner
