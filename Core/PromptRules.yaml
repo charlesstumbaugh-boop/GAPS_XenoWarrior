@@ -1,1 +1,268 @@
+###############################################################################
+# GAPS_XenoWarrior
+# PromptRules.yaml
+#
+# Canonical compiler rules for transforming repository specifications into
+# provider-neutral image-generation instructions.
+###############################################################################
+
+metadata:
+  document:
+    id: CORE_PROMPT_RULES
+    name: GAPS Prompt Compilation Contract
+    type: core_contract
+    version: "1.0.0"
+    status: APPROVED
+
+  project:
+    id: GAPS_XENOWARRIOR
+    repository: GAPS_XenoWarrior
+
+  ownership:
+    owner: Project Owner
+    maintained_by: GAPS Compiler
+    approval_authority: Project Owner
+
+purpose:
+  summary: >
+    Ensure every generation instruction is compiled from approved repository
+    data, preserves asset identity, forbids known failure modes, and records
+    every source used.
+
+source_of_truth:
+  repository_is_authoritative: true
+  prompt_is_build_artifact: true
+  prompt_may_override_repository: false
+  generated_image_may_override_repository: false
+  handwritten_generation_prompt_allowed: false
+  undocumented_artistic_decisions_allowed: false
+
+required_inputs:
+  - Build.yaml
+  - asset IAS
+  - Core contracts
+  - approved construction specification
+  - approved material specifications
+  - declared reference policy
+  - export contract
+  - validation contract
+
+compile_order:
+  - project_identity
+  - build_objective
+  - locked_production_output
+  - reference_image_contract
+  - asset_identity_lock
+  - rendering
+  - palette
+  - camera
+  - lighting
+  - construction
+  - materials
+  - pose_or_animation
+  - export
+  - restrictions
+  - rejection_conditions
+
+forbidden_build_fields:
+  exact_keys:
+    - prompt
+    - free_form_prompt
+    - positive_prompt
+    - negative_prompt
+    - system_prompt
+    - provider_prompt
+    - generation_text
+
+  recursive_detection: true
+  violation_result: FAIL
+
+locked_production_output:
+  asset_count: 1
+  production_asset_only: true
+  no_presentation_sheet: true
+  no_infographic: true
+  no_character_sheet: true
+  no_comparison_board: true
+  no_title: true
+  no_labels: true
+  no_footer: true
+  no_logo: true
+  no_ui_panels: true
+  no_documentation_overlay: true
+  no_rendered_checkerboard: true
+  no_scenery: true
+  no_floor: true
+  no_pedestal: true
+  no_cast_shadow_unless_specified: true
+  exact_canvas_required: true
+  complete_asset_visible: true
+  clipping_forbidden: true
+  true_alpha_transparency_required_when_export_requires: true
+
+reference_roles:
+  identity_reference:
+    purpose:
+      - exact_asset_geometry
+      - silhouette
+      - component_design
+      - proportions
+      - approved_equipment_relationship
+    may_be_copied: true
+    may_be_reinterpreted: false
+
+  style_only_reference:
+    purpose:
+      - rendering_style
+      - palette_discipline
+      - outline_treatment
+      - lighting_language
+      - surface_finish
+    may_transfer_character_design: false
+    may_transfer_helmet_geometry: false
+    may_transfer_armor_layout: false
+    may_transfer_weapon_identity: false
+    may_transfer_silhouette: false
+
+  conflict_rules:
+    reference_cannot_have_multiple_roles: true
+    identity_reference_has_priority: true
+    undeclared_reference_allowed: false
+
+asset_identity_lock:
+  required: true
+  preserve:
+    - asset_class
+    - silhouette
+    - proportions
+    - component_count
+    - helmet_identity
+    - armor_layout
+    - weapon_identity
+    - palette_assignments
+    - material_assignments
+    - camera_orientation
+    - outline_width
+    - lighting_direction
+
+  prohibit:
+    - redesign
+    - recolor_as_new_asset
+    - reskin_as_new_asset
+    - mirror_as_new_asset
+    - equipment_swap_as_new_asset
+    - player_clone_as_enemy
+    - enemy_clone_as_player
+    - random_accessory_addition
+    - undocumented_asymmetry
+    - component_substitution
+
+style_constraints:
+  rendering_profile_source: CORE_RENDERING
+  palette_source: CORE_PALETTE
+  camera_source: CORE_CAMERA
+  lighting_source: CORE_LIGHTING
+  export_source: CORE_EXPORT
+
+  free_form_style_language_allowed: false
+  raw_hex_in_generated_prompt_allowed: false
+  palette_ids_must_be_resolved_by_compiler: true
+
+provider_neutrality:
+  provider_specific_prompt_text_in_core_allowed: false
+  provider_specific_translation_layer_required: true
+  core_specifications_must_remain_provider_independent: true
+
+prompt_sections:
+  required:
+    - Project
+    - Asset
+    - Objective
+    - Locked Production Output
+    - Reference Image Contract
+    - Asset Identity Lock
+    - Rendering
+    - Palette
+    - Camera
+    - Lighting
+    - Construction
+    - Materials
+    - Export
+    - Restrictions
+    - Automatic Rejection Conditions
+
+  section_order_locked: true
+
+automatic_rejection_conditions:
+  - presentation_sheet_generated
+  - infographic_generated
+  - text_or_label_added
+  - opaque_background_when_transparency_required
+  - rendered_checkerboard
+  - incorrect_canvas_dimensions
+  - cropped_asset
+  - perspective_changed
+  - orientation_changed
+  - palette_changed
+  - outline_changed
+  - lighting_changed
+  - asset_identity_changed
+  - reference_role_violated
+  - undeclared_component_added
+  - approved_component_removed
+  - weapon_substituted
+  - gold_master_overwritten
+
+output_rules:
+  prompt_filename: Prompt.md
+  manifest_filename: GenerationManifest.yaml
+  report_filename: BuildReport.md
+  prompt_must_record_compiler_version: true
+  manifest_must_hash_sources: true
+  build_report_must_record_warnings: true
+  generated_prompt_manual_edit_allowed: false
+
+authorization:
+  draft_build:
+    allowed_only_with_explicit_flag: true
+    flag: "--allow-draft"
+    production_authorized: false
+    warning_required: true
+
+  production_build:
+    approved_ias_required: true
+    locked_ias_required: true
+    generation_authorized_required: true
+    blocking_unresolved_requirements_allowed: false
+    approved_reference_required: true
+    reference_file_must_exist: true
+
+validation:
+  missing_required_input: FAIL
+  forbidden_prompt_field: FAIL
+  unresolved_reference_role: FAIL
+  blocking_unresolved_requirement: FAIL
+  invalid_export_contract: FAIL
+  missing_identity_lock: FAIL
+  manual_prompt_modification: FAIL
+
+change_control:
+  modification_requires:
+    - review_record
+    - semantic_version_increment
+    - project_owner_approval
+    - changelog_entry
+
+approval:
+  status: APPROVED
+  approved_by: Project Owner
+  locked: true
+
+history:
+  current_version: "1.0.0"
+  entries:
+    - version: "1.0.0"
+      change_type: created
+      summary: Established canonical prompt compilation and enforcement rules.
+      approved_by: Project Owner
 
