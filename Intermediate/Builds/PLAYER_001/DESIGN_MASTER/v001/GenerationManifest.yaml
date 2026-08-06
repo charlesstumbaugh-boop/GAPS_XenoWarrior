@@ -1,15 +1,15 @@
 metadata:
   type: generation_manifest
   compiler: GAPS build_prompt.py
-  compiler_version: 0.2.0
-  generated_at_utc: '2026-08-06T02:38:45.705980+00:00'
+  compiler_version: 0.3.0
+  generated_at_utc: '2026-08-06T02:49:07.619210+00:00'
   draft_override_used: true
   validation_passed: true
   validation_check_count: 13
   production_authorized: false
 output:
   prompt_file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Prompt.md
-  prompt_sha256: d820f4fb03bcde25ba37da883d730d7e21d0f6146fe2031b98d7052d5097b2ad
+  prompt_sha256: 7b71b5ea3b2df52fd71fc47812177827d1ac668e408701a85539f34adbf95f0e
 validation:
   checks:
   - No handwritten prompt fields are present.

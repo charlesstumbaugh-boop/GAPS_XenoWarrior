@@ -9,6 +9,17 @@
 - Asset name: Xeno Warrior Player
 - Asset type: character
 
+## Locked Production Output
+- Deliver exactly one production asset image.
+- Do not create a poster, infographic, character sheet, contact sheet, comparison board, or documentation panel.
+- Do not add titles, captions, labels, footers, frame numbers, logos, watermarks, borders, UI, or metadata inside the image.
+- Background must be true alpha transparency; do not draw or bake a checkerboard pattern.
+- Canvas must remain exactly 1024 × 1024 pixels.
+- Entire asset visible: True; clipping allowed: False.
+- Orientation is locked to forward_facing.
+- Do not add scenery, floors, pedestals, cast shadows, atmosphere, or decorative elements.
+- Do not redesign, restyle, recolor, mirror, crop, or substitute components.
+
 ## Objective
 Compile the repository-authorized generation instructions for the canonical full-body PLAYER_001 design master. The output must be a clean production image suitable for review and later promotion to Gold Master status.
 
@@ -186,4 +197,4 @@ Broad-shouldered armored humanoid with a compact torso, reinforced limbs, enclos
 - do not redesign or substitute unspecified components
 
 ## Execution Instruction
-Generate only the requested production artwork. Return no poster, explanation, labels, UI, metadata panel, or alternate design. The repository specification outranks model creativity.
+Generate exactly one clean production asset and nothing else. Apply every locked requirement above literally. Do not improvise outside the repository-defined design. The repository specification outranks model creativity.
