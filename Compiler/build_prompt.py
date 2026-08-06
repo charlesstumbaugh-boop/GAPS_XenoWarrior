@@ -15,11 +15,10 @@ import argparse
 import hashlib
 import sys
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-from Generators import manifest_generator, prompt_generator
+from Generators import build_report_generator, manifest_generator, prompt_generator
 
 try:
     import yaml
@@ -551,106 +550,6 @@ def validate_ias(ias: dict[str, Any], allow_draft: bool, production_requested: b
 
 
 
-def write_build_report(
-    destination: Path,
-    repo_root: Path,
-    build_yaml: LoadedYaml,
-    ias_yaml: LoadedYaml,
-    dependencies: list[LoadedYaml],
-    prompt_path: Path,
-    manifest_path: Path,
-    allow_draft: bool,
-    validation: ValidationResult,
-    references: list[ReferenceImage],
-) -> None:
-    """Write a human-readable, permanent record of one compiler execution."""
-    build_meta = require_mapping(build_yaml.data, "metadata", "Build")
-    identity = require_mapping(ias_yaml.data, "identity", "IAS")
-    ias_meta = require_mapping(ias_yaml.data, "metadata", "IAS")
-    ias_doc = require_mapping(ias_meta, "document", "IAS.metadata")
-
-    status = str(ias_doc.get("status", "MISSING")).upper()
-    authorization = "TEST BUILD — NOT PRODUCTION AUTHORIZED" if allow_draft else "PRODUCTION-AUTHORIZED COMPILATION"
-    warnings: list[str] = list(validation.warnings)
-    if allow_draft:
-        warnings.append("The --allow-draft override was used. Generated outputs are for compiler testing only.")
-    if status != "APPROVED":
-        warnings.append(f"IAS status is {status}, not APPROVED.")
-
-    unresolved = ias_yaml.data.get("unresolved_requirements", {})
-    if isinstance(unresolved, dict):
-        blocking = [
-            str(item.get("path", "unknown path"))
-            for item in as_list(unresolved.get("items"))
-            if isinstance(item, dict) and item.get("blocks_generation") is True
-        ]
-        if blocking:
-            warnings.append("Generation-blocking IAS requirements remain: " + ", ".join(blocking))
-
-    generated_at = datetime.now(timezone.utc).isoformat()
-    source_rows = [build_yaml, ias_yaml, *dependencies]
-    source_lines = [
-        f"| `{source.path.relative_to(repo_root).as_posix()}` | `{source.sha256}` |"
-        for source in source_rows
-    ]
-
-    lines = [
-        "# GAPS_XenoWarrior Build Report",
-        "",
-        f"**Build ID:** `{build_meta.get('build_id', 'UNKNOWN')}`  ",
-        f"**Asset:** `{identity.get('asset_id', 'UNKNOWN')}` — {identity.get('asset_name', 'Unnamed asset')}  ",
-        f"**Compiler version:** `0.4.0`  ",
-        f"**Generated at (UTC):** `{generated_at}`  ",
-        f"**Authorization:** **{authorization}**",
-        "",
-        "## Outputs",
-        "",
-        f"- Prompt: `{prompt_path.relative_to(repo_root).as_posix()}`",
-        f"- Manifest: `{manifest_path.relative_to(repo_root).as_posix()}`",
-        f"- Build report: `{destination.relative_to(repo_root).as_posix()}`",
-        "",
-        "## Source State",
-        "",
-        f"- IAS status: `{status}`",
-        f"- Draft override used: `{allow_draft}`",
-        f"- Dependency files loaded: `{len(dependencies)}`",
-        "",
-        "## Preflight Validation",
-        "",
-        f"- Checks passed: `{len(validation.checks)}`",
-        f"- Production authorized: `{validation.production_authorized}`",
-        *[f"- PASS — {check}" for check in validation.checks],
-        "",
-        "## Warnings",
-        "",
-        *( [f"- {warning}" for warning in warnings] if warnings else ["- None."] ),
-        "",
-        "## Visual Reference Enforcement",
-        "",
-        f"- Declared references: `{len(references)}`",
-        *([
-            f"- `{reference.reference_id}` — `{reference.relationship}` — "
-            + (
-                f"`{reference.resolved_path.relative_to(repo_root).as_posix()}`"
-                if reference.resolved_path is not None else "**UNRESOLVED**"
-            )
-            for reference in references
-        ] if references else ["- No references declared."]),
-        "",
-        "## Reproducibility Sources",
-        "",
-        "| Repository file | SHA-256 |",
-        "|---|---|",
-        *source_lines,
-        "",
-        "## Operating Rule",
-        "",
-        "`Prompt.md` is a generated build artifact. Do not hand-edit it. Correct the approved YAML source or compiler, then rebuild.",
-        "",
-    ]
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text("\n".join(lines), encoding="utf-8")
-
 
 def main() -> int:
     args = parse_args()
@@ -745,18 +644,48 @@ def main() -> int:
         yaml.safe_dump(manifest_data, sort_keys=False),
         encoding="utf-8",
     )
-    write_build_report(
-        report_path,
-        repo_root,
-        build_yaml,
-        ias_yaml,
-        dependencies,
-        prompt_path,
-        manifest_path,
-        args.allow_draft,
-        validation,
-        references,
-    )
+    report_context = {
+        "build": build_yaml.data,
+        "ias": ias_yaml.data,
+        "draft_override_used": args.allow_draft,
+        "production_authorized": validation.production_authorized,
+        "validation": {
+            "checks": list(validation.checks),
+            "warnings": list(validation.warnings),
+        },
+        "dependencies_loaded": len(dependencies),
+        "outputs": {
+            "prompt": prompt_path.relative_to(repo_root).as_posix(),
+            "manifest": manifest_path.relative_to(repo_root).as_posix(),
+            "build_report": report_path.relative_to(repo_root).as_posix(),
+        },
+        "sources": [
+            {
+                "file": source.path.relative_to(repo_root).as_posix(),
+                "sha256": source.sha256,
+            }
+            for source in [build_yaml, ias_yaml, *dependencies]
+        ],
+        "reference_images": [
+            {
+                "reference_id": reference.reference_id,
+                "relationship": reference.relationship,
+                "file": (
+                    reference.resolved_path.relative_to(repo_root).as_posix()
+                    if reference.resolved_path is not None
+                    else reference.requested_path
+                ),
+                "resolved": reference.resolved_path is not None,
+            }
+            for reference in references
+        ],
+    }
+    try:
+        report_text = build_report_generator.generate(report_context)
+    except build_report_generator.BuildReportGeneratorError as exc:
+        raise CompilerError(f"Build report generation failed: {exc}") from exc
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(report_text, encoding="utf-8")
 
     print(f"Validation passed: {len(validation.checks)} checks")
     print(f"Compiled prompt: {prompt_path}")

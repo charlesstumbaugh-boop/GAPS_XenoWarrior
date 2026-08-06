@@ -3,7 +3,7 @@
 **Build ID:** `CHR_GRUNT_001_DESIGN_MASTER_v001`  
 **Asset:** `CHR-GRUNT-001` — Grunt Soldier  
 **Compiler version:** `0.4.0`  
-**Generated at (UTC):** `2026-08-06T18:05:05.275579+00:00`  
+**Generated at (UTC):** `2026-08-06T18:20:36.650540+00:00`  
 **Authorization:** **TEST BUILD — NOT PRODUCTION AUTHORIZED**
 
 ## Outputs
