@@ -2,10 +2,10 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T05:51:02.266484+00:00`
+- **Generated (UTC):** `2026-08-06T17:16:39.502223+00:00`
 - **Overall status:** **WARNING**
-- **Files scanned:** 35
-- **PASS:** 18
+- **Files scanned:** 38
+- **PASS:** 21
 - **EMPTY:** 17
 - **FAIL:** 0
 
@@ -13,9 +13,11 @@
 
 | Status | File | Details |
 |---|---|---|
+| PASS | `.github/workflows/gaps-validation.yml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Animation.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Camera.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Export.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Core/Gameplay.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Lighting.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Naming.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Palette.yaml` | Parsed 1 YAML document(s). |
@@ -28,6 +30,7 @@
 | PASS | `Intermediate/Schemas/IAS.schema.yaml` | Parsed 1 YAML document(s). |
 | EMPTY | `Reference/GoldMasters/CHR-PLAYER-001/Animation/Idle/Review.yaml` | File contains only whitespace or no content. |
 | PASS | `Reference/GoldMasters/CHR-PLAYER-001/CHR-PLAYER-001_DESIGN_MASTER_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Reference/GoldMasters/CHR-PLAYER-001/Design/v001/Review.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Specifications/Construction/Humanoid.yaml` | Parsed 1 YAML document(s). |
 | EMPTY | `Specifications/DroneSkeleton.yaml` | File contains only whitespace or no content. |
 | EMPTY | `Specifications/EyeLine.yaml` | File contains only whitespace or no content. |
