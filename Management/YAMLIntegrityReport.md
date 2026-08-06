@@ -2,10 +2,10 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T19:27:27.881917+00:00`
+- **Generated (UTC):** `2026-08-06T20:47:02.962120+00:00`
 - **Overall status:** **WARNING**
-- **Files scanned:** 41
-- **PASS:** 24
+- **Files scanned:** 43
+- **PASS:** 26
 - **EMPTY:** 17
 - **FAIL:** 0
 
@@ -34,6 +34,7 @@
 | EMPTY | `Reference/GoldMasters/CHR-PLAYER-001/Animation/Idle/Review.yaml` | File contains only whitespace or no content. |
 | PASS | `Reference/GoldMasters/CHR-PLAYER-001/CHR-PLAYER-001_DESIGN_MASTER_v001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Reference/GoldMasters/CHR-PLAYER-001/Design/v001/Review.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Specifications/AssetFingerprint.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Specifications/Construction/Humanoid.yaml` | Parsed 1 YAML document(s). |
 | EMPTY | `Specifications/DroneSkeleton.yaml` | File contains only whitespace or no content. |
 | EMPTY | `Specifications/EyeLine.yaml` | File contains only whitespace or no content. |
@@ -53,6 +54,7 @@
 | PASS | `Specifications/Poses/PoseLibrary.yaml` | Parsed 1 YAML document(s). |
 | EMPTY | `Specifications/QuadrupedSkeleton.yaml` | File contains only whitespace or no content. |
 | EMPTY | `Specifications/WeaponMounts.yaml` | File contains only whitespace or no content. |
+| PASS | `Templates/CharacterAssetTemplate.yaml` | Parsed 1 YAML document(s). |
 | PASS | `VERSION.yaml` | Parsed 1 YAML document(s). |
 
 ## Exit Code Contract
