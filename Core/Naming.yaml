@@ -1,1 +1,35 @@
+version: 1.0
 
+asset_ids:
+  format: "<CATEGORY>-<TYPE>-<###>"
+  examples:
+    - CHR-PLAYER-001
+    - CHR-GRUNT-001
+    - WPN-RIFLE-001
+    - ENV-CORRIDOR-001
+
+versions:
+  format: "v###"
+  examples:
+    - v001
+    - v002
+
+gold_master:
+  suffix: "_DESIGN_MASTER"
+
+sprite_sheet:
+  suffix: "_SPRITESHEET"
+
+animation:
+  suffix: "_ANIM"
+
+builds:
+  prompt: "Prompt.md"
+  manifest: "GenerationManifest.yaml"
+  report: "BuildReport.md"
+
+rules:
+  lowercase_extensions: true
+  png_required: true
+  yaml_required: true
+  no_spaces: true
