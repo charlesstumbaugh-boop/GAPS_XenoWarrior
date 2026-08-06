@@ -4,6 +4,7 @@
 #
 # Intermediate Asset Specification (IAS)
 # Friendly secondary character / protected NPC
+# Compiler-compatible schema revision
 ###############################################################################
 
 metadata:
@@ -11,7 +12,7 @@ metadata:
     id: IAS_CHR_GRUNT_001
     name: CHR-GRUNT-001 Intermediate Asset Specification
     type: intermediate_asset_specification
-    version: "1.0.0"
+    version: "1.1.0"
     status: DRAFT
 
   project:
@@ -23,41 +24,266 @@ metadata:
     approval_authority: Project Owner
     maintained_by: GAPS
 
-asset:
+identity:
   asset_id: CHR-GRUNT-001
-  legacy_id: null
   display_name: Grunt Soldier
   category: character
   subcategory: friendly_npc
   faction: human_military
   gameplay_role: friendly_npc
   allegiance: friendly
+  is_enemy: false
+  is_boss: false
+  is_player_character: false
+  is_secondary_character: true
+  protected_npc: true
 
   description: >
     A secondary human military character who appears in the play space as a
     protected friendly NPC. The character may be accidentally hit by the player,
-    causing a score and life penalty. This asset is not an enemy.
+    causing score and life penalties. This asset is not an enemy.
 
-inheritance:
+source_versions:
   core:
-    - Core/Rendering.yaml
-    - Core/Palette.yaml
-    - Core/Camera.yaml
-    - Core/Lighting.yaml
-    - Core/Export.yaml
-    - Core/Validation.yaml
-    - Core/Naming.yaml
-    - Core/PromptRules.yaml
-    - Core/Gameplay.yaml
+    rendering:
+      path: Core/Rendering.yaml
+      version: repository_current
+    palette:
+      path: Core/Palette.yaml
+      version: repository_current
+    camera:
+      path: Core/Camera.yaml
+      version: repository_current
+    lighting:
+      path: Core/Lighting.yaml
+      version: repository_current
+    export:
+      path: Core/Export.yaml
+      version: repository_current
+    validation:
+      path: Core/Validation.yaml
+      version: repository_current
+    naming:
+      path: Core/Naming.yaml
+      version: "1.0.1"
+    prompt_rules:
+      path: Core/PromptRules.yaml
+      version: "1.0.0"
+    gameplay:
+      path: Core/Gameplay.yaml
+      version: "1.0.0"
 
   specifications:
-    - Specifications/Humanoid.yaml
+    humanoid:
+      path: Specifications/Humanoid.yaml
+      version: repository_current
 
-  materials:
-    - Specifications/Materials/MilitaryPolymer.yaml
-    - Specifications/Materials/Rubber.yaml
-    - Specifications/Materials/VisorGlass.yaml
-    - Specifications/Materials/CarbonFiber.yaml
+  reference_images:
+    player_gold_master:
+      reference_id: REF_CHR_PLAYER_001_GOLD_MASTER
+      path: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+      role: style_only
+      approved: true
+      version: v001
+
+construction:
+  body_plan: adult_humanoid
+  skeleton_profile: humanoid
+  body_type: standard_military
+  heroic_scale: reduced
+  animation_ready: true
+
+  proportions:
+    head_to_body_ratio: standard_animation_ready
+    shoulder_width: narrower_than_player
+    torso_profile: compact_standard
+    limb_bulk: lighter_than_player
+    leg_length: standard
+    hand_scale: functional
+    boot_scale: standard
+    symmetry: mostly_symmetric
+
+  silhouette:
+    overall_read: friendly_standard_issue_soldier
+    distinct_from_player: true
+    less_heroic_than_player: true
+    compact_shoulders: true
+    readable_at_gameplay_distance: true
+
+  helmet:
+    complexity: simplified
+    visor_shape: distinct_from_player
+    visor_color: Plasma Blue
+    exposed_face: false
+    antennae: false
+    exact_player_helmet_copy_allowed: false
+
+  armor:
+    grade: standard_issue
+    torso_layout: distinct_from_player
+    shoulder_plates: compact
+    under_suit_exposure: increased
+    decorative_trim: minimal
+    wear_level: moderate
+    exact_player_armor_copy_allowed: false
+
+  weapon:
+    type: compact_assault_rifle
+    size_relation: smaller_than_player_rifle
+    silhouette: distinct_from_player_weapon
+    carried_ready: true
+    muzzle_direction: down_and_safe
+    finger_off_trigger: true
+    obstructs_face: false
+    exact_player_weapon_copy_allowed: false
+
+  pose:
+    pose_id: FRIENDLY_GRUNT_READY_FRONT
+    stance: guarded_ready
+    balance: centered
+    aggression: low
+    feet: shoulder_width
+    knees: slightly_bent
+    head_direction: toward_player
+    torso_direction: toward_player
+    weapon_across_torso: true
+
+materials:
+  resolved: false
+
+  assignments:
+    armor_shell:
+      material_id: MAT_MILITARY_POLYMER
+      source: Specifications/Materials/MilitaryPolymer.yaml
+      status: placeholder_dependency
+
+    under_suit:
+      material_id: MAT_RUBBER
+      source: Specifications/Materials/Rubber.yaml
+      status: placeholder_dependency
+
+    visor:
+      material_id: MAT_VISOR_GLASS
+      source: Specifications/Materials/VisorGlass.yaml
+      status: placeholder_dependency
+
+    rifle_body:
+      material_id: MAT_CARBON_FIBER
+      source: Specifications/Materials/CarbonFiber.yaml
+      status: placeholder_dependency
+
+  fallback_policy:
+    allowed_for_draft_compile: true
+    use_core_rendering_defaults: true
+    production_allowed: false
+
+palette:
+  source: Core/Palette.yaml
+  resolved: true
+  profile: military_scifi_retro
+
+  allowed_colors:
+    - Primary Steel
+    - Gunmetal
+    - Hazard Yellow
+    - Bio-Green
+    - Plasma Blue
+    - Warning Red
+    - Shadow Black
+
+  dominant:
+    - Primary Steel
+    - Gunmetal
+
+  accents:
+    - Hazard Yellow
+    - Plasma Blue
+
+  prohibited:
+    - unapproved_neon_colors
+    - random_color_variants
+    - photorealistic_material_colors
+
+camera:
+  source: Core/Camera.yaml
+  resolved: true
+  orientation: forward_facing
+  perspective: rail_shooter_player_facing
+  head_direction: toward_player
+  torso_direction: toward_player
+  full_body_required: true
+  entire_body_visible: true
+  clipping_allowed: false
+
+lighting:
+  source: Core/Lighting.yaml
+  resolved: true
+  consistency_reference: CHR-PLAYER-001
+  dramatic_backlight: false
+  environmental_color_cast: false
+  style: two_tone_cel_shaded
+  shadow_brightness_multiplier: 0.65
+
+animation:
+  source_design_master_required: true
+  frame_source_policy: derive_from_approved_gold_master
+  ai_independent_frame_redesign_allowed: false
+  animation_ready_proportions_required: true
+
+  states:
+    idle:
+      required: true
+      frames: 6
+      loop: true
+
+    react:
+      required: true
+      frames: 4
+      loop: false
+
+    hit:
+      required: true
+      frames: 3
+      loop: false
+
+    death:
+      required: true
+      frames: 8
+      loop: false
+
+  optional_states:
+    - wave
+    - duck
+    - flee
+    - signal
+
+restrictions:
+  no_presentation_sheet: true
+  no_infographic: true
+  no_character_sheet: true
+  no_title: true
+  no_labels: true
+  no_footer: true
+  no_logo: true
+  no_ui_panels: true
+  no_rendered_checkerboard: true
+  no_opaque_background: true
+  no_scenery: true
+  no_floor: true
+  no_pedestal: true
+  no_cast_shadow: true
+  no_cropping: true
+  no_missing_feet: true
+  no_player_clone: true
+  no_player_recolor: true
+  no_player_reskin: true
+  no_player_mirror: true
+  no_equipment_swap_clone: true
+  no_hostile_alien_features: true
+  no_photorealistic_rendering: true
+  no_three_dimensional_rendering: true
+  no_wrong_camera_orientation: true
+  no_unapproved_palette: true
 
 reference_policy:
   identity_references: []
@@ -71,6 +297,7 @@ reference_policy:
   rules:
     copy_style_not_design: true
     preserve_distinct_asset_identity: true
+
     player_reference_may_define:
       - rendering_style
       - palette_discipline
@@ -87,128 +314,6 @@ reference_policy:
       - body_proportions
       - accessory_layout
       - exact_color_placement
-
-identity_lock:
-  asset_identity: CHR-GRUNT-001
-  must_not_resemble:
-    - recolored_CHR-PLAYER-001
-    - reskinned_CHR-PLAYER-001
-    - mirrored_CHR-PLAYER-001
-    - equipment_swapped_CHR-PLAYER-001
-
-  required_distinctions:
-    silhouette:
-      shoulder_width: narrower_than_player
-      torso_profile: less_heroic
-      limb_bulk: lighter_than_player
-      stance: guarded_nonheroic
-      readability: distinct_at_gameplay_distance
-
-    helmet:
-      complexity: simplified
-      visor_shape: distinct_from_player
-      visor_color: Plasma Blue
-      exposed_face: false
-      antennae: false
-
-    armor:
-      grade: standard_issue
-      wear_level: moderate
-      torso_layout: distinct_from_player
-      shoulder_plates: compact
-      under_suit_exposure: increased
-      decorative_trim: minimal
-
-    weapon:
-      type: compact_assault_rifle
-      size: smaller_than_player_rifle
-      silhouette: distinct_from_player_weapon
-      carried_ready: true
-      finger_off_trigger: true
-
-visual_contract:
-  perspective:
-    orientation: forward_facing
-    camera_role: rail_shooter_player_facing
-    head_direction: toward_player
-    torso_direction: toward_player
-
-  canvas:
-    width: 1024
-    height: 1024
-    units: pixels
-    full_body_required: true
-    entire_body_visible: true
-    clipping_allowed: false
-    transparent_background: true
-    rendered_checkerboard_allowed: false
-
-  rendering:
-    style: 2D_arcade_cel_shaded
-    shading_model: two_tone
-    outline:
-      color: Shadow Black
-      width_pixels: 4
-      uniform: true
-
-  palette:
-    allowed_colors:
-      - Primary Steel
-      - Gunmetal
-      - Hazard Yellow
-      - Bio-Green
-      - Plasma Blue
-      - Warning Red
-      - Shadow Black
-
-    dominant:
-      - Primary Steel
-      - Gunmetal
-
-    accents:
-      - Hazard Yellow
-      - Plasma Blue
-
-    prohibited:
-      - unapproved_neon_colors
-      - random_color_variants
-      - photorealistic_material_colors
-
-  lighting:
-    source: Core/Lighting.yaml
-    consistent_with_player_gold_master: true
-    dramatic_backlight: false
-    environmental_color_cast: false
-
-proportions:
-  body_type: adult_humanoid
-  heroic_scale: reduced
-  head_to_body_ratio: animation_ready
-  shoulders: compact
-  torso: standard
-  arms: functional
-  legs: stable
-  hands:
-    visible: true
-    correctly_gripping_weapon: true
-  feet:
-    fully_visible: true
-    baseline_locked: true
-
-pose:
-  pose_id: FRIENDLY_GRUNT_READY_FRONT
-  stance:
-    type: guarded_ready
-    balance: centered
-    aggression: low
-    feet: shoulder_width
-    knees: slightly_bent
-
-  weapon_position:
-    across_torso: true
-    muzzle_direction: down_and_safe
-    obstructs_face: false
-    obstructs_silhouette: false
 
 gameplay:
   asset_id: CHR-GRUNT-001
@@ -254,31 +359,6 @@ gameplay:
     awareness: scripted
     despawn_policy: offscreen
 
-animation_contract:
-  source_design_master_required: true
-  frame_source_policy: derive_from_approved_gold_master
-  ai_independent_frame_redesign_allowed: false
-
-  required_states:
-    idle:
-      frames: 6
-      loop: true
-    react:
-      frames: 4
-      loop: false
-    hit:
-      frames: 3
-      loop: false
-    death:
-      frames: 8
-      loop: false
-
-  optional_states:
-    - wave
-    - duck
-    - flee
-    - signal
-
 export:
   file_format: PNG
   color_mode: RGBA
@@ -299,7 +379,6 @@ unity:
   filter_mode: Point
   compression: None
   mip_maps: false
-
   gameplay_tag: FriendlyNPC
   gameplay_layer: Friendly
 
@@ -336,7 +415,8 @@ validation:
     - unapproved_palette
 
 unresolved_requirements:
-  blocking_generation: []
+  blocking_generation:
+    - material_profiles_are_placeholders
 
   blocking_production:
     - final_gold_master_not_yet_created
@@ -355,7 +435,7 @@ approval:
 
   current_gate_results:
     schema_complete: true
-    inheritance_resolved: false
+    inheritance_resolved: true
     materials_resolved: false
     palette_resolved: true
     construction_resolved: true
@@ -376,11 +456,19 @@ gold_master:
   immutable: true
 
 history:
-  current_version: "1.0.0"
+  current_version: "1.1.0"
   entries:
     - version: "1.0.0"
       change_type: created
       summary: >
         Created CHR-GRUNT-001 as a friendly secondary character and protected
         NPC, explicitly separated from hostile enemy classifications.
+      approved_by: Project Owner
+
+    - version: "1.1.0"
+      change_type: schema_correction
+      summary: >
+        Added compiler-required identity, source_versions, construction,
+        materials, palette, camera, lighting, animation, and restrictions
+        mappings.
       approved_by: Project Owner
