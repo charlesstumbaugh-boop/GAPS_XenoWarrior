@@ -18,7 +18,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-from Generators import build_report_generator, manifest_generator, prompt_generator
+from Generators import (
+    build_report_generator,
+    manifest_generator,
+    prompt_generator,
+    reference_generator,
+)
 
 try:
     import yaml
@@ -588,6 +593,7 @@ def main() -> int:
     prompt_path = resolve_output_path(repo_root, build_path.parent, output_cfg["prompt_file"])
     manifest_path = resolve_output_path(repo_root, build_path.parent, output_cfg["manifest_file"])
     report_path = resolve_output_path(repo_root, build_path.parent, output_cfg["report_file"])
+    reference_list_path = resolve_output_path(repo_root, build_path.parent, "ReferenceList.md")
 
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
     prompt_context = {
@@ -687,10 +693,38 @@ def main() -> int:
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report_text, encoding="utf-8")
 
+    reference_context = {
+        "build": build_yaml.data,
+        "ias": ias_yaml.data,
+        "references": [
+            {
+                "reference_id": reference.reference_id,
+                "relationship": reference.relationship,
+                "authority_level": reference.authority_level,
+                "purpose": reference.purpose,
+                "file": (
+                    reference.resolved_path.relative_to(repo_root).as_posix()
+                    if reference.resolved_path is not None
+                    else reference.requested_path
+                ),
+                "sha256": reference.sha256,
+                "resolved": reference.resolved_path is not None,
+            }
+            for reference in references
+        ],
+    }
+    try:
+        reference_text = reference_generator.generate(reference_context)
+    except reference_generator.ReferenceGeneratorError as exc:
+        raise CompilerError(f"Reference list generation failed: {exc}") from exc
+    reference_list_path.parent.mkdir(parents=True, exist_ok=True)
+    reference_list_path.write_text(reference_text, encoding="utf-8")
+
     print(f"Validation passed: {len(validation.checks)} checks")
     print(f"Compiled prompt: {prompt_path}")
     print(f"Wrote manifest: {manifest_path}")
     print(f"Wrote build report: {report_path}")
+    print(f"Wrote reference list: {reference_list_path}")
     print(f"Reference images evaluated: {len(references)}")
     if args.allow_draft:
         print("WARNING: --allow-draft was used; output is not production-authorized.")
