@@ -4,7 +4,7 @@
 **Asset:** `CHR-GRUNT-001` — Grunt Soldier  
 **Compiler version:** `0.4.0`  
 **Build report generator version:** `1.0.0`  
-**Generated at (UTC):** `2026-08-06T19:14:36.421429+00:00`  
+**Generated at (UTC):** `2026-08-06T19:28:29.299764+00:00`  
 **Authorization:** **TEST BUILD — NOT PRODUCTION AUTHORIZED**
 
 ## Outputs

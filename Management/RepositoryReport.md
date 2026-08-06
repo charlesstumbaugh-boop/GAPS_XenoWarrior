@@ -2,9 +2,9 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T17:27:39.643411+00:00`
+- **Generated (UTC):** `2026-08-06T19:27:27.915579+00:00`
 - **Overall status:** **PASS WITH WARNINGS**
-- **PASS:** 52
+- **PASS:** 53
 - **WARNING/EMPTY:** 18
 - **FAIL:** 0
 
@@ -16,7 +16,7 @@
 | 2. Required Compiler Files | 4 | 0 | 0 | **PASS** |
 | 3. Required Management Files | 6 | 0 | 0 | **PASS** |
 | 4. Core Specifications | 8 | 0 | 0 | **PASS** |
-| 5. YAML Integrity | 23 | 18 | 0 | **WARNING** |
+| 5. YAML Integrity | 24 | 18 | 0 | **WARNING** |
 | 6. Build Pipeline | 4 | 0 | 0 | **PASS** |
 
 ## Detailed Results
@@ -62,6 +62,7 @@
 | 5. YAML Integrity | **PASS** | `Intermediate/Assets/CHR-GRUNT-001.yaml` | Parsed 1 document(s). |
 | 5. YAML Integrity | **PASS** | `Intermediate/Assets/PLAYER_001.yaml` | Parsed 1 document(s). |
 | 5. YAML Integrity | **PASS** | `Intermediate/Builds/CHR-GRUNT-001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 document(s). |
+| 5. YAML Integrity | **PASS** | `Intermediate/Builds/CHR-GRUNT-001/DESIGN_MASTER/v001/GenerationManifest.yaml` | Parsed 1 document(s). |
 | 5. YAML Integrity | **PASS** | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 document(s). |
 | 5. YAML Integrity | **PASS** | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/GenerationManifest.yaml` | Parsed 1 document(s). |
 | 5. YAML Integrity | **PASS** | `Intermediate/Schemas/IAS.schema.yaml` | Parsed 1 document(s). |

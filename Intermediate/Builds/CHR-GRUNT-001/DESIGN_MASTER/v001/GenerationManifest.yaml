@@ -3,7 +3,7 @@ metadata:
   compiler: GAPS build_prompt.py
   compiler_version: 0.4.0
   manifest_generator_version: 1.0.0
-  generated_at_utc: '2026-08-06T19:14:36.411660+00:00'
+  generated_at_utc: '2026-08-06T19:28:29.288251+00:00'
   draft_override_used: true
   validation_passed: true
   validation_check_count: 15
