@@ -1,0 +1,105 @@
+###############################################################################
+# GAPS_XenoWarrior
+# Build.yaml
+#
+# CHR-GRUNT-001 Design Master Build Request
+#
+# Compiler-controlled build request. Do not add handwritten prompt text.
+###############################################################################
+
+metadata:
+  build_id: CHR_GRUNT_001_DESIGN_MASTER_v001
+  build_type: design_master
+  version: "1.0.0"
+  status: DRAFT
+  requested_by: Project Owner
+  created: "2026-08-06"
+
+asset:
+  asset_id: CHR-GRUNT-001
+  ias_file: Intermediate/Assets/CHR-GRUNT-001.yaml
+
+objective: >
+  Compile the repository-authorized generation instructions for one canonical
+  full-body CHR-GRUNT-001 design-master candidate. The asset is a friendly
+  secondary human military character and protected NPC, not an enemy. It must
+  remain visually distinct from CHR-PLAYER-001 while inheriting the approved
+  rendering language, palette discipline, camera, lighting, and export rules.
+
+reference_policy:
+  identity_reference_ids: []
+
+  style_only_reference_ids:
+    - REF_CHR_PLAYER_001_GOLD_MASTER
+
+  copy_style_not_design: true
+  asset_identity_must_remain_distinct: true
+
+  rules:
+    - CHR-PLAYER-001 may define rendering style, palette discipline, outline
+      treatment, lighting language, material finish, and forward-facing camera.
+    - CHR-PLAYER-001 may not define the Grunt helmet, armor layout, silhouette,
+      weapon identity, proportions, accessories, or exact color placement.
+    - The result must not be a recolor, reskin, mirror, or equipment swap of
+      CHR-PLAYER-001.
+    - No undeclared image may influence asset identity.
+
+gameplay_lock:
+  asset_class: character
+  gameplay_role: friendly_npc
+  allegiance: friendly
+  valid_player_target: false
+  protected_target: true
+  can_damage_player: false
+  penalty_on_hit: true
+  score_modifier: -500
+  life_modifier: -1
+
+production_output:
+  asset_count: 1
+  format: PNG
+  color_mode: RGBA
+  width: 1024
+  height: 1024
+  transparent_background: true
+  full_body_visible: true
+  orientation: forward_facing
+  trim_transparency: false
+
+  prohibited:
+    - presentation_sheet
+    - infographic
+    - character_sheet
+    - title
+    - labels
+    - footer
+    - logo
+    - user_interface
+    - rendered_checkerboard
+    - scenery
+    - floor
+    - pedestal
+    - cast_shadow
+    - cropping
+    - player_clone
+    - player_recolor
+    - hostile_alien_features
+    - photorealistic_rendering
+    - three_dimensional_rendering
+
+output:
+  prompt_file: Prompt.md
+  manifest_file: GenerationManifest.yaml
+  report_file: BuildReport.md
+
+execution:
+  production_authorized: false
+  allow_draft_testing: true
+  handwritten_prompt_allowed: false
+  repository_is_source_of_truth: true
+
+notes:
+  - This is a draft compiler build until CHR-GRUNT-001 dependencies are resolved.
+  - Run with --allow-draft during Sprint 02 compilation testing.
+  - Prompt.md is generated output and must not be edited manually.
+  - No image generation should occur until the compiled prompt is reviewed.
