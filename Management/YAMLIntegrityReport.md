@@ -2,10 +2,10 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T17:16:39.502223+00:00`
+- **Generated (UTC):** `2026-08-06T17:22:47.197846+00:00`
 - **Overall status:** **WARNING**
-- **Files scanned:** 38
-- **PASS:** 21
+- **Files scanned:** 39
+- **PASS:** 22
 - **EMPTY:** 17
 - **FAIL:** 0
 
@@ -24,6 +24,7 @@
 | PASS | `Core/PromptRules.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Rendering.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Validation.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Intermediate/Assets/CHR-GRUNT-001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Assets/PLAYER_001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/GenerationManifest.yaml` | Parsed 1 YAML document(s). |
