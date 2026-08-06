@@ -2,14 +2,14 @@ metadata:
   type: generation_manifest
   compiler: GAPS build_prompt.py
   compiler_version: 0.4.0
-  generated_at_utc: '2026-08-06T03:05:59.114422+00:00'
+  generated_at_utc: '2026-08-06T03:14:04.293621+00:00'
   draft_override_used: true
   validation_passed: true
-  validation_check_count: 14
+  validation_check_count: 15
   production_authorized: false
 output:
   prompt_file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Prompt.md
-  prompt_sha256: 357e279a4c62f71f83b774781219d333b904e507b0da720afb6c549fb9387501
+  prompt_sha256: e081e4226e3fd6bff06f9cc3f2a8293b234f22cff7806e27fae34b3b177b5d2e
 validation:
   checks:
   - No handwritten prompt fields are present.
@@ -25,19 +25,18 @@ validation:
   - Palette uses approved references rather than raw colors.
   - Redesign is forbidden and changes require approval.
   - Outline contract is explicit and valid.
+  - Reference policy separates visual style from asset identity.
   - 'Reference image inventory evaluated: 1 declared.'
   warnings:
   - IAS document status is DRAFT, not APPROVED.
   - 'Generation blockers remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit,
     materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001,
     component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001'
-  - Build.reference_policy is missing. Declare identity_reference_ids and style_only_reference_ids
-    before production use.
   - 'Reference REF_PLAYER_POSTER_001 could not be resolved: Referenced repository
     file does not exist: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png'
 sources:
 - file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml
-  sha256: d6da5f111837ce0b1db653d365c68a6cc6c3af81e6afec19405cbf847696b0fb
+  sha256: a93d577d693500aa843319faf4cce92410f3ccc004c0d1ab6f640fc87bc4d8d1
 - file: Intermediate/Assets/PLAYER_001.yaml
   sha256: cae28257616c456bc9097c2bd43a7845a1baeb4e2f891bd4ef7ca02e64e51739
 - file: Core/Rendering.yaml
@@ -62,7 +61,7 @@ reference_images:
 - reference_id: REF_PLAYER_POSTER_001
   file: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png
   sha256: null
-  relationship: unclassified
+  relationship: identity
   authority_level: concept
   purpose: Establish the intended overall player appearance and project-wide visual
     language.

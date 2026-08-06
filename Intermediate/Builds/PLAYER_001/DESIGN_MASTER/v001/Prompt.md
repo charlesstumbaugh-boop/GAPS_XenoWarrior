@@ -21,18 +21,18 @@
 - Do not redesign, restyle, recolor, mirror, crop, or substitute components.
 
 ## Objective
-Compile the repository-authorized generation instructions for the canonical full-body PLAYER_001 design master. The output must be a clean production image suitable for review and later promotion to Gold Master status.
+Compile the repository-authorized generation instructions for the canonical full-body PLAYER_001 design master. The output must be one clean production image suitable for review and later promotion to Gold Master status.
 
 ## Provider-Neutral Asset Definition
 A forward-facing armored human player character for a retro military science-fiction VR rail shooter. The character has broad rounded shoulder armor, a compact segmented torso, reinforced limbs, a fully enclosed rounded military helmet, a narrow horizontal Plasma Blue luminous visor, and a compact two-handed futuristic assault rifle held visibly across the lower chest. Artwork uses only the approved Military Retro Sci-Fi palette, two-tone cel shading, hard shadow edges, and uniform four-pixel Shadow Black outlines. The complete body and weapon remain visible on a transparent background with a fixed bottom-center pivot.
 
 ## Reference Image Contract
-- REF_PLAYER_POSTER_001: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png — relationship=unclassified; authority=concept; purpose=Establish the intended overall player appearance and project-wide visual language.
+- REF_PLAYER_POSTER_001: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png — relationship=identity; authority=concept; purpose=Establish the intended overall player appearance and project-wide visual language.
 
 ### Reference Relationship Rules
-- Identity references: none declared
+- Identity references: REF_PLAYER_POSTER_001
 - Style-only references: none declared
-- Unclassified references: REF_PLAYER_POSTER_001
+- Unclassified references: none
 - Identity references define this asset's own approved geometry and component design.
 - Style-only references may transfer rendering language, line treatment, palette discipline, lighting, and finish only.
 - Never copy helmet geometry, armor layout, silhouette, weapon design, proportions, markings, or component arrangement from a style-only reference.
