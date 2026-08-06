@@ -2,8 +2,7 @@
 """GAPS_XenoWarrior deterministic prompt compiler, Phase 1.
 
 Reads a Build Request YAML and an approved/draft IAS YAML, resolves repository
-references without inventing missing values, and writes Prompt.md plus a
-GenerationManifest.yaml.
+references without inventing missing values, and writes Prompt.md, GenerationManifest.yaml, and BuildReport.md.
 
 Usage:
     python Compiler/build_prompt.py path/to/Build.yaml
@@ -222,6 +221,10 @@ def validate_build(build: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any
     require_text(asset, "ias_file", "Build.asset")
     require_text(output, "prompt_file", "Build.output")
     require_text(output, "manifest_file", "Build.output")
+    report_file = output.get("report_file", "BuildReport.md")
+    if not isinstance(report_file, str) or not report_file.strip():
+        raise CompilerError("Missing or invalid text Build.output.report_file")
+    output["report_file"] = report_file.strip()
     return metadata, asset, output
 
 
@@ -410,7 +413,7 @@ def write_manifest(
         "metadata": {
             "type": "generation_manifest",
             "compiler": "GAPS build_prompt.py",
-            "compiler_version": "0.1.0",
+            "compiler_version": "0.1.1",
             "generated_at_utc": datetime.now(timezone.utc).isoformat(),
             "draft_override_used": allow_draft,
         },
@@ -430,6 +433,88 @@ def write_manifest(
     destination.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
 
 
+
+def write_build_report(
+    destination: Path,
+    repo_root: Path,
+    build_yaml: LoadedYaml,
+    ias_yaml: LoadedYaml,
+    dependencies: list[LoadedYaml],
+    prompt_path: Path,
+    manifest_path: Path,
+    allow_draft: bool,
+) -> None:
+    """Write a human-readable, permanent record of one compiler execution."""
+    build_meta = require_mapping(build_yaml.data, "metadata", "Build")
+    identity = require_mapping(ias_yaml.data, "identity", "IAS")
+    ias_meta = require_mapping(ias_yaml.data, "metadata", "IAS")
+    ias_doc = require_mapping(ias_meta, "document", "IAS.metadata")
+
+    status = str(ias_doc.get("status", "MISSING")).upper()
+    authorization = "TEST BUILD — NOT PRODUCTION AUTHORIZED" if allow_draft else "PRODUCTION-AUTHORIZED COMPILATION"
+    warnings: list[str] = []
+    if allow_draft:
+        warnings.append("The --allow-draft override was used. Generated outputs are for compiler testing only.")
+    if status != "APPROVED":
+        warnings.append(f"IAS status is {status}, not APPROVED.")
+
+    unresolved = ias_yaml.data.get("unresolved_requirements", {})
+    if isinstance(unresolved, dict):
+        blocking = [
+            str(item.get("path", "unknown path"))
+            for item in as_list(unresolved.get("items"))
+            if isinstance(item, dict) and item.get("blocks_generation") is True
+        ]
+        if blocking:
+            warnings.append("Generation-blocking IAS requirements remain: " + ", ".join(blocking))
+
+    generated_at = datetime.now(timezone.utc).isoformat()
+    source_rows = [build_yaml, ias_yaml, *dependencies]
+    source_lines = [
+        f"| `{source.path.relative_to(repo_root).as_posix()}` | `{source.sha256}` |"
+        for source in source_rows
+    ]
+
+    lines = [
+        "# GAPS_XenoWarrior Build Report",
+        "",
+        f"**Build ID:** `{build_meta.get('build_id', 'UNKNOWN')}`  ",
+        f"**Asset:** `{identity.get('asset_id', 'UNKNOWN')}` — {identity.get('asset_name', 'Unnamed asset')}  ",
+        f"**Compiler version:** `0.1.1`  ",
+        f"**Generated at (UTC):** `{generated_at}`  ",
+        f"**Authorization:** **{authorization}**",
+        "",
+        "## Outputs",
+        "",
+        f"- Prompt: `{prompt_path.relative_to(repo_root).as_posix()}`",
+        f"- Manifest: `{manifest_path.relative_to(repo_root).as_posix()}`",
+        f"- Build report: `{destination.relative_to(repo_root).as_posix()}`",
+        "",
+        "## Source State",
+        "",
+        f"- IAS status: `{status}`",
+        f"- Draft override used: `{allow_draft}`",
+        f"- Dependency files loaded: `{len(dependencies)}`",
+        "",
+        "## Warnings",
+        "",
+        *( [f"- {warning}" for warning in warnings] if warnings else ["- None."] ),
+        "",
+        "## Reproducibility Sources",
+        "",
+        "| Repository file | SHA-256 |",
+        "|---|---|",
+        *source_lines,
+        "",
+        "## Operating Rule",
+        "",
+        "`Prompt.md` is a generated build artifact. Do not hand-edit it. Correct the approved YAML source or compiler, then rebuild.",
+        "",
+    ]
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text("\n".join(lines), encoding="utf-8")
+
+
 def main() -> int:
     args = parse_args()
     build_path = args.build_request.resolve()
@@ -444,6 +529,7 @@ def main() -> int:
 
     prompt_path = resolve_output_path(repo_root, build_path.parent, output_cfg["prompt_file"])
     manifest_path = resolve_output_path(repo_root, build_path.parent, output_cfg["manifest_file"])
+    report_path = resolve_output_path(repo_root, build_path.parent, output_cfg["report_file"])
 
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
     prompt_path.write_text(compile_prompt(build_yaml.data, ias_yaml.data), encoding="utf-8")
@@ -456,9 +542,20 @@ def main() -> int:
         prompt_path,
         args.allow_draft,
     )
+    write_build_report(
+        report_path,
+        repo_root,
+        build_yaml,
+        ias_yaml,
+        dependencies,
+        prompt_path,
+        manifest_path,
+        args.allow_draft,
+    )
 
     print(f"Compiled prompt: {prompt_path}")
     print(f"Wrote manifest: {manifest_path}")
+    print(f"Wrote build report: {report_path}")
     if args.allow_draft:
         print("WARNING: --allow-draft was used; output is not production-authorized.")
     return 0
@@ -481,6 +578,9 @@ def resolve_output_path(repo_root: Path, build_dir: Path, value: str) -> Path:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
+    except CompilerError as exc:
+        print(f"COMPILER ERROR: {exc}", file=sys.stderr)
+        raise SystemExit(2)
     except CompilerError as exc:
         print(f"COMPILER ERROR: {exc}", file=sys.stderr)
         raise SystemExit(2)
