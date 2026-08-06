@@ -1,0 +1,264 @@
+# GAPS Reusable Character Asset Template
+# Copy this file for each new humanoid asset.
+# Replace only values marked <REQUIRED>. Do not change the schema.
+
+metadata:
+  document:
+    id: IAS_<REQUIRED_ASSET_ID_UNDERSCORED>
+    name: <REQUIRED_DISPLAY_NAME> Intermediate Asset Specification
+    type: intermediate_asset_specification
+    version: "1.0.0"
+    status: DRAFT
+
+identity:
+  asset_id: <REQUIRED_ASSET_ID>
+  asset_name: <REQUIRED_DISPLAY_NAME>
+  asset_type: character
+  asset_subtype: <REQUIRED_SUBTYPE>
+  lifecycle_state: specification
+  canonical: true
+
+  narrative_role:
+    classification: <REQUIRED_NARRATIVE_ROLE>
+    faction: <REQUIRED_FACTION>
+    alignment: <REQUIRED_ALIGNMENT>
+
+  gameplay_role:
+    role: <REQUIRED_GAMEPLAY_ROLE>
+    protected_target: <REQUIRED_TRUE_OR_FALSE>
+    valid_player_target: <REQUIRED_TRUE_OR_FALSE>
+    penalty_on_hit: <REQUIRED_TRUE_OR_FALSE>
+    score_modifier: <REQUIRED_INTEGER>
+    life_modifier: <REQUIRED_INTEGER>
+
+source_versions:
+  repository:
+    repository_name: GAPS_XenoWarrior
+    repository_version: repository_current
+
+  core_contracts:
+    CORE_RENDERING: {version: repository_current, file: Core/Rendering.yaml, status: APPROVED}
+    CORE_PALETTE: {version: repository_current, file: Core/Palette.yaml, status: APPROVED}
+    CORE_CAMERA: {version: repository_current, file: Core/Camera.yaml, status: APPROVED}
+    CORE_LIGHTING: {version: repository_current, file: Core/Lighting.yaml, status: APPROVED}
+    CORE_EXPORT: {version: repository_current, file: Core/Export.yaml, status: APPROVED}
+    CORE_VALIDATION: {version: repository_current, file: Core/Validation.yaml, status: APPROVED}
+    CORE_NAMING: {version: repository_current, file: Core/Naming.yaml, status: APPROVED}
+    CORE_PROMPT_RULES: {version: repository_current, file: Core/PromptRules.yaml, status: APPROVED}
+    CORE_GAMEPLAY: {version: repository_current, file: Core/Gameplay.yaml, status: APPROVED}
+
+  asset_specifications:
+    - id: SPEC_HUMANOID
+      version: repository_current
+      file: Specifications/Humanoid.yaml
+
+inheritance:
+  enabled: true
+  parents:
+    - {id: SPEC_HUMANOID, version: repository_current, file: Specifications/Humanoid.yaml, inheritance_type: full}
+    - {id: CORE_RENDERING, version: repository_current, file: Core/Rendering.yaml, inheritance_type: full}
+    - {id: CORE_PALETTE, version: repository_current, file: Core/Palette.yaml, inheritance_type: full}
+    - {id: CORE_CAMERA, version: repository_current, file: Core/Camera.yaml, inheritance_type: full}
+    - {id: CORE_LIGHTING, version: repository_current, file: Core/Lighting.yaml, inheritance_type: full}
+    - {id: CORE_EXPORT, version: repository_current, file: Core/Export.yaml, inheritance_type: full}
+
+visual_contract:
+  visual_style:
+    category: 2D_arcade_cel_shaded
+    genre: military_retro_scifi
+    dimensionality: 2D
+    photorealistic: false
+
+  silhouette:
+    overall_read: <REQUIRED_SILHOUETTE_DESCRIPTION>
+    distinct_from_player: <REQUIRED_TRUE_OR_FALSE>
+    shoulder_width: <REQUIRED_VALUE>
+    torso_profile: <REQUIRED_VALUE>
+    limb_bulk: <REQUIRED_VALUE>
+    primary_readability_features:
+      - <REQUIRED_FEATURE_1>
+      - <REQUIRED_FEATURE_2>
+      - <REQUIRED_FEATURE_3>
+    prohibited_silhouette_changes:
+      - <REQUIRED_PROHIBITION_1>
+      - <REQUIRED_PROHIBITION_2>
+
+  outline:
+    uniform: true
+    width_px: 4
+    color_reference: Shadow Black
+
+  rendering:
+    shading_model: two_tone_cel_shading
+    shadow_brightness_multiplier: 0.65
+    surface_finish: clean_arcade_readability
+    three_dimensional_rendering: false
+
+construction:
+  body_plan: adult_humanoid
+  animation_ready: true
+  proportions:
+    heroic_scale: <REQUIRED_VALUE>
+    shoulders: <REQUIRED_VALUE>
+    torso: <REQUIRED_VALUE>
+    limbs: functional
+    feet: fully_visible
+  helmet:
+    complexity: <REQUIRED_VALUE>
+    visor_shape: <REQUIRED_VALUE>
+    visor_color_reference: Plasma Blue
+    exposed_face: false
+  armor:
+    grade: <REQUIRED_VALUE>
+    torso_layout: <REQUIRED_VALUE>
+    shoulder_plates: <REQUIRED_VALUE>
+    decorative_trim: <REQUIRED_VALUE>
+    wear_level: <REQUIRED_VALUE>
+  weapon:
+    type: <REQUIRED_VALUE>
+    size_relation: <REQUIRED_VALUE>
+    silhouette: <REQUIRED_VALUE>
+    muzzle_direction: <REQUIRED_VALUE>
+    obstructs_face: false
+  pose:
+    stance: <REQUIRED_VALUE>
+    aggression: <REQUIRED_VALUE>
+    balance: centered
+    orientation: forward_facing
+
+materials:
+  resolved: false
+  assignments:
+    - {component: armor_shell, material_id: MAT_MILITARY_POLYMER, status: placeholder_dependency}
+    - {component: under_suit, material_id: MAT_RUBBER, status: placeholder_dependency}
+    - {component: visor, material_id: MAT_VISOR_GLASS, status: placeholder_dependency}
+    - {component: weapon_body, material_id: MAT_CARBON_FIBER, status: placeholder_dependency}
+  draft_fallback:
+    allowed: true
+    use_core_rendering_defaults: true
+    production_allowed: false
+
+palette:
+  source: Core/Palette.yaml
+  profile: military_scifi_retro
+  raw_color_values_present: false
+  assignments:
+    - {component: armor_primary, palette_reference: Primary Steel}
+    - {component: armor_secondary, palette_reference: Gunmetal}
+    - {component: accent, palette_reference: Hazard Yellow}
+    - {component: visor, palette_reference: Plasma Blue}
+    - {component: outlines, palette_reference: Shadow Black}
+
+camera:
+  source: Core/Camera.yaml
+  orientation: forward_facing
+  perspective: rail_shooter_player_facing
+  framing:
+    full_asset_visible: true
+    clipping_allowed: false
+    feet_visible: true
+    centered_on_canvas: true
+    bottom_center_alignment: true
+
+lighting:
+  source: Core/Lighting.yaml
+  style: two_tone_cel_shaded
+  consistency_reference: CHR-PLAYER-001
+  shadow_brightness_multiplier: 0.65
+  dramatic_backlight: false
+  environmental_color_cast: false
+
+animation:
+  source_design_master_required: true
+  frame_source_policy: derive_from_approved_gold_master
+  independent_ai_frame_redesign_allowed: false
+  animation_ready_proportions_required: true
+  required_states: [idle, react, hit, death]
+  frame_plans:
+    idle: {frames: 6, loop: true}
+    react: {frames: 4, loop: false}
+    hit: {frames: 3, loop: false}
+    death: {frames: 8, loop: false}
+
+export:
+  image_format: png
+  color_mode: RGBA
+  bit_depth: 8
+  width_px: 1024
+  height_px: 1024
+  transparent_background: true
+  trim_transparency: false
+  full_asset_visible: true
+  naming_pattern: "<ASSET_ID>_DESIGN_MASTER_<VERSION>.png"
+
+restrictions:
+  redesign_allowed: false
+  change_requires_approval: true
+  immutable_features:
+    - <REQUIRED_IMMUTABLE_FEATURE_1>
+    - <REQUIRED_IMMUTABLE_FEATURE_2>
+    - approved palette and cel-shading style
+    - forward-facing orientation
+  prohibited_changes:
+    - <REQUIRED_PROHIBITED_CHANGE_1>
+    - <REQUIRED_PROHIBITED_CHANGE_2>
+    - copy another asset as a recolor or reskin
+  prohibited_styles: [photorealistic, 3D rendered, painterly concept art, pixel art, presentation poster]
+  prohibited_camera_views: [side view, rear view, three-quarter view, top-down view]
+  prohibited_rendering_features: [labels, title, footer, UI panels, baked checkerboard, scenery, floor, pedestal, cast shadow]
+  prohibited_export_conditions: [opaque background, cropped body, missing feet, trimmed canvas, wrong dimensions]
+
+validation:
+  acceptance_criteria:
+    - forward-facing
+    - approved palette
+    - correct cel shading
+    - transparent background
+    - entire body visible
+    - animation-ready proportions
+    - <REQUIRED_ACCEPTANCE_CRITERION_1>
+    - <REQUIRED_ACCEPTANCE_CRITERION_2>
+  automatic_rejection:
+    - presentation sheet
+    - baked checkerboard
+    - opaque background
+    - cropped body
+    - incorrect camera orientation
+    - unapproved palette
+    - photorealistic or 3D rendering
+    - clone of another asset
+
+approval:
+  status: DRAFT
+  approved_by: null
+  approval_date: null
+  generation_authorized: false
+  production_authorized: false
+  locked: false
+
+reference_images:
+  approved_references:
+    - reference_id: REF_CHR_PLAYER_001_GOLD_MASTER
+      file: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+      purpose: Style-only rendering authority.
+      authority_level: style_reference
+
+unresolved_requirements:
+  items:
+    - {path: materials.assignments, issue: Material specification files remain placeholders., blocks_generation: false, blocks_production: true}
+    - {path: gold_master, issue: Gold Master has not yet been created., blocks_generation: false, blocks_production: true}
+
+gold_master:
+  asset_id: <REQUIRED_ASSET_ID>
+  image: null
+  folder: Reference/GoldMasters/<REQUIRED_ASSET_ID>/Design/
+  version: null
+  approval_status: NOT_CREATED
+  immutable: true
+
+history:
+  current_version: "1.0.0"
+  entries:
+    - version: "1.0.0"
+      change_type: created_from_template
+      summary: Created from Templates/CharacterAssetTemplate.yaml.
