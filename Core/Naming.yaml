@@ -1,35 +1,262 @@
-version: 1.0
+###############################################################################
+# GAPS_XenoWarrior
+# Naming.yaml
+#
+# Canonical naming rules for assets, builds, references, animations, files,
+# folders, versions, and generated production records.
+###############################################################################
+
+metadata:
+  document:
+    id: CORE_NAMING
+    name: GAPS Canonical Naming Contract
+    type: core_contract
+    version: "1.0.0"
+    status: APPROVED
+
+  project:
+    id: GAPS_XENOWARRIOR
+    repository: GAPS_XenoWarrior
+
+  ownership:
+    owner: Project Owner
+    maintained_by: GAPS
+    approval_authority: Project Owner
+
+purpose:
+  summary: >
+    Define one authoritative naming system so assets, references, builds,
+    animations, generated files, and Unity imports remain searchable,
+    traceable, and automation-safe.
+
+global_rules:
+  case_sensitive_ids: true
+  asset_id_case: UPPERCASE
+  yaml_key_case: snake_case
+  file_extension_case: lowercase
+  spaces_allowed: false
+  hyphens_allowed_in_asset_ids: true
+  underscores_allowed_in_file_suffixes: true
+  consecutive_separators_allowed: false
+  leading_separator_allowed: false
+  trailing_separator_allowed: false
+  unicode_in_identifiers_allowed: false
+  overwrite_approved_files: false
+
+category_codes:
+  character: CHR
+  enemy: ENEMY
+  boss: BOSS
+  weapon: WPN
+  projectile: PRJ
+  visual_effect: FX
+  environment: ENV
+  background: BG
+  prop: PROP
+  pickup: PICKUP
+  user_interface: UI
+  material: MAT
+  palette: PAL
+  animation: ANIM
+  pose: POSE
+  reference: REF
+  build: BUILD
 
 asset_ids:
-  format: "<CATEGORY>-<TYPE>-<###>"
+  preferred_format: "<CATEGORY>-<ROLE>-<SEQUENCE>"
+  sequence_digits: 3
+  separator: "-"
+  regex: "^[A-Z]+(?:-[A-Z0-9]+)+-[0-9]{3}$"
+
   examples:
     - CHR-PLAYER-001
-    - CHR-GRUNT-001
-    - WPN-RIFLE-001
-    - ENV-CORRIDOR-001
+    - ENEMY-GRUNT-001
+    - BOSS-TITAN-MECH-001
+    - WPN-PLAYER-RIFLE-001
+    - FX-MUZZLE-FLASH-001
+    - ENV-DESERT-BASE-001
+    - UI-CROSSHAIR-001
+
+  legacy_ids:
+    allowed_during_migration: true
+    examples:
+      - PLAYER_001
+      - ENEMY_GRUNT_001
+    rule: >
+      Legacy IDs may remain until a controlled migration is approved. New assets
+      must use the preferred format.
 
 versions:
-  format: "v###"
-  examples:
-    - v001
-    - v002
+  semantic_version:
+    format: "MAJOR.MINOR.PATCH"
+    regex: "^[0-9]+\.[0-9]+\.[0-9]+$"
+    example: "1.0.0"
 
-gold_master:
-  suffix: "_DESIGN_MASTER"
+  asset_file_version:
+    format: "v###"
+    regex: "^v[0-9]{3}$"
+    first_version: v001
+    examples:
+      - v001
+      - v002
+      - v010
 
-sprite_sheet:
-  suffix: "_SPRITESHEET"
+  frame_number:
+    format: "F##"
+    regex: "^F[0-9]{2}$"
+    first_frame: F01
+    examples:
+      - F01
+      - F06
+      - F10
 
-animation:
-  suffix: "_ANIM"
+canonical_suffixes:
+  design_master: DESIGN_MASTER
+  gold_master: GOLD_MASTER
+  sprite_sheet: SPRITESHEET
+  contact_sheet: CONTACT
+  preview: PREVIEW
+  animation: ANIM
+  build_request: BUILD
+  generation_manifest: MANIFEST
+  validation_report: VALIDATION
+  review: REVIEW
+  approval: APPROVAL
+  rejected_candidate: INVALID
 
-builds:
-  prompt: "Prompt.md"
-  manifest: "GenerationManifest.yaml"
-  report: "BuildReport.md"
+file_patterns:
+  design_master:
+    pattern: "<ASSET_ID>_DESIGN_MASTER_<VERSION>.png"
+    example: "CHR-PLAYER-001_DESIGN_MASTER_v001.png"
 
-rules:
-  lowercase_extensions: true
-  png_required: true
-  yaml_required: true
-  no_spaces: true
+  animation_frame:
+    pattern: "<ASSET_ID>_<ACTION>_<FRAME>_<VERSION>.png"
+    example: "CHR-PLAYER-001_IDLE_F01_v001.png"
+
+  sprite_sheet:
+    pattern: "<ASSET_ID>_<ACTION>_SPRITESHEET_<VERSION>.png"
+    example: "CHR-PLAYER-001_IDLE_SPRITESHEET_v001.png"
+
+  editable_source:
+    pattern: "<ASSET_ID>_<ACTION>_<VERSION>.<SOURCE_EXTENSION>"
+    example: "CHR-PLAYER-001_IDLE_v001.kra"
+
+  asset_specification:
+    pattern: "<LEGACY_OR_CANONICAL_ASSET_ID>.yaml"
+    example: "PLAYER_001.yaml"
+
+  build_request:
+    fixed_name: Build.yaml
+
+  generated_prompt:
+    fixed_name: Prompt.md
+
+  generation_manifest:
+    fixed_name: GenerationManifest.yaml
+
+  build_report:
+    fixed_name: BuildReport.md
+
+  validation_report:
+    fixed_name: ValidationReport.md
+
+  review:
+    fixed_name: Review.yaml
+
+  approval:
+    fixed_name: Approval.md
+
+folder_patterns:
+  gold_master:
+    pattern: "Reference/GoldMasters/<ASSET_ID>/Design/"
+
+  rejected:
+    pattern: "Reference/Rejected/<ASSET_ID>/<REJECTION_REASON>/"
+
+  asset_build:
+    pattern: "Intermediate/Builds/<ASSET_ID>/<BUILD_TYPE>/<VERSION>/"
+
+  animation_frames:
+    pattern: "Assets/Characters/<ASSET_ID>/Animations/<ACTION>/<VERSION>/Frames/"
+
+  editable_animation_source:
+    pattern: "Source/Characters/<ASSET_ID>/Animation/<ACTION>/"
+
+animation_actions:
+  canonical:
+    - IDLE
+    - FIRE
+    - RELOAD
+    - HIT
+    - DEATH
+    - ATTACK
+    - MOVE
+    - SPAWN
+    - DESPAWN
+
+  lowercase_file_tokens: true
+
+reserved_names:
+  files:
+    - Prompt.md
+    - Build.yaml
+    - GenerationManifest.yaml
+    - BuildReport.md
+    - ValidationReport.md
+    - Review.yaml
+    - Approval.md
+
+  folders:
+    - Core
+    - Compiler
+    - Intermediate
+    - Management
+    - Reference
+    - Specifications
+    - Docs
+    - Assets
+    - Source
+
+prohibited_patterns:
+  filenames:
+    - "* final *"
+    - "* final2 *"
+    - "* new *"
+    - "* copy *"
+    - "* latest *"
+    - "* use_this *"
+    - "* real_final *"
+
+  reasons:
+    - ambiguous_version
+    - untraceable_history
+    - unsafe_for_automation
+
+validation:
+  duplicate_asset_ids_allowed: false
+  duplicate_build_ids_allowed: false
+  extension_required: true
+  double_extension_allowed: false
+  approved_file_rename_requires_review: true
+  naming_violation_severity: FAIL
+
+migration:
+  rename_legacy_files_automatically: false
+  migration_requires:
+    - review_record
+    - reference_update
+    - version_control_commit
+    - project_owner_approval
+
+approval:
+  status: APPROVED
+  approved_by: Project Owner
+  locked: true
+
+history:
+  current_version: "1.0.0"
+  entries:
+    - version: "1.0.0"
+      change_type: created
+      summary: Established canonical naming rules for GAPS_XenoWarrior.
+      approved_by: Project Owner
