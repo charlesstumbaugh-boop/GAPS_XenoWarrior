@@ -1,0 +1,45 @@
+# GAPS_XenoWarrior Build Report
+
+**Build ID:** `PLAYER_001_DESIGN_MASTER_v001`  
+**Asset:** `PLAYER_001` — Xeno Warrior Player  
+**Compiler version:** `0.1.1`  
+**Generated at (UTC):** `2026-08-06T01:30:52.801143+00:00`  
+**Authorization:** **TEST BUILD — NOT PRODUCTION AUTHORIZED**
+
+## Outputs
+
+- Prompt: `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Prompt.md`
+- Manifest: `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/GenerationManifest.yaml`
+- Build report: `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/BuildReport.md`
+
+## Source State
+
+- IAS status: `DRAFT`
+- Draft override used: `True`
+- Dependency files loaded: `9`
+
+## Warnings
+
+- The --allow-draft override was used. Generated outputs are for compiler testing only.
+- IAS status is DRAFT, not APPROVED.
+- Generation-blocking IAS requirements remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit, materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001, component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001
+
+## Reproducibility Sources
+
+| Repository file | SHA-256 |
+|---|---|
+| `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml` | `d6da5f111837ce0b1db653d365c68a6cc6c3af81e6afec19405cbf847696b0fb` |
+| `Intermediate/Assets/PLAYER_001.yaml` | `cae28257616c456bc9097c2bd43a7845a1baeb4e2f891bd4ef7ca02e64e51739` |
+| `Core/Rendering.yaml` | `38264a309c87c4f04b6a7e0d17ce5e5564fa684a823a17ab3aa343dd00f01891` |
+| `Core/Palette.yaml` | `f9b8a731e3830cb8fe6272bcd52be3db21278ef4025bc7519c489ce53a08cbc0` |
+| `Core/Camera.yaml` | `83b6f4b9da2a683e7dd26582a59af7face9daae56b4be47b5383f0c24437339a` |
+| `Core/Lighting.yaml` | `140f7f29ab8aee67b8bc5b2626ca1b4f4926200e74e029433484eb82352a5d58` |
+| `Core/Animation.yaml` | `206b4b2b77fbf2bd8691c50041b771008bcd349fcadc0e3b51701faab7b132bb` |
+| `Core/Export.yaml` | `2aad0a7ee2a98ef8051c6f07f8da75409526f33b8b523305652434cf1007bf87` |
+| `Core/Validation.yaml` | `1ac2a7a408a5ebd2c88a75ce5ec54b843b71acdaff67b7f111d65855e94ce71c` |
+| `Specifications/Construction/Humanoid.yaml` | `875b17d81f81d8fa8038d5ad0da8793a6cb815c24dd18c4a6424aa908c38ce36` |
+| `Specifications/Materials/PaintedSteel.yaml` | `eb91eafb75ca7b3101198ba8fe4f75bf97cdb2123ca79811f84a08c7bf522b5a` |
+
+## Operating Rule
+
+`Prompt.md` is a generated build artifact. Do not hand-edit it. Correct the approved YAML source or compiler, then rebuild.
