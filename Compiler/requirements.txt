@@ -1,0 +1,9 @@
+# GAPS_XenoWarrior Compiler — Phase 1 dependencies
+#
+# Install from the repository root with:
+#   python -m pip install -r Compiler/requirements.txt
+#
+# PyYAML is used to read and write the repository's YAML specifications,
+# Build Requests, and Generation Manifests.
+
+PyYAML>=6.0,<7.0
