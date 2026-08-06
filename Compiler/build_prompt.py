@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""GAPS_XenoWarrior deterministic prompt compiler, Phase 1.
+"""GAPS_XenoWarrior deterministic prompt compiler, Phase 2.
 
 Reads a Build Request YAML and an approved/draft IAS YAML, resolves repository
 references without inventing missing values, and writes Prompt.md, GenerationManifest.yaml, and BuildReport.md.
@@ -36,6 +36,13 @@ class LoadedYaml:
     path: Path
     data: dict[str, Any]
     sha256: str
+
+
+@dataclass(frozen=True)
+class ValidationResult:
+    checks: tuple[str, ...]
+    warnings: tuple[str, ...]
+    production_authorized: bool
 
 
 def parse_args() -> argparse.Namespace:
@@ -209,38 +216,140 @@ def collect_referenced_yaml(repo_root: Path, ias: dict[str, Any]) -> list[Loaded
     return loaded
 
 
-def validate_build(build: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    if "prompt" in build or "free_form_prompt" in build:
+def find_forbidden_keys(value: Any, path: str = "Build") -> list[str]:
+    """Return forbidden handwritten prompt fields found anywhere in Build.yaml."""
+    forbidden = {
+        "prompt",
+        "free_form_prompt",
+        "provider_prompt",
+        "positive_prompt",
+        "negative_prompt",
+        "system_prompt",
+    }
+    found: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            child_path = f"{path}.{key}"
+            if str(key).casefold() in forbidden:
+                found.append(child_path)
+            found.extend(find_forbidden_keys(child, child_path))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            found.extend(find_forbidden_keys(child, f"{path}[{index}]"))
+    return found
+
+
+def validate_build(build: dict[str, Any], allow_draft: bool) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], list[str]]:
+    checks: list[str] = []
+    forbidden_fields = find_forbidden_keys(build)
+    if forbidden_fields:
         raise CompilerError(
-            "Build Request contains a free-form prompt field. Phase 1 forbids handwritten prompts."
+            "Build Request contains forbidden handwritten prompt fields: "
+            + ", ".join(forbidden_fields)
         )
+    checks.append("No handwritten prompt fields are present.")
+
     metadata = require_mapping(build, "metadata", "Build")
     asset = require_mapping(build, "asset", "Build")
     output = require_mapping(build, "output", "Build")
-    require_text(metadata, "build_id", "Build.metadata")
-    require_text(asset, "ias_file", "Build.asset")
-    require_text(output, "prompt_file", "Build.output")
-    require_text(output, "manifest_file", "Build.output")
+    execution = require_mapping(build, "execution", "Build")
+
+    build_id = require_text(metadata, "build_id", "Build.metadata")
+    build_type = require_text(metadata, "build_type", "Build.metadata")
+    ias_file = require_text(asset, "ias_file", "Build.asset")
+    prompt_file = require_text(output, "prompt_file", "Build.output")
+    manifest_file = require_text(output, "manifest_file", "Build.output")
     report_file = output.get("report_file", "BuildReport.md")
     if not isinstance(report_file, str) or not report_file.strip():
         raise CompilerError("Missing or invalid text Build.output.report_file")
     output["report_file"] = report_file.strip()
-    return metadata, asset, output
+
+    expected_extensions = {
+        "prompt_file": ".md",
+        "manifest_file": ".yaml",
+        "report_file": ".md",
+    }
+    for key, extension in expected_extensions.items():
+        value = str(output[key])
+        if Path(value).suffix.casefold() != extension:
+            raise CompilerError(f"Build.output.{key} must end with {extension}: {value}")
+    if len({prompt_file.casefold(), manifest_file.casefold(), report_file.strip().casefold()}) != 3:
+        raise CompilerError("Prompt, manifest, and report outputs must use distinct file names.")
+    checks.append("Output file names and extensions are valid and distinct.")
+
+    if execution.get("handwritten_prompt_allowed") is not False:
+        raise CompilerError("Build.execution.handwritten_prompt_allowed must be false.")
+    if execution.get("repository_is_source_of_truth") is not True:
+        raise CompilerError("Build.execution.repository_is_source_of_truth must be true.")
+    production_requested = execution.get("production_authorized") is True
+    if not allow_draft and not production_requested:
+        raise CompilerError(
+            "Production compilation requires Build.execution.production_authorized: true. "
+            "Use --allow-draft only for compiler testing."
+        )
+    checks.append("Execution policy requires repository authority and forbids handwritten prompts.")
+
+    objective = str(build.get("objective", "")).casefold()
+    prohibited_objective_terms = (
+        "presentation sheet", "infographic", "poster", "character sheet",
+        "label bar", "footer", "checkerboard background", "opaque background",
+        "crop the", "cropped character",
+    )
+    violations = [term for term in prohibited_objective_terms if term in objective]
+    if violations:
+        raise CompilerError(
+            "Build objective requests prohibited output behavior: " + ", ".join(violations)
+        )
+    checks.append("Build objective contains no prohibited presentation or background request.")
+
+    if not build_id or not build_type or not ias_file:
+        raise CompilerError("Build identity is incomplete.")
+    checks.append("Build identity and IAS reference are present.")
+    return metadata, asset, output, checks
 
 
-def validate_ias(ias: dict[str, Any], allow_draft: bool) -> None:
+def validate_ias(ias: dict[str, Any], allow_draft: bool, production_requested: bool) -> ValidationResult:
+    checks: list[str] = []
+    warnings: list[str] = []
+
+    required_sections = (
+        "metadata", "identity", "source_versions", "inheritance",
+        "visual_contract", "construction", "materials", "palette", "camera",
+        "lighting", "animation", "export", "restrictions", "validation",
+        "approval", "history",
+    )
+    missing = [section for section in required_sections if not isinstance(ias.get(section), dict)]
+    if missing:
+        raise CompilerError("IAS is missing required mappings: " + ", ".join(missing))
+    checks.append("All mandatory IAS sections are present.")
+
     metadata = require_mapping(ias, "metadata", "IAS")
     document = require_mapping(metadata, "document", "IAS.metadata")
     identity = require_mapping(ias, "identity", "IAS")
+    approval = require_mapping(ias, "approval", "IAS")
     require_text(identity, "asset_id", "IAS.identity")
     require_text(identity, "asset_name", "IAS.identity")
 
     status = str(document.get("status", "")).upper()
-    if status != "APPROVED" and not allow_draft:
-        raise CompilerError(
-            f"IAS status is {status or 'MISSING'}, not APPROVED. "
-            "Use --allow-draft only for compiler testing."
-        )
+    approval_status = str(approval.get("status", "")).upper()
+    if status != "APPROVED":
+        if allow_draft:
+            warnings.append(f"IAS document status is {status or 'MISSING'}, not APPROVED.")
+        else:
+            raise CompilerError(f"IAS document status is {status or 'MISSING'}, not APPROVED.")
+    if production_requested:
+        production_failures: list[str] = []
+        if status != "APPROVED":
+            production_failures.append("metadata.document.status is not APPROVED")
+        if approval_status != "APPROVED":
+            production_failures.append("approval.status is not APPROVED")
+        if approval.get("generation_authorized") is not True:
+            production_failures.append("approval.generation_authorized is not true")
+        if approval.get("locked") is not True:
+            production_failures.append("approval.locked is not true")
+        if production_failures:
+            raise CompilerError("Production authorization failed: " + "; ".join(production_failures))
+    checks.append("IAS approval state is compatible with requested build mode.")
 
     unresolved = ias.get("unresolved_requirements", {})
     blocking: list[str] = []
@@ -248,10 +357,61 @@ def validate_ias(ias: dict[str, Any], allow_draft: bool) -> None:
         for item in as_list(unresolved.get("items")):
             if isinstance(item, dict) and item.get("blocks_generation") is True:
                 blocking.append(str(item.get("path", "unknown path")))
-    if blocking and not allow_draft:
-        raise CompilerError(
-            "IAS has unresolved requirements that block generation: " + ", ".join(blocking)
-        )
+    if blocking:
+        if allow_draft:
+            warnings.append("Generation blockers remain: " + ", ".join(blocking))
+        else:
+            raise CompilerError(
+                "IAS has unresolved requirements that block generation: " + ", ".join(blocking)
+            )
+    checks.append("Generation-blocking unresolved requirements were evaluated.")
+
+    export = require_mapping(ias, "export", "IAS")
+    if str(export.get("image_format", "")).casefold() != "png":
+        raise CompilerError("IAS.export.image_format must be png for production artwork.")
+    if export.get("transparent_background") is not True:
+        raise CompilerError("IAS.export.transparent_background must be true.")
+    if export.get("trim_transparency") is not False:
+        raise CompilerError("IAS.export.trim_transparency must be false to preserve frame alignment.")
+    for key in ("width_px", "height_px"):
+        value = export.get(key)
+        if not isinstance(value, int) or value <= 0:
+            raise CompilerError(f"IAS.export.{key} must be a positive integer.")
+    checks.append("PNG, transparency, canvas dimensions, and untrimmed alignment are valid.")
+
+    camera = require_mapping(ias, "camera", "IAS")
+    framing = require_mapping(camera, "framing", "IAS.camera")
+    if camera.get("orientation") not in {"forward_facing", "camera_facing", "gameplay_facing"}:
+        raise CompilerError("IAS.camera.orientation is not an approved front/gameplay-facing value.")
+    if framing.get("full_asset_visible") is not True:
+        raise CompilerError("IAS.camera.framing.full_asset_visible must be true.")
+    if framing.get("clipping_allowed") is not False:
+        raise CompilerError("IAS.camera.framing.clipping_allowed must be false.")
+    checks.append("Camera orientation, full visibility, and no-clipping rules are valid.")
+
+    palette = require_mapping(ias, "palette", "IAS")
+    if palette.get("raw_color_values_present") is not False:
+        raise CompilerError("IAS.palette.raw_color_values_present must be false.")
+    if not as_list(palette.get("assignments")):
+        raise CompilerError("IAS.palette.assignments must contain at least one approved palette assignment.")
+    checks.append("Palette uses approved references rather than raw colors.")
+
+    restrictions = require_mapping(ias, "restrictions", "IAS")
+    if restrictions.get("redesign_allowed") is not False:
+        raise CompilerError("IAS.restrictions.redesign_allowed must be false.")
+    if restrictions.get("change_requires_approval") is not True:
+        raise CompilerError("IAS.restrictions.change_requires_approval must be true.")
+    checks.append("Redesign is forbidden and changes require approval.")
+
+    visual = require_mapping(ias, "visual_contract", "IAS")
+    outline = require_mapping(visual, "outline", "IAS.visual_contract")
+    if outline.get("uniform") is not True:
+        raise CompilerError("IAS.visual_contract.outline.uniform must be true.")
+    if not isinstance(outline.get("width_px"), (int, float)) or outline.get("width_px") <= 0:
+        raise CompilerError("IAS.visual_contract.outline.width_px must be positive.")
+    checks.append("Outline contract is explicit and valid.")
+
+    return ValidationResult(tuple(checks), tuple(warnings), production_requested and not allow_draft)
 
 
 def compile_prompt(build: dict[str, Any], ias: dict[str, Any]) -> str:
@@ -407,19 +567,27 @@ def write_manifest(
     dependencies: list[LoadedYaml],
     prompt_path: Path,
     allow_draft: bool,
+    validation: ValidationResult,
 ) -> None:
     all_sources = [build_yaml, ias_yaml, *dependencies]
     manifest = {
         "metadata": {
             "type": "generation_manifest",
             "compiler": "GAPS build_prompt.py",
-            "compiler_version": "0.1.1",
+            "compiler_version": "0.2.0",
             "generated_at_utc": datetime.now(timezone.utc).isoformat(),
             "draft_override_used": allow_draft,
+            "validation_passed": True,
+            "validation_check_count": len(validation.checks),
+            "production_authorized": validation.production_authorized,
         },
         "output": {
             "prompt_file": prompt_path.relative_to(repo_root).as_posix(),
             "prompt_sha256": hashlib.sha256(prompt_path.read_bytes()).hexdigest(),
+        },
+        "validation": {
+            "checks": list(validation.checks),
+            "warnings": list(validation.warnings),
         },
         "sources": [
             {
@@ -443,6 +611,7 @@ def write_build_report(
     prompt_path: Path,
     manifest_path: Path,
     allow_draft: bool,
+    validation: ValidationResult,
 ) -> None:
     """Write a human-readable, permanent record of one compiler execution."""
     build_meta = require_mapping(build_yaml.data, "metadata", "Build")
@@ -452,7 +621,7 @@ def write_build_report(
 
     status = str(ias_doc.get("status", "MISSING")).upper()
     authorization = "TEST BUILD — NOT PRODUCTION AUTHORIZED" if allow_draft else "PRODUCTION-AUTHORIZED COMPILATION"
-    warnings: list[str] = []
+    warnings: list[str] = list(validation.warnings)
     if allow_draft:
         warnings.append("The --allow-draft override was used. Generated outputs are for compiler testing only.")
     if status != "APPROVED":
@@ -480,7 +649,7 @@ def write_build_report(
         "",
         f"**Build ID:** `{build_meta.get('build_id', 'UNKNOWN')}`  ",
         f"**Asset:** `{identity.get('asset_id', 'UNKNOWN')}` — {identity.get('asset_name', 'Unnamed asset')}  ",
-        f"**Compiler version:** `0.1.1`  ",
+        f"**Compiler version:** `0.2.0`  ",
         f"**Generated at (UTC):** `{generated_at}`  ",
         f"**Authorization:** **{authorization}**",
         "",
@@ -495,6 +664,12 @@ def write_build_report(
         f"- IAS status: `{status}`",
         f"- Draft override used: `{allow_draft}`",
         f"- Dependency files loaded: `{len(dependencies)}`",
+        "",
+        "## Preflight Validation",
+        "",
+        f"- Checks passed: `{len(validation.checks)}`",
+        f"- Production authorized: `{validation.production_authorized}`",
+        *[f"- PASS — {check}" for check in validation.checks],
         "",
         "## Warnings",
         "",
@@ -520,11 +695,21 @@ def main() -> int:
     build_path = args.build_request.resolve()
     repo_root = args.repo_root.resolve() if args.repo_root else find_repo_root(build_path)
     build_yaml = load_yaml(build_path)
-    _, asset_cfg, output_cfg = validate_build(build_yaml.data)
+    _, asset_cfg, output_cfg, build_checks = validate_build(build_yaml.data, args.allow_draft)
 
     ias_path = resolve_repo_path(repo_root, require_text(asset_cfg, "ias_file", "Build.asset"))
     ias_yaml = load_yaml(ias_path)
-    validate_ias(ias_yaml.data, args.allow_draft)
+    execution_cfg = require_mapping(build_yaml.data, "execution", "Build")
+    validation = validate_ias(
+        ias_yaml.data,
+        args.allow_draft,
+        execution_cfg.get("production_authorized") is True,
+    )
+    validation = ValidationResult(
+        tuple(build_checks) + validation.checks,
+        validation.warnings,
+        validation.production_authorized,
+    )
     dependencies = collect_referenced_yaml(repo_root, ias_yaml.data)
 
     prompt_path = resolve_output_path(repo_root, build_path.parent, output_cfg["prompt_file"])
@@ -541,6 +726,7 @@ def main() -> int:
         dependencies,
         prompt_path,
         args.allow_draft,
+        validation,
     )
     write_build_report(
         report_path,
@@ -551,8 +737,10 @@ def main() -> int:
         prompt_path,
         manifest_path,
         args.allow_draft,
+        validation,
     )
 
+    print(f"Validation passed: {len(validation.checks)} checks")
     print(f"Compiled prompt: {prompt_path}")
     print(f"Wrote manifest: {manifest_path}")
     print(f"Wrote build report: {report_path}")
