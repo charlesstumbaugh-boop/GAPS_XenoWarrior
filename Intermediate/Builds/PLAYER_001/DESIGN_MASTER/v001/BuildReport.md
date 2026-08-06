@@ -2,8 +2,8 @@
 
 **Build ID:** `PLAYER_001_DESIGN_MASTER_v001`  
 **Asset:** `PLAYER_001` — Xeno Warrior Player  
-**Compiler version:** `0.3.0`  
-**Generated at (UTC):** `2026-08-06T02:49:07.635424+00:00`  
+**Compiler version:** `0.4.0`  
+**Generated at (UTC):** `2026-08-06T03:05:59.137824+00:00`  
 **Authorization:** **TEST BUILD — NOT PRODUCTION AUTHORIZED**
 
 ## Outputs
@@ -20,7 +20,7 @@
 
 ## Preflight Validation
 
-- Checks passed: `13`
+- Checks passed: `14`
 - Production authorized: `False`
 - PASS — No handwritten prompt fields are present.
 - PASS — Output file names and extensions are valid and distinct.
@@ -35,14 +35,22 @@
 - PASS — Palette uses approved references rather than raw colors.
 - PASS — Redesign is forbidden and changes require approval.
 - PASS — Outline contract is explicit and valid.
+- PASS — Reference image inventory evaluated: 1 declared.
 
 ## Warnings
 
 - IAS document status is DRAFT, not APPROVED.
 - Generation blockers remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit, materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001, component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001
+- Build.reference_policy is missing. Declare identity_reference_ids and style_only_reference_ids before production use.
+- Reference REF_PLAYER_POSTER_001 could not be resolved: Referenced repository file does not exist: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png
 - The --allow-draft override was used. Generated outputs are for compiler testing only.
 - IAS status is DRAFT, not APPROVED.
 - Generation-blocking IAS requirements remain: materials.provisional_assignments.visor, materials.provisional_assignments.under_suit, materials.provisional_assignments.gloves_and_boot_flex_sections, equipment.equipped_assets.WEAPON_PLAYER_RIFLE_001, component_design.helmet, animation.frame_requirements, reference_images.REF_PLAYER_FRONT_MASTER_001
+
+## Visual Reference Enforcement
+
+- Declared references: `1`
+- `REF_PLAYER_POSTER_001` — `unclassified` — **UNRESOLVED**
 
 ## Reproducibility Sources
 

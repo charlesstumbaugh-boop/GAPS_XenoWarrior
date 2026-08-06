@@ -26,6 +26,35 @@ Compile the repository-authorized generation instructions for the canonical full
 ## Provider-Neutral Asset Definition
 A forward-facing armored human player character for a retro military science-fiction VR rail shooter. The character has broad rounded shoulder armor, a compact segmented torso, reinforced limbs, a fully enclosed rounded military helmet, a narrow horizontal Plasma Blue luminous visor, and a compact two-handed futuristic assault rifle held visibly across the lower chest. Artwork uses only the approved Military Retro Sci-Fi palette, two-tone cel shading, hard shadow edges, and uniform four-pixel Shadow Black outlines. The complete body and weapon remain visible on a transparent background with a fixed bottom-center pivot.
 
+## Reference Image Contract
+- REF_PLAYER_POSTER_001: Reference/Concept/vr_rail_shooter_unified_art_bible_poster.png — relationship=unclassified; authority=concept; purpose=Establish the intended overall player appearance and project-wide visual language.
+
+### Reference Relationship Rules
+- Identity references: none declared
+- Style-only references: none declared
+- Unclassified references: REF_PLAYER_POSTER_001
+- Identity references define this asset's own approved geometry and component design.
+- Style-only references may transfer rendering language, line treatment, palette discipline, lighting, and finish only.
+- Never copy helmet geometry, armor layout, silhouette, weapon design, proportions, markings, or component arrangement from a style-only reference.
+- A new asset must remain immediately distinguishable from every style-only reference.
+
+## Asset Identity Lock
+- Immutable features: humanoid body class, broad shoulder silhouette, compact torso proportions, fully enclosed helmet, horizontal Plasma Blue visor, Primary Steel dominant armor, Gunmetal secondary surfaces, two-handed rifle, forward-facing orientation, two-tone cel shading, four-pixel uniform outline, bottom-center pivot, upper-left lighting direction
+- Named component groups: helmet, torso_armor, shoulder_armor, arm_armor, hip_armor, leg_armor, under_suit
+- narrow shoulders
+- oversized head
+- exposed human face
+- long thin limbs
+- unarmored torso
+- hidden weapon
+- one-handed pistol stance
+- extreme bodybuilder proportions
+- anime body proportions
+- crouched default posture
+- three-quarter default presentation
+- Do not reduce this asset to a recolor, reskin, mirrored version, or equipment swap of another character.
+- Preserve the asset-specific silhouette, helmet language, torso construction, limb proportions, weapon silhouette, and gameplay read defined by its IAS.
+
 ## Rendering Contract
 - Style: Military Retro Sci-Fi
 - Realism level: low
