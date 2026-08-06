@@ -1,0 +1,70 @@
+###############################################################################
+# AssetFingerprint.yaml
+# Canonical identity schema for all production assets
+###############################################################################
+
+schema:
+  version: 1.0.0
+  type: AssetFingerprint
+
+identity:
+
+  silhouette:
+    family:
+    shoulder_profile:
+    torso_profile:
+    waist_profile:
+    leg_profile:
+    foot_profile:
+
+  proportions:
+    heroic_scale:
+    shoulder_ratio:
+    head_ratio:
+    arm_length:
+    leg_length:
+
+  helmet:
+    family:
+    visor_shape:
+    crown_profile:
+    jaw_profile:
+
+  armor:
+    chest_layout:
+    shoulder_layout:
+    forearm_layout:
+    thigh_layout:
+    shin_layout:
+
+  weapon:
+    family:
+    barrel_profile:
+    stock_profile:
+    magazine_profile:
+    grip_profile:
+
+  stance:
+    idle_pose:
+    combat_pose:
+    center_of_mass:
+
+visual_language:
+
+  outline:
+    width:
+    style:
+
+  rendering:
+    shading:
+    material_finish:
+
+  palette:
+    primary:
+    accent:
+
+comparison:
+
+  similarity_threshold:
+    warning: 0.80
+    reject: 0.90
