@@ -2,21 +2,20 @@
 # GAPS_XenoWarrior
 # Build.yaml
 #
-# Phase 1 Build Request
+# PLAYER_001 Design Master Build Request
 #
-# This file tells Compiler/build_prompt.py which IAS to compile and where to
-# write the generated Prompt.md and GenerationManifest.yaml.
-#
-# Do not place handwritten prompt text in this file.
+# This file tells Compiler/build_prompt.py which approved repository data and
+# reference roles must be compiled. Do not place handwritten prompt text here.
 ###############################################################################
 
 metadata:
   build_id: PLAYER_001_DESIGN_MASTER_v001
   build_type: design_master
-  version: "0.1.0"
+  version: "0.2.0"
   status: DRAFT
   requested_by: Project Owner
   created: "2026-08-05"
+  last_modified: "2026-08-05"
 
 asset:
   asset_id: PLAYER_001
@@ -24,8 +23,24 @@ asset:
 
 objective: >
   Compile the repository-authorized generation instructions for the canonical
-  full-body PLAYER_001 design master. The output must be a clean production
+  full-body PLAYER_001 design master. The output must be one clean production
   image suitable for review and later promotion to Gold Master status.
+
+reference_policy:
+  identity_reference_ids:
+    - REF_PLAYER_POSTER_001
+
+  style_only_reference_ids: []
+
+  copy_style_not_design: true
+  asset_identity_must_remain_distinct: true
+
+  rules:
+    - Identity references define PLAYER_001 geometry, silhouette, armor language,
+      helmet, visor, weapon relationship, and proportions.
+    - No undeclared image may influence asset identity.
+    - Style-only references may never override identity references.
+    - Missing reference files block production authorization.
 
 output:
   prompt_file: Prompt.md
@@ -38,6 +53,7 @@ execution:
   repository_is_source_of_truth: true
 
 notes:
-  - This request is for compiler testing until PLAYER_001.yaml is fully approved.
+  - This request remains a compiler test until PLAYER_001.yaml is approved.
   - Run with --allow-draft during Phase 1 testing.
   - The generated Prompt.md must not be edited by hand.
+  - The declared identity reference must exist before a production build.
