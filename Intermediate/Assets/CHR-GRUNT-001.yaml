@@ -1,0 +1,386 @@
+###############################################################################
+# GAPS_XenoWarrior
+# CHR-GRUNT-001.yaml
+#
+# Intermediate Asset Specification (IAS)
+# Friendly secondary character / protected NPC
+###############################################################################
+
+metadata:
+  document:
+    id: IAS_CHR_GRUNT_001
+    name: CHR-GRUNT-001 Intermediate Asset Specification
+    type: intermediate_asset_specification
+    version: "1.0.0"
+    status: DRAFT
+
+  project:
+    id: GAPS_XENOWARRIOR
+    repository: GAPS_XenoWarrior
+
+  ownership:
+    owner: Project Owner
+    approval_authority: Project Owner
+    maintained_by: GAPS
+
+asset:
+  asset_id: CHR-GRUNT-001
+  legacy_id: null
+  display_name: Grunt Soldier
+  category: character
+  subcategory: friendly_npc
+  faction: human_military
+  gameplay_role: friendly_npc
+  allegiance: friendly
+
+  description: >
+    A secondary human military character who appears in the play space as a
+    protected friendly NPC. The character may be accidentally hit by the player,
+    causing a score and life penalty. This asset is not an enemy.
+
+inheritance:
+  core:
+    - Core/Rendering.yaml
+    - Core/Palette.yaml
+    - Core/Camera.yaml
+    - Core/Lighting.yaml
+    - Core/Export.yaml
+    - Core/Validation.yaml
+    - Core/Naming.yaml
+    - Core/PromptRules.yaml
+    - Core/Gameplay.yaml
+
+  specifications:
+    - Specifications/Humanoid.yaml
+
+  materials:
+    - Specifications/Materials/MilitaryPolymer.yaml
+    - Specifications/Materials/Rubber.yaml
+    - Specifications/Materials/VisorGlass.yaml
+    - Specifications/Materials/CarbonFiber.yaml
+
+reference_policy:
+  identity_references: []
+
+  style_only_references:
+    - reference_id: REF_CHR_PLAYER_001_GOLD_MASTER
+      path: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+      role: style_only
+      approved: true
+
+  rules:
+    copy_style_not_design: true
+    preserve_distinct_asset_identity: true
+    player_reference_may_define:
+      - rendering_style
+      - palette_discipline
+      - outline_treatment
+      - lighting_language
+      - material_finish
+      - camera_orientation
+
+    player_reference_may_not_define:
+      - helmet_geometry
+      - armor_layout
+      - silhouette
+      - weapon_identity
+      - body_proportions
+      - accessory_layout
+      - exact_color_placement
+
+identity_lock:
+  asset_identity: CHR-GRUNT-001
+  must_not_resemble:
+    - recolored_CHR-PLAYER-001
+    - reskinned_CHR-PLAYER-001
+    - mirrored_CHR-PLAYER-001
+    - equipment_swapped_CHR-PLAYER-001
+
+  required_distinctions:
+    silhouette:
+      shoulder_width: narrower_than_player
+      torso_profile: less_heroic
+      limb_bulk: lighter_than_player
+      stance: guarded_nonheroic
+      readability: distinct_at_gameplay_distance
+
+    helmet:
+      complexity: simplified
+      visor_shape: distinct_from_player
+      visor_color: Plasma Blue
+      exposed_face: false
+      antennae: false
+
+    armor:
+      grade: standard_issue
+      wear_level: moderate
+      torso_layout: distinct_from_player
+      shoulder_plates: compact
+      under_suit_exposure: increased
+      decorative_trim: minimal
+
+    weapon:
+      type: compact_assault_rifle
+      size: smaller_than_player_rifle
+      silhouette: distinct_from_player_weapon
+      carried_ready: true
+      finger_off_trigger: true
+
+visual_contract:
+  perspective:
+    orientation: forward_facing
+    camera_role: rail_shooter_player_facing
+    head_direction: toward_player
+    torso_direction: toward_player
+
+  canvas:
+    width: 1024
+    height: 1024
+    units: pixels
+    full_body_required: true
+    entire_body_visible: true
+    clipping_allowed: false
+    transparent_background: true
+    rendered_checkerboard_allowed: false
+
+  rendering:
+    style: 2D_arcade_cel_shaded
+    shading_model: two_tone
+    outline:
+      color: Shadow Black
+      width_pixels: 4
+      uniform: true
+
+  palette:
+    allowed_colors:
+      - Primary Steel
+      - Gunmetal
+      - Hazard Yellow
+      - Bio-Green
+      - Plasma Blue
+      - Warning Red
+      - Shadow Black
+
+    dominant:
+      - Primary Steel
+      - Gunmetal
+
+    accents:
+      - Hazard Yellow
+      - Plasma Blue
+
+    prohibited:
+      - unapproved_neon_colors
+      - random_color_variants
+      - photorealistic_material_colors
+
+  lighting:
+    source: Core/Lighting.yaml
+    consistent_with_player_gold_master: true
+    dramatic_backlight: false
+    environmental_color_cast: false
+
+proportions:
+  body_type: adult_humanoid
+  heroic_scale: reduced
+  head_to_body_ratio: animation_ready
+  shoulders: compact
+  torso: standard
+  arms: functional
+  legs: stable
+  hands:
+    visible: true
+    correctly_gripping_weapon: true
+  feet:
+    fully_visible: true
+    baseline_locked: true
+
+pose:
+  pose_id: FRIENDLY_GRUNT_READY_FRONT
+  stance:
+    type: guarded_ready
+    balance: centered
+    aggression: low
+    feet: shoulder_width
+    knees: slightly_bent
+
+  weapon_position:
+    across_torso: true
+    muzzle_direction: down_and_safe
+    obstructs_face: false
+    obstructs_silhouette: false
+
+gameplay:
+  asset_id: CHR-GRUNT-001
+  asset_class: character
+  gameplay_role: friendly_npc
+  allegiance: friendly
+
+  targeting:
+    targetable: true
+    lock_on_allowed: false
+    aim_assist_allowed: false
+    valid_player_target: false
+    protected_target: true
+    accidental_hit_allowed: true
+
+  damage:
+    can_receive_damage: true
+    can_damage_player: false
+    friendly_fire_enabled: true
+    hit_points: 1
+    damage_immunity:
+      - none
+    death_on_zero_health: true
+
+  scoring:
+    points_on_hit: 0
+    points_on_destroy: 0
+    points_on_rescue: 0
+    points_on_miss: 0
+    combo_effect: reset
+
+  penalties:
+    penalty_on_hit: true
+    score_modifier: -500
+    life_modifier: -1
+    health_modifier: 0
+    mission_failure_on_destroy: false
+    combo_reset_on_hit: true
+
+  behavior:
+    movement_profile: scripted_path
+    aggression: none
+    awareness: scripted
+    despawn_policy: offscreen
+
+animation_contract:
+  source_design_master_required: true
+  frame_source_policy: derive_from_approved_gold_master
+  ai_independent_frame_redesign_allowed: false
+
+  required_states:
+    idle:
+      frames: 6
+      loop: true
+    react:
+      frames: 4
+      loop: false
+    hit:
+      frames: 3
+      loop: false
+    death:
+      frames: 8
+      loop: false
+
+  optional_states:
+    - wave
+    - duck
+    - flee
+    - signal
+
+export:
+  file_format: PNG
+  color_mode: RGBA
+  bit_depth: 8
+  transparent_background: true
+  trim_transparency: false
+  canvas_locked: true
+  width: 1024
+  height: 1024
+  naming_pattern: "<ASSET_ID>_DESIGN_MASTER_<VERSION>.png"
+
+unity:
+  texture_type: Sprite
+  sprite_mode: Single
+  pixels_per_unit: 100
+  mesh_type: Full Rect
+  pivot: Bottom Center
+  filter_mode: Point
+  compression: None
+  mip_maps: false
+
+  gameplay_tag: FriendlyNPC
+  gameplay_layer: Friendly
+
+validation:
+  acceptance_criteria:
+    forward_facing: required
+    correct_silhouette: required
+    correct_palette: required
+    correct_cel_shading: required
+    correct_rifle_size: required
+    correct_helmet: required
+    transparent_background: required
+    entire_body_visible: required
+    animation_ready_proportions: required
+    visually_distinct_from_player: required
+    friendly_role_readability: required
+
+  automatic_rejection:
+    - presentation_sheet
+    - infographic
+    - labels
+    - footer
+    - baked_checkerboard
+    - opaque_background
+    - cropped_body
+    - missing_feet
+    - player_clone
+    - player_recolor
+    - incorrect_weapon_scale
+    - photorealistic_rendering
+    - three_dimensional_rendering
+    - wrong_camera_orientation
+    - hostile_alien_features
+    - unapproved_palette
+
+unresolved_requirements:
+  blocking_generation: []
+
+  blocking_production:
+    - final_gold_master_not_yet_created
+    - visual_review_not_yet_completed
+    - unity_import_not_yet_validated
+    - animation_source_not_yet_created
+
+approval:
+  status: DRAFT
+  approved_by: null
+  approval_date: null
+  approval_reference: null
+  generation_authorized: false
+  production_authorized: false
+  locked: false
+
+  current_gate_results:
+    schema_complete: true
+    inheritance_resolved: false
+    materials_resolved: false
+    palette_resolved: true
+    construction_resolved: true
+    gameplay_resolved: true
+    weapon_resolved: true
+    reference_master_available: true
+    animation_frame_plans_available: true
+    generation_ready: false
+    production_ready: false
+
+gold_master:
+  asset_id: CHR-GRUNT-001
+  image: null
+  folder: Reference/GoldMasters/CHR-GRUNT-001/Design/
+  version: null
+  approval_status: NOT_CREATED
+  approval_date: null
+  immutable: true
+
+history:
+  current_version: "1.0.0"
+  entries:
+    - version: "1.0.0"
+      change_type: created
+      summary: >
+        Created CHR-GRUNT-001 as a friendly secondary character and protected
+        NPC, explicitly separated from hostile enemy classifications.
+      approved_by: Project Owner
