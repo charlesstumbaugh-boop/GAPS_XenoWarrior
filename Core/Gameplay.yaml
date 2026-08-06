@@ -1,0 +1,420 @@
+###############################################################################
+# GAPS_XenoWarrior
+# Gameplay.yaml
+#
+# Canonical gameplay-role contract for characters, enemies, bosses, props,
+# pickups, hazards, and other interactive assets.
+###############################################################################
+
+metadata:
+  document:
+    id: CORE_GAMEPLAY
+    name: GAPS Gameplay Role Contract
+    type: core_contract
+    version: "1.0.0"
+    status: APPROVED
+
+  project:
+    id: GAPS_XENOWARRIOR
+    repository: GAPS_XenoWarrior
+
+  ownership:
+    owner: Project Owner
+    maintained_by: GAPS
+    approval_authority: Project Owner
+
+purpose:
+  summary: >
+    Separate visual asset identity from gameplay behavior so a character may be
+    visually classified as a humanoid while independently carrying a friendly,
+    neutral, hostile, civilian, objective, or protected gameplay role.
+
+design_principles:
+  visual_category_is_not_gameplay_role: true
+  gameplay_role_must_be_explicit: true
+  allegiance_must_be_explicit: true
+  scoring_effects_must_be_explicit: true
+  health_and_damage_rules_must_be_explicit: true
+  no_behavior_may_be_inferred_from_asset_name_alone: true
+
+asset_classes:
+  allowed:
+    - character
+    - enemy
+    - boss
+    - weapon
+    - projectile
+    - pickup
+    - prop
+    - hazard
+    - environment
+    - user_interface
+
+gameplay_roles:
+  allowed:
+    - player
+    - friendly_npc
+    - protected_npc
+    - civilian
+    - neutral_npc
+    - hostile_standard
+    - hostile_elite
+    - boss
+    - objective
+    - escort
+    - rescue_target
+    - decoy
+    - hazard
+    - pickup
+    - destructible_prop
+    - non_interactive
+
+allegiances:
+  allowed:
+    - player
+    - friendly
+    - neutral
+    - hostile
+    - environmental
+    - none
+
+targeting:
+  fields:
+    targetable:
+      type: boolean
+      required: true
+
+    lock_on_allowed:
+      type: boolean
+      required: true
+
+    aim_assist_allowed:
+      type: boolean
+      required: true
+
+    valid_player_target:
+      type: boolean
+      required: true
+
+    protected_target:
+      type: boolean
+      required: true
+
+    accidental_hit_allowed:
+      type: boolean
+      required: true
+
+damage:
+  fields:
+    can_receive_damage:
+      type: boolean
+      required: true
+
+    can_damage_player:
+      type: boolean
+      required: true
+
+    friendly_fire_enabled:
+      type: boolean
+      required: true
+
+    hit_points:
+      type: integer
+      minimum: 0
+      required: true
+
+    damage_immunity:
+      type: list
+      allowed_values:
+        - none
+        - ballistic
+        - plasma
+        - explosive
+        - environmental
+        - poison
+        - melee
+
+    death_on_zero_health:
+      type: boolean
+      required: true
+
+scoring:
+  fields:
+    points_on_hit:
+      type: integer
+      required: true
+
+    points_on_destroy:
+      type: integer
+      required: true
+
+    points_on_rescue:
+      type: integer
+      required: true
+
+    points_on_miss:
+      type: integer
+      required: true
+
+    combo_effect:
+      type: string
+      allowed_values:
+        - none
+        - increase
+        - reset
+        - decrease
+
+penalties:
+  fields:
+    penalty_on_hit:
+      type: boolean
+      required: true
+
+    score_modifier:
+      type: integer
+      required: true
+
+    life_modifier:
+      type: integer
+      required: true
+
+    health_modifier:
+      type: integer
+      required: true
+
+    mission_failure_on_destroy:
+      type: boolean
+      required: true
+
+    combo_reset_on_hit:
+      type: boolean
+      required: true
+
+behavior:
+  fields:
+    movement_profile:
+      type: string
+      allowed_values:
+        - stationary
+        - patrol
+        - scripted_path
+        - flee
+        - follow
+        - escort
+        - attack
+        - hover
+        - charge
+        - random
+
+    aggression:
+      type: string
+      allowed_values:
+        - none
+        - defensive
+        - reactive
+        - aggressive
+
+    awareness:
+      type: string
+      allowed_values:
+        - none
+        - scripted
+        - proximity
+        - line_of_sight
+        - full_combat
+
+    despawn_policy:
+      type: string
+      allowed_values:
+        - never
+        - offscreen
+        - timed
+        - objective_complete
+        - death
+
+animation_contract:
+  required_states_by_role:
+    player:
+      - idle
+      - fire
+      - reload
+      - hit
+      - death
+
+    friendly_npc:
+      - idle
+      - react
+      - hit
+      - death
+
+    protected_npc:
+      - idle
+      - react
+      - hit
+      - death
+
+    hostile_standard:
+      - idle
+      - attack
+      - hit
+      - death
+
+    boss:
+      - idle
+      - attack
+      - phase_transition
+      - hit
+      - death
+
+unity_mapping:
+  component_contract:
+    required_components:
+      - gameplay_identity
+      - health
+      - targetability
+      - score_effect
+      - animation_controller
+
+  tags:
+    player: Player
+    friendly_npc: FriendlyNPC
+    protected_npc: ProtectedNPC
+    hostile_standard: Enemy
+    hostile_elite: Enemy
+    boss: Boss
+    pickup: Pickup
+    hazard: Hazard
+
+  layers:
+    player: Player
+    friendly: Friendly
+    hostile: Enemy
+    projectile: Projectile
+    environment: Environment
+    pickup: Pickup
+
+validation:
+  required_top_level_fields:
+    - asset_id
+    - asset_class
+    - gameplay_role
+    - allegiance
+    - targeting
+    - damage
+    - scoring
+    - penalties
+    - behavior
+
+  blocking_errors:
+    - missing_gameplay_role
+    - missing_allegiance
+    - protected_target_marked_valid_player_target
+    - friendly_asset_can_damage_player_without_explicit_override
+    - hostile_asset_has_positive_friendly_penalty
+    - hit_points_below_zero
+    - missing_required_animation_states
+    - gameplay_role_inferred_from_filename_only
+
+defaults:
+  friendly_npc:
+    asset_class: character
+    gameplay_role: friendly_npc
+    allegiance: friendly
+
+    targeting:
+      targetable: true
+      lock_on_allowed: false
+      aim_assist_allowed: false
+      valid_player_target: false
+      protected_target: true
+      accidental_hit_allowed: true
+
+    damage:
+      can_receive_damage: true
+      can_damage_player: false
+      friendly_fire_enabled: true
+      hit_points: 1
+      damage_immunity:
+        - none
+      death_on_zero_health: true
+
+    scoring:
+      points_on_hit: 0
+      points_on_destroy: 0
+      points_on_rescue: 0
+      points_on_miss: 0
+      combo_effect: reset
+
+    penalties:
+      penalty_on_hit: true
+      score_modifier: -500
+      life_modifier: -1
+      health_modifier: 0
+      mission_failure_on_destroy: false
+      combo_reset_on_hit: true
+
+    behavior:
+      movement_profile: scripted_path
+      aggression: none
+      awareness: scripted
+      despawn_policy: offscreen
+
+example_profiles:
+  chr_grunt_001:
+    asset_id: CHR-GRUNT-001
+    asset_class: character
+    gameplay_role: friendly_npc
+    allegiance: friendly
+
+    targeting:
+      targetable: true
+      lock_on_allowed: false
+      aim_assist_allowed: false
+      valid_player_target: false
+      protected_target: true
+      accidental_hit_allowed: true
+
+    damage:
+      can_receive_damage: true
+      can_damage_player: false
+      friendly_fire_enabled: true
+      hit_points: 1
+      damage_immunity:
+        - none
+      death_on_zero_health: true
+
+    scoring:
+      points_on_hit: 0
+      points_on_destroy: 0
+      points_on_rescue: 0
+      points_on_miss: 0
+      combo_effect: reset
+
+    penalties:
+      penalty_on_hit: true
+      score_modifier: -500
+      life_modifier: -1
+      health_modifier: 0
+      mission_failure_on_destroy: false
+      combo_reset_on_hit: true
+
+    behavior:
+      movement_profile: scripted_path
+      aggression: none
+      awareness: scripted
+      despawn_policy: offscreen
+
+approval:
+  status: APPROVED
+  approved_by: Project Owner
+  locked: true
+
+history:
+  current_version: "1.0.0"
+  entries:
+    - version: "1.0.0"
+      change_type: created
+      summary: >
+        Added gameplay-role classification and established CHR-GRUNT-001 as a
+        friendly secondary character with penalties for accidental hits.
+      approved_by: Project Owner
