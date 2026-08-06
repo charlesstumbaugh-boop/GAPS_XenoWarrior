@@ -20,6 +20,7 @@ from typing import Any, Iterable
 
 from Generators import (
     build_report_generator,
+    checklist_generator,
     manifest_generator,
     prompt_generator,
     reference_generator,
@@ -594,6 +595,7 @@ def main() -> int:
     manifest_path = resolve_output_path(repo_root, build_path.parent, output_cfg["manifest_file"])
     report_path = resolve_output_path(repo_root, build_path.parent, output_cfg["report_file"])
     reference_list_path = resolve_output_path(repo_root, build_path.parent, "ReferenceList.md")
+    review_checklist_path = resolve_output_path(repo_root, build_path.parent, "ReviewChecklist.md")
 
     prompt_path.parent.mkdir(parents=True, exist_ok=True)
     prompt_context = {
@@ -720,11 +722,37 @@ def main() -> int:
     reference_list_path.parent.mkdir(parents=True, exist_ok=True)
     reference_list_path.write_text(reference_text, encoding="utf-8")
 
+    checklist_context = {
+        "build": build_yaml.data,
+        "ias": ias_yaml.data,
+        "validation": {
+            "checks": list(validation.checks),
+            "warnings": list(validation.warnings),
+            "production_authorized": validation.production_authorized,
+            "draft_override_used": args.allow_draft,
+        },
+        "references": [
+            {
+                "reference_id": reference.reference_id,
+                "relationship": reference.relationship,
+                "resolved": reference.resolved_path is not None,
+            }
+            for reference in references
+        ],
+    }
+    try:
+        checklist_text = checklist_generator.generate(checklist_context)
+    except checklist_generator.ChecklistGeneratorError as exc:
+        raise CompilerError(f"Review checklist generation failed: {exc}") from exc
+    review_checklist_path.parent.mkdir(parents=True, exist_ok=True)
+    review_checklist_path.write_text(checklist_text, encoding="utf-8")
+
     print(f"Validation passed: {len(validation.checks)} checks")
     print(f"Compiled prompt: {prompt_path}")
     print(f"Wrote manifest: {manifest_path}")
     print(f"Wrote build report: {report_path}")
     print(f"Wrote reference list: {reference_list_path}")
+    print(f"Wrote review checklist: {review_checklist_path}")
     print(f"Reference images evaluated: {len(references)}")
     if args.allow_draft:
         print("WARNING: --allow-draft was used; output is not production-authorized.")
