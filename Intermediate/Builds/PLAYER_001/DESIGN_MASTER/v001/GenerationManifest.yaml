@@ -1,0 +1,32 @@
+metadata:
+  type: generation_manifest
+  compiler: GAPS build_prompt.py
+  compiler_version: 0.1.1
+  generated_at_utc: '2026-08-06T01:30:52.795561+00:00'
+  draft_override_used: true
+output:
+  prompt_file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Prompt.md
+  prompt_sha256: d820f4fb03bcde25ba37da883d730d7e21d0f6146fe2031b98d7052d5097b2ad
+sources:
+- file: Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml
+  sha256: d6da5f111837ce0b1db653d365c68a6cc6c3af81e6afec19405cbf847696b0fb
+- file: Intermediate/Assets/PLAYER_001.yaml
+  sha256: cae28257616c456bc9097c2bd43a7845a1baeb4e2f891bd4ef7ca02e64e51739
+- file: Core/Rendering.yaml
+  sha256: 38264a309c87c4f04b6a7e0d17ce5e5564fa684a823a17ab3aa343dd00f01891
+- file: Core/Palette.yaml
+  sha256: f9b8a731e3830cb8fe6272bcd52be3db21278ef4025bc7519c489ce53a08cbc0
+- file: Core/Camera.yaml
+  sha256: 83b6f4b9da2a683e7dd26582a59af7face9daae56b4be47b5383f0c24437339a
+- file: Core/Lighting.yaml
+  sha256: 140f7f29ab8aee67b8bc5b2626ca1b4f4926200e74e029433484eb82352a5d58
+- file: Core/Animation.yaml
+  sha256: 206b4b2b77fbf2bd8691c50041b771008bcd349fcadc0e3b51701faab7b132bb
+- file: Core/Export.yaml
+  sha256: 2aad0a7ee2a98ef8051c6f07f8da75409526f33b8b523305652434cf1007bf87
+- file: Core/Validation.yaml
+  sha256: 1ac2a7a408a5ebd2c88a75ce5ec54b843b71acdaff67b7f111d65855e94ce71c
+- file: Specifications/Construction/Humanoid.yaml
+  sha256: 875b17d81f81d8fa8038d5ad0da8793a6cb815c24dd18c4a6424aa908c38ce36
+- file: Specifications/Materials/PaintedSteel.yaml
+  sha256: eb91eafb75ca7b3101198ba8fe4f75bf97cdb2123ca79811f84a08c7bf522b5a
