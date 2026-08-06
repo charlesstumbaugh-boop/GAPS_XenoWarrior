@@ -1,6 +1,6 @@
 metadata:
   document_type: gold_master_review
-  tool_version: 0.4.0
+  tool_version: 0.5.0
 asset:
   asset_id: CHR-PLAYER-001
   version: v001
@@ -16,9 +16,9 @@ validation:
   format: PNG
   true_alpha_required: true
 approval:
-  status: STAGED_FOR_PROMOTION
+  status: APPROVED
   approved_by: Project Owner
-  approved_at_utc: '2026-08-06T16:39:53.410524+00:00'
-  gold_master: false
-  image_copied: false
+  approved_at_utc: '2026-08-06T16:59:46.572816+00:00'
+  gold_master: true
+  image_copied: true
   overwrite_allowed: false

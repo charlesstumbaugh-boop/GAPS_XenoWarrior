@@ -18,15 +18,12 @@
 - **Required canvas:** 1024 × 1024
 - **Required format:** PNG
 - **Required transparency:** true alpha transparency
-- **Promotion tool version:** 0.4.0
+- **Promotion tool version:** 0.5.0
 
 ## Approval
 
-- **Status:** STAGED_FOR_PROMOTION
+- **Status:** APPROVED
 - **Approved by:** Project Owner
-- **Approval date (UTC):** 2026-08-06T16:39:53.410524+00:00
-- **Gold Master copied:** No
+- **Approval date (UTC):** 2026-08-06T16:59:46.572816+00:00
+- **Gold Master copied:** Yes
 - **History overwrite allowed:** No
-
-This increment generated approval records only. The image was not copied,
-moved, renamed, or modified.
