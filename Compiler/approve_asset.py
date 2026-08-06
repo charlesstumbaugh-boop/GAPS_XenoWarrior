@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """
 GAPS Gold Master Promotion Tool
-Increment 4 — Approval Record Generation
-Version 0.4.0
+Increment 5 — Final Promotion
+Version 0.5.0
 
-Validates a PNG candidate, resolves its canonical Gold Master destination,
-blocks overwrite collisions, and writes staged Approval.md and Review.yaml
-records. It does not copy or move the image.
+Capabilities:
+- Validate a PNG candidate.
+- Resolve canonical Gold Master destination.
+- Prevent overwrite of existing Gold Masters or approval history.
+- Generate Approval.md and Review.yaml.
+- Copy the validated candidate to the Gold Master destination.
+- Verify the copied file hash matches the candidate.
+- Update approval records from STAGED_FOR_PROMOTION to APPROVED.
+
+The source candidate is preserved.
 """
 
 from __future__ import annotations
@@ -14,6 +21,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
+import shutil
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -21,7 +29,7 @@ from pathlib import Path
 
 import yaml
 
-TOOL_VERSION = "0.4.0"
+TOOL_VERSION = "0.5.0"
 PATTERN = re.compile(
     r"^(?P<asset>[A-Z0-9-]+)_DESIGN_MASTER(?:_candidate)?_"
     r"(?P<version>v[0-9]{3})(?:_INVALID)?\.png$",
@@ -31,12 +39,17 @@ PATTERN = re.compile(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Validate a candidate and generate staged approval records."
+        description="Validate and promote a candidate to Gold Master."
     )
     parser.add_argument("candidate", type=Path)
     parser.add_argument("--approved-by", default="Project Owner")
     parser.add_argument("--width", type=int, default=1024)
     parser.add_argument("--height", type=int, default=1024)
+    parser.add_argument(
+        "--confirm-promote",
+        action="store_true",
+        help="Required to perform the final image copy and approval.",
+    )
     return parser.parse_args()
 
 
@@ -107,6 +120,8 @@ def write_records(
     approved_at: datetime,
     width: int,
     height: int,
+    final_status: str,
+    image_copied: bool,
 ) -> None:
     records = target["records"]
     approval = target["approval"]
@@ -116,7 +131,7 @@ def write_records(
     assert isinstance(approval, Path)
     assert isinstance(review, Path)
 
-    records.mkdir(parents=True, exist_ok=False)
+    records.mkdir(parents=True, exist_ok=True)
     candidate_sha = file_hash(candidate)
 
     approval.write_text(
@@ -144,14 +159,11 @@ def write_records(
 
 ## Approval
 
-- **Status:** STAGED_FOR_PROMOTION
+- **Status:** {final_status}
 - **Approved by:** {approved_by}
 - **Approval date (UTC):** {approved_at.isoformat()}
-- **Gold Master copied:** No
+- **Gold Master copied:** {"Yes" if image_copied else "No"}
 - **History overwrite allowed:** No
-
-This increment generated approval records only. The image was not copied,
-moved, renamed, or modified.
 """,
         encoding="utf-8",
     )
@@ -176,11 +188,11 @@ moved, renamed, or modified.
             "true_alpha_required": True,
         },
         "approval": {
-            "status": "STAGED_FOR_PROMOTION",
+            "status": final_status,
             "approved_by": approved_by,
             "approved_at_utc": approved_at.isoformat(),
-            "gold_master": False,
-            "image_copied": False,
+            "gold_master": image_copied,
+            "image_copied": image_copied,
             "overwrite_allowed": False,
         },
     }
@@ -193,6 +205,7 @@ moved, renamed, or modified.
 def main() -> int:
     args = parse_args()
     candidate = args.candidate.expanduser().resolve()
+    approved_by = args.approved_by.strip() or "Project Owner"
 
     print(f"GAPS Gold Master Promotion Tool v{TOOL_VERSION}\n")
 
@@ -214,9 +227,7 @@ def main() -> int:
 
     try:
         root = repository_root()
-        validation_code = run_reference_validator(
-            root, candidate, args.width, args.height
-        )
+        validation_code = run_reference_validator(root, candidate, args.width, args.height)
     except RuntimeError as error:
         print(f"\nERROR\n-----\n{error}")
         return 2
@@ -234,7 +245,6 @@ def main() -> int:
         target = resolve_target(root, candidate)
     except ValueError as error:
         print(f"\nDESTINATION RESOLUTION FAILED\n{error}")
-        print("No files were changed.")
         return 2
 
     print("\nDestination Resolution")
@@ -245,42 +255,75 @@ def main() -> int:
     print(f"Approval target: {target['approval']}")
     print(f"Review target: {target['review']}")
 
-    collision_paths = [
-        target["image"], target["records"], target["approval"], target["review"]
-    ]
-    collisions = [path for path in collision_paths if isinstance(path, Path) and path.exists()]
-    if collisions:
+    image_target = target["image"]
+    records_target = target["records"]
+    assert isinstance(image_target, Path)
+    assert isinstance(records_target, Path)
+
+    if image_target.exists():
         print("\nPromotion Status")
         print("----------------")
         print("BLOCKED")
-        print("Existing production history would be overwritten:")
-        for path in collisions:
-            print(f"- {path}")
-        print("No files were changed.")
+        print("Reason: Gold Master already exists and will not be overwritten.")
         return 2
 
+    if not args.confirm_promote:
+        print("\nPromotion Status")
+        print("----------------")
+        print("READY FOR FINAL PROMOTION")
+        print("No files were changed.")
+        print("Rerun with --confirm-promote to copy and approve the Gold Master.")
+        return 1
+
+    approved_at = datetime.now(timezone.utc)
+
     try:
+        image_target.parent.mkdir(parents=True, exist_ok=True)
+        records_target.mkdir(parents=True, exist_ok=True)
+
         write_records(
             target=target,
             candidate=candidate,
-            approved_by=args.approved_by.strip() or "Project Owner",
-            approved_at=datetime.now(timezone.utc),
+            approved_by=approved_by,
+            approved_at=approved_at,
             width=args.width,
             height=args.height,
+            final_status="STAGED_FOR_PROMOTION",
+            image_copied=False,
         )
-    except OSError as error:
-        print(f"\nAPPROVAL RECORD GENERATION FAILED\n{error}")
-        print("No production image was changed.")
+
+        shutil.copy2(candidate, image_target)
+
+        source_hash = file_hash(candidate)
+        destination_hash = file_hash(image_target)
+        if source_hash != destination_hash:
+            image_target.unlink(missing_ok=True)
+            raise RuntimeError("Copied Gold Master hash does not match candidate hash.")
+
+        write_records(
+            target=target,
+            candidate=candidate,
+            approved_by=approved_by,
+            approved_at=approved_at,
+            width=args.width,
+            height=args.height,
+            final_status="APPROVED",
+            image_copied=True,
+        )
+    except Exception as error:
+        print("\nPROMOTION FAILED")
+        print(f"Reason: {error}")
+        print("Review the destination before retrying.")
         return 2
 
-    print("\nApproval Records")
+    print("\nPromotion Result")
     print("----------------")
-    print(f"Wrote: {target['approval']}")
-    print(f"Wrote: {target['review']}")
-    print("\nPromotion Status")
-    print("----------------")
-    print("STAGED FOR PROMOTION")
-    print("The candidate image was not copied, moved, renamed, or modified.")
+    print("APPROVED")
+    print(f"Gold Master: {image_target}")
+    print(f"SHA-256: {file_hash(image_target)}")
+    print(f"Approval record: {target['approval']}")
+    print(f"Review record: {target['review']}")
+    print("Source candidate preserved.")
     return 0
 
 
