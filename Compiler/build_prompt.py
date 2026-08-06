@@ -581,6 +581,3 @@ if __name__ == "__main__":
     except CompilerError as exc:
         print(f"COMPILER ERROR: {exc}", file=sys.stderr)
         raise SystemExit(2)
-    except CompilerError as exc:
-        print(f"COMPILER ERROR: {exc}", file=sys.stderr)
-        raise SystemExit(2)
