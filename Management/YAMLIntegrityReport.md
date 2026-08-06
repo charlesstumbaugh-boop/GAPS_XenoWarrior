@@ -2,10 +2,10 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T17:22:47.197846+00:00`
+- **Generated (UTC):** `2026-08-06T17:27:39.625018+00:00`
 - **Overall status:** **WARNING**
-- **Files scanned:** 39
-- **PASS:** 22
+- **Files scanned:** 40
+- **PASS:** 23
 - **EMPTY:** 17
 - **FAIL:** 0
 
@@ -26,6 +26,7 @@
 | PASS | `Core/Validation.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Assets/CHR-GRUNT-001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Assets/PLAYER_001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Intermediate/Builds/CHR-GRUNT-001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/GenerationManifest.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Schemas/IAS.schema.yaml` | Parsed 1 YAML document(s). |
