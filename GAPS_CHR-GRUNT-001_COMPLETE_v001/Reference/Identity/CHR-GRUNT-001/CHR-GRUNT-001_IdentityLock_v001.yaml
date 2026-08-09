@@ -1,0 +1,88 @@
+metadata:
+  document_id: CHR_GRUNT_001_IDENTITY_LOCK
+  document_type: asset_identity_lock
+  version: 1.0.0
+  status: APPROVED
+  approved_by: Project Owner
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+authorities:
+  identity_reference:
+    file: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+    sha256: 24da99c8533813ea31fcc55c9008526bfb15f16490e680ae7c35ce95542a8db6
+    authority:
+    - silhouette
+    - helmet
+    - armor_family
+    - weapon_family
+    - proportions
+    - equipment_layout
+    - friendly_readability
+  style_reference:
+    file: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+    authority:
+    - line_weight
+    - cel_shading
+    - rendering_quality
+    - palette_discipline
+    - lighting_language
+    - forward_facing_presentation
+    must_not_transfer:
+    - helmet_geometry
+    - armor_layout
+    - silhouette
+    - weapon_design
+    - body_proportions
+    - accessory_layout
+identity_lock:
+  role: friendly_npc_infantry
+  class: light_combat_infantry
+  silhouette:
+    family: light_humanoid_infantry
+    read: narrow_agile_compact
+    shoulders: compact_rounded
+    torso: slim_segmented
+    limb_bulk: light_to_medium
+    heroic_scale: below_player_power_armor
+  helmet:
+    family: rounded_low_profile_military
+    visor: wide_plasma_blue
+    jaw: compact_reinforced
+    crown: low_rounded
+  armor:
+    structure: metallic_light_combat_plates
+    primary: steel_and_gunmetal
+    undersuit: tan_brown_tactical
+    shoulders: compact_metal_pauldrons
+    torso: light_segmented_chest
+    legs: tactical_fabric_with_metal_knee_and_shin_protection
+    boots: medium_combat_boots
+  weapon:
+    family: compact_service_carbine
+    profile: slim_shorter_than_player_rifle
+    carry: across_torso_ready
+    muzzle: safe_forward_downward
+  color_readability:
+    hazard_yellow: caution_friend_or_foe_signal
+    plasma_blue: visor_and_small_weapon_energy_accents
+    tan_brown: friendly_infantry_separation_from_heavy_enemy silhouettes
+  immutable_features:
+  - rounded low-profile helmet with wide blue visor
+  - light metallic armor over tan/brown tactical undersuit
+  - compact rounded shoulder armor
+  - slimmer torso than player
+  - compact service carbine
+  - hazard-yellow friendly caution accents
+  - full-body forward-facing animation-ready proportions
+  prohibited:
+  - player clone
+  - player recolor
+  - player power-armor silhouette
+  - heavy player rifle
+  - hostile alien morphology
+  - opaque background
+  - baked checkerboard
+  - poster text in production PNG
+  - scenery
+  - pedestal
+  - cast shadow

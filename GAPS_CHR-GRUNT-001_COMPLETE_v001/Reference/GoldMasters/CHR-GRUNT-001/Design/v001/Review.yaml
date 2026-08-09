@@ -1,0 +1,30 @@
+metadata:
+  document_type: gold_master_review
+  tool_version: package-prep-1.0.0
+asset:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  version: v001
+  candidate_file: CHR-GRUNT-001_DESIGN_MASTER_candidate_v001.png
+  candidate_sha256: 5361936e46090d3cb8c7d67dd148908bbc059b1d2e1ae56fae0b2b79af289237
+  target_file: CHR-GRUNT-001_DESIGN_MASTER_v001.png
+  target_sha256: 5361936e46090d3cb8c7d67dd148908bbc059b1d2e1ae56fae0b2b79af289237
+human_review:
+  status: APPROVED
+  approved_by: Project Owner
+  notes:
+  - Immediate color identification approved.
+  - Metal structure approved for alien-world setting.
+  - Lighter armor approved to separate Grunt from enemies.
+  - Hazard yellow approved as caution cue before shooting.
+validation:
+  canvas:
+    width: 1024
+    height: 1024
+  format: PNG
+  true_alpha_required: true
+  local_validate_reference_required: true
+approval:
+  status: STAGED_PENDING_LOCAL_VALIDATION
+  gold_master: false
+  overwrite_allowed: false

@@ -1,0 +1,13 @@
+asset_id: CHR-GRUNT-001
+asset_name: Grunt Soldier 1
+concept_status: APPROVED
+concept_file: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+concept_sha256: 24da99c8533813ea31fcc55c9008526bfb15f16490e680ae7c35ce95542a8db6
+approval_card: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_APPROVAL_CARD_v001.png
+approval_card_sha256: 1f8449d0d1aacfced2446227def3dfb074d87b1259cdeff919b74890e004b06b
+approved_identity_notes:
+- Friendly infantry must be immediately readable separately from enemies.
+- Metal armor remains structurally appropriate to the alien-world setting.
+- Armor is lighter than the Player's power armor.
+- Hazard yellow acts as a caution cue before shooting.
+- Plasma blue visor supports human/friendly visual language.
