@@ -1,0 +1,52 @@
+metadata:
+  document_id: CHR_GRUNT_001_IDENTITY_LOCK
+  document_type: asset_identity_lock
+  version: 1.0.0
+  status: APPROVED
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  approved_by: Project Owner
+reference_authority:
+  identity:
+    file: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+    sha256: 24da99c8533813ea31fcc55c9008526bfb15f16490e680ae7c35ce95542a8db6
+    controls:
+    - silhouette
+    - helmet
+    - armor
+    - weapon
+    - proportions
+    - equipment_layout
+  style:
+    file: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+    role: style_only
+    controls:
+    - line_weight
+    - cel_shading
+    - palette_discipline
+    - lighting_language
+    must_not_transfer:
+    - helmet_geometry
+    - armor_layout
+    - silhouette
+    - weapon_design
+    - body_proportions
+identity_lock:
+  role: friendly_npc_infantry
+  class: light_combat_infantry
+  silhouette: narrow_agile_compact
+  helmet: rounded_low_profile_with_wide_plasma_blue_visor
+  armor: light_metallic_steel_gunmetal_over_tan_brown_tactical_undersuit
+  weapon: compact_service_carbine
+  friendly_readability:
+    hazard_yellow: caution_before_shooting
+    lighter_armor: separate_from_enemy_heavy_silhouettes
+    plasma_blue: friendly_human_technology_cue
+  immutable:
+  - rounded low-profile helmet
+  - wide blue visor
+  - compact rounded metal shoulders
+  - tan/brown undersuit
+  - light metallic armor
+  - compact carbine
+  - hazard-yellow caution accents

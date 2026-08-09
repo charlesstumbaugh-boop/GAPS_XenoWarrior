@@ -2,10 +2,10 @@
 
 - **Validator version:** 0.1.0
 - **Repository:** `C:\Projects\GAPS_XenoWarrior`
-- **Generated (UTC):** `2026-08-06T20:47:02.962120+00:00`
+- **Generated (UTC):** `2026-08-09T20:27:02.847593+00:00`
 - **Overall status:** **WARNING**
-- **Files scanned:** 43
-- **PASS:** 26
+- **Files scanned:** 58
+- **PASS:** 41
 - **EMPTY:** 17
 - **FAIL:** 0
 
@@ -24,6 +24,12 @@
 | PASS | `Core/PromptRules.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Rendering.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Core/Validation.yaml` | Parsed 1 YAML document(s). |
+| PASS | `GAPS_CHR-GRUNT-001_COMPLETE_v001/Intermediate/Assets/CHR-GRUNT-001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `GAPS_CHR-GRUNT-001_COMPLETE_v001/Reference/Candidates/CHR-GRUNT-001/CHR-GRUNT-001_ProductionRecord_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `GAPS_CHR-GRUNT-001_COMPLETE_v001/Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_ConceptRecord_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `GAPS_CHR-GRUNT-001_COMPLETE_v001/Reference/GoldMasters/CHR-GRUNT-001/Design/v001/Review.yaml` | Parsed 1 YAML document(s). |
+| PASS | `GAPS_CHR-GRUNT-001_COMPLETE_v001/Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_AssetFingerprint_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `GAPS_CHR-GRUNT-001_COMPLETE_v001/Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Assets/CHR-GRUNT-001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Assets/PLAYER_001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Builds/CHR-GRUNT-001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 YAML document(s). |
@@ -31,9 +37,18 @@
 | PASS | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/Build.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Builds/PLAYER_001/DESIGN_MASTER/v001/GenerationManifest.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Intermediate/Schemas/IAS.schema.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Management/Backups/AssetPacks/CHR-GRUNT-001_20260809_132659/Intermediate/Assets/CHR-GRUNT-001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Management/Backups/AssetPacks/CHR-GRUNT-001_20260809_132659/Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_ConceptRecord_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Management/Backups/AssetPacks/CHR-GRUNT-001_20260809_132659/Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_AssetFingerprint_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Management/Backups/AssetPacks/CHR-GRUNT-001_20260809_132659/Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Reference/Candidates/CHR-GRUNT-001/CHR-GRUNT-001_ProductionRecord_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Reference/Candidates/CHR-PLAYER-001/CHR-GRUNT-001_ProductionRecord_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_ConceptRecord_v001.yaml` | Parsed 1 YAML document(s). |
 | EMPTY | `Reference/GoldMasters/CHR-PLAYER-001/Animation/Idle/Review.yaml` | File contains only whitespace or no content. |
 | PASS | `Reference/GoldMasters/CHR-PLAYER-001/CHR-PLAYER-001_DESIGN_MASTER_v001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Reference/GoldMasters/CHR-PLAYER-001/Design/v001/Review.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_AssetFingerprint_v001.yaml` | Parsed 1 YAML document(s). |
+| PASS | `Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Specifications/AssetFingerprint.yaml` | Parsed 1 YAML document(s). |
 | PASS | `Specifications/Construction/Humanoid.yaml` | Parsed 1 YAML document(s). |
 | EMPTY | `Specifications/DroneSkeleton.yaml` | File contains only whitespace or no content. |

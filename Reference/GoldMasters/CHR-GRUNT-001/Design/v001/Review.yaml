@@ -1,0 +1,24 @@
+metadata:
+  document_type: gold_master_review
+  tool_version: 0.5.0
+asset:
+  asset_id: CHR-GRUNT-001
+  version: v001
+  candidate_file: CHR-GRUNT-001_DESIGN_MASTER_candidate_v001.png
+  candidate_sha256: 1709532512cb31d5f61aad45d27e7cf50dffe507a725f429c6695bdcdb172b2c
+  target_file: CHR-GRUNT-001_DESIGN_MASTER_v001.png
+  target_path: C:\Projects\GAPS_XenoWarrior\Reference\GoldMasters\CHR-GRUNT-001\Design\CHR-GRUNT-001_DESIGN_MASTER_v001.png
+validation:
+  reference_validation: PASS
+  canvas:
+    width: 1024
+    height: 1024
+  format: PNG
+  true_alpha_required: true
+approval:
+  status: APPROVED
+  approved_by: Project Owner
+  approved_at_utc: '2026-08-09T20:28:08.046286+00:00'
+  gold_master: true
+  image_copied: true
+  overwrite_allowed: false

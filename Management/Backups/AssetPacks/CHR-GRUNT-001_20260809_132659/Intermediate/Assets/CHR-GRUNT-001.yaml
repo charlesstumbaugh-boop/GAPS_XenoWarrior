@@ -1,0 +1,349 @@
+metadata:
+  document:
+    id: IAS_CHR_GRUNT_001
+    name: CHR-GRUNT-001 Intermediate Asset Specification
+    type: intermediate_asset_specification
+    version: 2.0.0
+    status: APPROVED_CONCEPT_LOCK
+identity:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  asset_type: character
+  asset_subtype: friendly_military_npc
+  lifecycle_state: production_candidate
+  canonical: true
+  narrative_role:
+    classification: friendly_secondary_character
+    faction: human_military
+    alignment: friendly
+  gameplay_role:
+    role: friendly_npc
+    protected_target: true
+    valid_player_target: false
+    penalty_on_hit: true
+    score_modifier: -500
+    life_modifier: -1
+source_versions:
+  repository:
+    repository_name: GAPS_XenoWarrior
+    repository_version: repository_current
+  core_contracts:
+    CORE_RENDERING:
+      version: repository_current
+      file: Core/Rendering.yaml
+      status: APPROVED
+    CORE_PALETTE:
+      version: repository_current
+      file: Core/Palette.yaml
+      status: APPROVED
+    CORE_CAMERA:
+      version: repository_current
+      file: Core/Camera.yaml
+      status: APPROVED
+    CORE_LIGHTING:
+      version: repository_current
+      file: Core/Lighting.yaml
+      status: APPROVED
+    CORE_EXPORT:
+      version: repository_current
+      file: Core/Export.yaml
+      status: APPROVED
+    CORE_VALIDATION:
+      version: repository_current
+      file: Core/Validation.yaml
+      status: APPROVED
+    CORE_NAMING:
+      version: repository_current
+      file: Core/Naming.yaml
+      status: APPROVED
+    CORE_PROMPT_RULES:
+      version: repository_current
+      file: Core/PromptRules.yaml
+      status: APPROVED
+    CORE_GAMEPLAY:
+      version: repository_current
+      file: Core/Gameplay.yaml
+      status: APPROVED
+  asset_specifications:
+  - id: SPEC_HUMANOID
+    version: repository_current
+    file: Specifications/Humanoid.yaml
+inheritance:
+  enabled: true
+  parents:
+  - id: SPEC_HUMANOID
+    version: repository_current
+    file: Specifications/Humanoid.yaml
+    inheritance_type: full
+  - id: CORE_RENDERING
+    version: repository_current
+    file: Core/Rendering.yaml
+    inheritance_type: full
+  - id: CORE_PALETTE
+    version: repository_current
+    file: Core/Palette.yaml
+    inheritance_type: full
+  - id: CORE_CAMERA
+    version: repository_current
+    file: Core/Camera.yaml
+    inheritance_type: full
+  - id: CORE_LIGHTING
+    version: repository_current
+    file: Core/Lighting.yaml
+    inheritance_type: full
+  - id: CORE_EXPORT
+    version: repository_current
+    file: Core/Export.yaml
+    inheritance_type: full
+visual_contract:
+  visual_style:
+    category: 2D_arcade_cel_shaded
+    genre: military_retro_scifi
+    dimensionality: 2D
+    photorealistic: false
+  silhouette:
+    overall_read: friendly_light_combat_infantry
+    distinct_from_player: true
+    shoulder_width: compact
+    torso_profile: slim_segmented
+    limb_bulk: light_to_medium
+    primary_readability_features:
+    - tan/brown tactical undersuit
+    - compact rounded metal shoulders
+    - hazard-yellow friendly caution accents
+    prohibited_silhouette_changes:
+    - player power-armor silhouette
+    - hostile alien silhouette
+  outline:
+    uniform: true
+    width_px: 4
+    color_reference: Shadow Black
+  rendering:
+    shading_model: two_tone_cel_shading
+    shadow_brightness_multiplier: 0.65
+    surface_finish: clean_arcade_readability
+    three_dimensional_rendering: false
+construction:
+  body_plan: adult_humanoid
+  animation_ready: true
+  proportions:
+    heroic_scale: reduced
+    shoulders: compact
+    torso: slim
+    limbs: functional
+    feet: fully_visible
+  helmet:
+    complexity: simplified
+    visor_shape: wide_horizontal
+    visor_color_reference: Plasma Blue
+    exposed_face: false
+  armor:
+    grade: light_combat
+    torso_layout: light_segmented
+    shoulder_plates: compact_rounded
+    decorative_trim: minimal
+    wear_level: moderate
+    structure: metallic
+  weapon:
+    type: compact_service_carbine
+    size_relation: smaller_than_player_rifle
+    silhouette: slim_short_carbine
+    muzzle_direction: forward_down_safe
+    obstructs_face: false
+  pose:
+    stance: guarded_ready
+    aggression: low
+    balance: centered
+    orientation: forward_facing
+materials:
+  resolved: false
+  assignments:
+  - component: armor_shell
+    material_id: MAT_MILITARY_POLYMER
+    status: placeholder_dependency
+  - component: under_suit
+    material_id: MAT_RUBBER
+    status: placeholder_dependency
+  - component: visor
+    material_id: MAT_VISOR_GLASS
+    status: placeholder_dependency
+  - component: weapon_body
+    material_id: MAT_CARBON_FIBER
+    status: placeholder_dependency
+  draft_fallback:
+    allowed: true
+    use_core_rendering_defaults: true
+    production_allowed: false
+palette:
+  source: Core/Palette.yaml
+  profile: military_scifi_retro
+  raw_color_values_present: false
+  assignments:
+  - component: armor_primary
+    palette_reference: Primary Steel
+  - component: armor_secondary
+    palette_reference: Gunmetal
+  - component: friendly_undersuit
+    palette_reference: Tan/Brown
+  - component: caution_markings
+    palette_reference: Hazard Yellow
+  - component: visor
+    palette_reference: Plasma Blue
+  - component: outlines
+    palette_reference: Shadow Black
+  prohibited:
+  - unapproved color additions
+  - player-identical color placement
+camera:
+  source: Core/Camera.yaml
+  orientation: forward_facing
+  perspective: rail_shooter_player_facing
+  framing:
+    full_asset_visible: true
+    clipping_allowed: false
+    feet_visible: true
+    centered_on_canvas: true
+    bottom_center_alignment: true
+lighting:
+  source: Core/Lighting.yaml
+  style: two_tone_cel_shaded
+  consistency_reference: CHR-PLAYER-001
+  shadow_brightness_multiplier: 0.65
+  dramatic_backlight: false
+  environmental_color_cast: false
+animation:
+  source_design_master_required: true
+  frame_source_policy: derive_from_approved_gold_master
+  independent_ai_frame_redesign_allowed: false
+  animation_ready_proportions_required: true
+  required_states:
+  - idle
+  - react
+  - hit
+  - death
+  frame_plans:
+    idle:
+      frames: 6
+      loop: true
+    react:
+      frames: 4
+      loop: false
+    hit:
+      frames: 3
+      loop: false
+    death:
+      frames: 8
+      loop: false
+export:
+  image_format: png
+  color_mode: RGBA
+  bit_depth: 8
+  width_px: 1024
+  height_px: 1024
+  transparent_background: true
+  trim_transparency: false
+  full_asset_visible: true
+  naming_pattern: <ASSET_ID>_DESIGN_MASTER_<VERSION>.png
+restrictions:
+  redesign_allowed: false
+  change_requires_approval: true
+  immutable_features:
+  - rounded low-profile helmet with wide blue visor
+  - light metallic armor over tan/brown tactical undersuit
+  - compact carbine
+  - hazard-yellow friendly caution accents
+  prohibited_changes:
+  - player clone
+  - player recolor
+  - player power-armor silhouette
+  - heavy player rifle
+  - hostile alien morphology
+  prohibited_styles:
+  - photorealistic
+  - 3D rendered
+  - painterly concept art
+  - pixel art
+  - presentation poster
+  prohibited_camera_views:
+  - side view
+  - rear view
+  - three-quarter view
+  - top-down view
+  prohibited_rendering_features:
+  - labels
+  - title
+  - footer
+  - UI panels
+  - baked checkerboard
+  - scenery
+  - floor
+  - pedestal
+  - cast shadow
+  prohibited_export_conditions:
+  - opaque background
+  - cropped body
+  - missing feet
+  - trimmed canvas
+  - wrong dimensions
+validation:
+  acceptance_criteria:
+  - forward-facing
+  - friendly NPC identity
+  - approved palette
+  - correct cel shading
+  - compact carbine
+  - rounded helmet with wide blue visor
+  - transparent background
+  - entire body visible
+  - animation-ready proportions
+  - distinct from player
+  automatic_rejection:
+  - player clone
+  - player recolor
+  - presentation sheet
+  - baked checkerboard
+  - opaque background
+  - cropped body
+  - incorrect camera orientation
+  - unapproved palette
+  - photorealistic or 3D rendering
+approval:
+  status: APPROVED_CONCEPT_LOCK
+  approved_by: Project Owner
+  generation_authorized: true
+  production_authorized: false
+  locked: true
+history:
+  current_version: 2.0.0
+  entries:
+  - version: 2.0.0
+    change_type: concept_lock
+    summary: Grunt Soldier 1 locked from approved concept and approved production
+      design.
+reference_images:
+  approved_references:
+  - reference_id: REF_CHR_GRUNT_001_CONCEPT
+    file: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+    purpose: Identity authority for the Grunt Soldier.
+    authority_level: identity_reference
+  - reference_id: REF_CHR_PLAYER_001_GOLD_MASTER
+    file: Reference/GoldMasters/CHR-PLAYER-001/Design/CHR-PLAYER-001_DESIGN_MASTER_v001.png
+    purpose: Style-only authority.
+    authority_level: style_reference
+unresolved_requirements:
+  items:
+  - path: materials.assignments
+    issue: Material specification files remain placeholders.
+    blocks_generation: false
+    blocks_production: true
+  - path: gold_master
+    issue: Gold Master has not yet been promoted.
+    blocks_generation: false
+    blocks_production: true
+gold_master:
+  asset_id: CHR-GRUNT-001
+  image: null
+  folder: Reference/GoldMasters/CHR-GRUNT-001/Design/
+  version: null
+  approval_status: NOT_CREATED
+  immutable: true
