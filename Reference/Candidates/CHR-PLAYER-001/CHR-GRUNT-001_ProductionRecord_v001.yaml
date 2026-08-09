@@ -1,0 +1,14 @@
+asset_id: CHR-GRUNT-001
+asset_name: Grunt Soldier 1
+version: v001
+candidate:
+  file: Reference/Candidates/CHR-GRUNT-001/CHR-GRUNT-001_DESIGN_MASTER_candidate_v001.png
+  sha256: 1709532512cb31d5f61aad45d27e7cf50dffe507a725f429c6695bdcdb172b2c
+  width: 1024
+  height: 1024
+  color_mode: RGBA
+  true_alpha: true
+promotion:
+  status: NOT_PROMOTED
+  official_authority: Compiler/approve_asset.py
+  gold_master_in_pack: false

@@ -1,0 +1,31 @@
+schema:
+  type: AssetFingerprint
+  version: 1.0.0
+asset_id: CHR-GRUNT-001
+asset_name: Grunt Soldier 1
+silhouette:
+  family: light_humanoid_infantry
+  shoulder_profile: compact_rounded
+  torso_profile: slim_segmented
+  leg_profile: tactical_fabric_plus_metal_plate
+helmet:
+  family: rounded_low_profile_military
+  visor_shape: wide_horizontal
+  crown_profile: low_rounded
+weapon:
+  family: compact_service_carbine
+  barrel_profile: short
+  overall_profile: slim
+visual_language:
+  material_structure: metallic
+  primary:
+  - Primary Steel
+  - Gunmetal
+  - Tan
+  - Brown
+  accents:
+  - Hazard Yellow
+  - Plasma Blue
+  - Shadow Black
+  outline_width_px: 4
+  shading: two_tone_cel_shading

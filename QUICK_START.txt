@@ -1,0 +1,20 @@
+GAPS ASSET PACK INSTALLATION
+
+ONE-TIME SETUP
+1. Copy install_asset_pack.py into:
+   C:\Projects\GAPS_XenoWarrior\Compiler\install_asset_pack.py
+2. Commit it. Future Asset Packs will not require manual merging.
+
+INSTALL GRUNT PACK
+Dry run:
+python Compiler\install_asset_pack.py "%USERPROFILE%\Downloads\GAPS_CHR-GRUNT-001_ASSET_PACK_v002.zip"
+
+Apply + validate:
+python Compiler\install_asset_pack.py "%USERPROFILE%\Downloads\GAPS_CHR-GRUNT-001_ASSET_PACK_v002.zip" --apply --validate
+
+The installer:
+- merges files automatically into the correct repository folders,
+- backs up anything it replaces,
+- verifies hashes,
+- forbids writing Gold Masters,
+- runs validators when --validate is used.

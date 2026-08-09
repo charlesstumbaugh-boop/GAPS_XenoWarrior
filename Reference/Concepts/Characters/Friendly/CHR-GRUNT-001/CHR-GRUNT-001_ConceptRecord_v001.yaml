@@ -1,0 +1,15 @@
+asset_id: CHR-GRUNT-001
+asset_name: Grunt Soldier 1
+status: APPROVED
+concept:
+  file: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+  sha256: 24da99c8533813ea31fcc55c9008526bfb15f16490e680ae7c35ce95542a8db6
+approval_card:
+  file: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_APPROVAL_CARD_v001.png
+  sha256: 1f8449d0d1aacfced2446227def3dfb074d87b1259cdeff919b74890e004b06b
+  use: documentation_reference_only
+notes:
+- Immediate color identification approved.
+- Metal armor structure retained for alien-world setting.
+- Lighter armor separates friendly Grunt from enemies.
+- Hazard yellow signals caution before shooting.
