@@ -2,84 +2,290 @@ metadata:
   asset_id: CHR-GRUNT-001
   asset_name: Grunt Soldier 1
   version: v001
-  status: APPROVED_FOR_RIGGING
+  status: MASK_EXTRACTION_READY
+  canvas:
+    width: 1024
+    height: 1024
 source:
   gold_master: Reference/GoldMasters/CHR-GRUNT-001/Design/CHR-GRUNT-001_DESIGN_MASTER_v001.png
   identity_lock: Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
-root: Torso
+extraction:
+  method: full_canvas_binary_alpha_masks
+  rule: Each mask is a 1024x1024 RGBA or grayscale image. White/opaque pixels keep
+    Gold Master pixels; black/transparent pixels remove them.
+  limitation: A flat Gold Master cannot reconstruct pixels hidden behind overlapping
+    limbs or the weapon. Missing/occluded art must be supplied by a model-sheet or
+    rig-source pass before large rotations.
+  guide: Production/CHR-GRUNT-001/03_Rig/RigCutGuide.png
+pivots:
+  neck_center:
+    x_px: 500
+    y_px: 205
+    x_norm: 0.488281
+    y_norm: 0.200195
+  left_shoulder:
+    x_px: 370
+    y_px: 255
+    x_norm: 0.361328
+    y_norm: 0.249023
+  left_elbow:
+    x_px: 300
+    y_px: 360
+    x_norm: 0.292969
+    y_norm: 0.351562
+  left_wrist:
+    x_px: 392
+    y_px: 410
+    x_norm: 0.382812
+    y_norm: 0.400391
+  right_shoulder:
+    x_px: 625
+    y_px: 255
+    x_norm: 0.610352
+    y_norm: 0.249023
+  right_elbow:
+    x_px: 690
+    y_px: 362
+    x_norm: 0.673828
+    y_norm: 0.353516
+  right_wrist:
+    x_px: 646
+    y_px: 438
+    x_norm: 0.630859
+    y_norm: 0.427734
+  hip_center:
+    x_px: 503
+    y_px: 545
+    x_norm: 0.491211
+    y_norm: 0.532227
+  left_hip:
+    x_px: 447
+    y_px: 550
+    x_norm: 0.436523
+    y_norm: 0.537109
+  left_knee:
+    x_px: 378
+    y_px: 690
+    x_norm: 0.369141
+    y_norm: 0.673828
+  left_ankle:
+    x_px: 327
+    y_px: 864
+    x_norm: 0.319336
+    y_norm: 0.84375
+  right_hip:
+    x_px: 560
+    y_px: 552
+    x_norm: 0.546875
+    y_norm: 0.539062
+  right_knee:
+    x_px: 628
+    y_px: 697
+    x_norm: 0.613281
+    y_norm: 0.680664
+  right_ankle:
+    x_px: 681
+    y_px: 865
+    x_norm: 0.665039
+    y_norm: 0.844727
+  rear_grip:
+    x_px: 433
+    y_px: 375
+    x_norm: 0.422852
+    y_norm: 0.366211
 parts:
 - name: Helmet
   parent: Head
   pivot: neck_center
-  z: 100
+  z_order: 100
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Helmet_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Helmet.png
+  guide_box_px:
+  - 395
+  - 35
+  - 570
+  - 220
 - name: Head
   parent: Torso
-  pivot: neck_base
-  z: 90
+  pivot: neck_center
+  z_order: 90
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Head_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Head.png
+  guide_box_px:
+  - 410
+  - 115
+  - 565
+  - 235
 - name: Torso
   parent: null
-  pivot: pelvis_center
-  z: 50
+  pivot: hip_center
+  z_order: 50
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Torso_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Torso.png
+  guide_box_px:
+  - 350
+  - 185
+  - 680
+  - 520
 - name: UpperArm_L
   parent: Torso
   pivot: left_shoulder
-  z: 80
+  z_order: 80
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/UpperArm_L_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/UpperArm_L.png
+  guide_box_px:
+  - 245
+  - 210
+  - 385
+  - 385
 - name: LowerArm_L
   parent: UpperArm_L
   pivot: left_elbow
-  z: 81
+  z_order: 81
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/LowerArm_L_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/LowerArm_L.png
+  guide_box_px:
+  - 235
+  - 325
+  - 415
+  - 455
 - name: Hand_L
   parent: LowerArm_L
   pivot: left_wrist
-  z: 82
+  z_order: 82
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Hand_L_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Hand_L.png
+  guide_box_px:
+  - 360
+  - 365
+  - 455
+  - 455
 - name: UpperArm_R
   parent: Torso
   pivot: right_shoulder
-  z: 80
+  z_order: 80
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/UpperArm_R_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/UpperArm_R.png
+  guide_box_px:
+  - 600
+  - 210
+  - 725
+  - 395
 - name: LowerArm_R
   parent: UpperArm_R
   pivot: right_elbow
-  z: 81
+  z_order: 81
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/LowerArm_R_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/LowerArm_R.png
+  guide_box_px:
+  - 620
+  - 325
+  - 750
+  - 455
 - name: Hand_R
   parent: LowerArm_R
   pivot: right_wrist
-  z: 82
+  z_order: 82
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Hand_R_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Hand_R.png
+  guide_box_px:
+  - 605
+  - 395
+  - 700
+  - 475
 - name: Weapon
   parent: Hand_R
   pivot: rear_grip
-  z: 95
+  z_order: 95
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Weapon_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Weapon.png
+  guide_box_px:
+  - 340
+  - 292
+  - 830
+  - 515
 - name: Pelvis
   parent: Torso
   pivot: hip_center
-  z: 45
+  z_order: 45
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Pelvis_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Pelvis.png
+  guide_box_px:
+  - 410
+  - 465
+  - 590
+  - 590
 - name: UpperLeg_L
   parent: Pelvis
   pivot: left_hip
-  z: 40
+  z_order: 40
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/UpperLeg_L_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/UpperLeg_L.png
+  guide_box_px:
+  - 310
+  - 520
+  - 470
+  - 710
 - name: LowerLeg_L
   parent: UpperLeg_L
   pivot: left_knee
-  z: 39
+  z_order: 39
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/LowerLeg_L_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/LowerLeg_L.png
+  guide_box_px:
+  - 275
+  - 650
+  - 410
+  - 875
 - name: Foot_L
   parent: LowerLeg_L
   pivot: left_ankle
-  z: 38
+  z_order: 38
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Foot_L_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Foot_L.png
+  guide_box_px:
+  - 220
+  - 830
+  - 405
+  - 990
 - name: UpperLeg_R
   parent: Pelvis
   pivot: right_hip
-  z: 40
+  z_order: 40
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/UpperLeg_R_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/UpperLeg_R.png
+  guide_box_px:
+  - 535
+  - 520
+  - 680
+  - 715
 - name: LowerLeg_R
   parent: UpperLeg_R
   pivot: right_knee
-  z: 39
+  z_order: 39
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/LowerLeg_R_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/LowerLeg_R.png
+  guide_box_px:
+  - 590
+  - 650
+  - 735
+  - 880
 - name: Foot_R
   parent: LowerLeg_R
   pivot: right_ankle
-  z: 38
+  z_order: 38
+  mask: Production/CHR-GRUNT-001/03_Rig/Masks/Foot_R_mask.png
+  output: Production/CHR-GRUNT-001/03_Rig/Parts/Foot_R.png
+  guide_box_px:
+  - 625
+  - 835
+  - 820
+  - 990
 animation_defaults:
   idle:
     frames: 6
     fps: 8
+    max_joint_rotation_deg: 6
   walk:
     frames: 8
     fps: 10
