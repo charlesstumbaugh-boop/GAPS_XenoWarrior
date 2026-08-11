@@ -1,0 +1,15 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: Pelvis
+  version: v001
+  status: APPROVED
+  library_reference: PEL_LIGHT_001
+  approved_by: Project Owner
+file: Production/CHR-GRUNT-001/03_Parts/Pelvis.png
+canonical_library_file: Production/Libraries/Armor/PEL_LIGHT_001.png
+sha256: d636a2c4bd79657f4bc7a3e2dc1a088ab38956b8076fa786b4d4a077ab2d0a14
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true
