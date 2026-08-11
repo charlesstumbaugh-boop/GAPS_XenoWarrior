@@ -1,0 +1,88 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: AttachmentAnchors
+  version: v001
+  status: CALIBRATION_DRAFT
+  coordinate_space: normalized_visible_bounds
+  note: >
+    Anchors describe where each child part attaches to its parent.
+    Values are normalized within the visible alpha bounds of each part.
+    Approved production PNGs are not modified.
+
+anchors:
+  Head:
+    attach_to_parent: neck
+    x_norm: 0.50
+    y_norm: 0.92
+
+  Helmet:
+    attach_to_parent: head_center
+    x_norm: 0.50
+    y_norm: 0.72
+
+  Pelvis:
+    attach_to_parent: hip_center
+    x_norm: 0.50
+    y_norm: 0.18
+
+  UpperArm_L:
+    attach_to_parent: shoulder_L
+    x_norm: 0.78
+    y_norm: 0.18
+
+  UpperArm_R:
+    attach_to_parent: shoulder_R
+    x_norm: 0.22
+    y_norm: 0.18
+
+  LowerArm_L:
+    attach_to_parent: elbow_L
+    x_norm: 0.72
+    y_norm: 0.18
+
+  LowerArm_R:
+    attach_to_parent: elbow_R
+    x_norm: 0.28
+    y_norm: 0.18
+
+  Hand_L:
+    attach_to_parent: wrist_L
+    x_norm: 0.72
+    y_norm: 0.28
+    status: WRIST_ORIENTATION_REVIEW
+
+  Hand_R:
+    attach_to_parent: wrist_R
+    x_norm: 0.28
+    y_norm: 0.28
+    status: WRIST_ORIENTATION_REVIEW
+
+  UpperLeg_L:
+    attach_to_parent: hip_L
+    x_norm: 0.68
+    y_norm: 0.12
+
+  UpperLeg_R:
+    attach_to_parent: hip_R
+    x_norm: 0.32
+    y_norm: 0.12
+
+  LowerLeg_L:
+    attach_to_parent: knee_L
+    x_norm: 0.50
+    y_norm: 0.08
+
+  LowerLeg_R:
+    attach_to_parent: knee_R
+    x_norm: 0.50
+    y_norm: 0.08
+
+  Foot_L:
+    attach_to_parent: ankle_L
+    x_norm: 0.50
+    y_norm: 0.10
+
+  Foot_R:
+    attach_to_parent: ankle_R
+    x_norm: 0.50
+    y_norm: 0.10
