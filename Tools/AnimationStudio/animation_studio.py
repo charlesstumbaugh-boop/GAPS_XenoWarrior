@@ -8,7 +8,7 @@ from PIL import Image, ImageTk
 import yaml
 
 ASSET_ID='CHR-GRUNT-001'
-APP_VERSION='0.2.0'
+APP_VERSION='0.3.0'
 PART_ORDER=['Head','Helmet','Torso','Pelvis','UpperArm_L','LowerArm_L','Hand_L','UpperArm_R','LowerArm_R','Hand_R','UpperLeg_L','LowerLeg_L','Foot_L','UpperLeg_R','LowerLeg_R','Foot_R']
 
 def load_yaml(path: Path):
@@ -42,6 +42,20 @@ class AnimationStudio(tk.Tk):
             messagebox.showerror('GAPS Animation Studio','Calibrated rig must be promoted first.'); raise SystemExit(2)
         self.parts_meta=self.manifest['parts']; self.base_images={}; self.base_pose={}
         self.parent_map={n:self.parts_meta[n].get('parent') for n in PART_ORDER}
+        self.part_pivot_key={n:self.parts_meta[n].get('pivot') for n in PART_ORDER}
+        self.animation_pivots_path=self.repo/'Production'/ASSET_ID/'04_Calibration'/'AnimationPivots.yaml'
+        self.base_pivots={}
+        saved_pivots={}
+        if self.animation_pivots_path.is_file():
+            try:saved_pivots=load_yaml(self.animation_pivots_path).get('pivots',{})
+            except Exception:saved_pivots={}
+        for n in PART_ORDER:
+            key=self.part_pivot_key.get(n)
+            if n in saved_pivots:
+                self.base_pivots[n]={'x':float(saved_pivots[n]['x_px']),'y':float(saved_pivots[n]['y_px'])}
+            else:
+                rec=self.pivots.get(key,{})
+                self.base_pivots[n]={'x':float(rec.get('x_px',512)),'y':float(rec.get('y_px',512))}
         for n in PART_ORDER:
             rec=self.parts_meta[n]; src=self.repo/Path(rec['source'])
             im=Image.open(src).convert('RGBA'); crop=alpha_crop(im)
@@ -49,9 +63,10 @@ class AnimationStudio(tk.Tk):
             vt=rec.get('visual_transform',{}); place=rec['resolved_canvas_placement']
             self.base_images[n]=crop
             self.base_pose[n]={'x':int(place['x_px']),'y':int(place['y_px']),'rotation':float(vt.get('rotation_deg',0) or 0),'scale':float(vt.get('scale',1) or 1),'base_scale':float(rec.get('base_scale',1)),'z_order':int(rec.get('z_order',0))}
-        self.frames=[{'name':f'Frame {i+1}','parts':copy.deepcopy(self.base_pose)} for i in range(6)]
+        self.frames=[{'name':f'Frame {i+1}','parts':copy.deepcopy(self.base_pose),'pivots':copy.deepcopy(self.base_pivots)} for i in range(6)]
         self.current=0; self.selected=None; self.drag_last=None; self.playing=False; self.play_after=None
-        self.zoom=.72; self.pan_x=20; self.pan_y=20; self.fps=tk.IntVar(value=8); self.onion_prev=tk.BooleanVar(); self.onion_next=tk.BooleanVar(); self.hierarchy=tk.BooleanVar(value=True); self.anim_name=tk.StringVar(value='Idle_v001')
+        self.set_pivot_mode=False
+        self.zoom=.72; self.pan_x=20; self.pan_y=20; self.fps=tk.IntVar(value=8); self.onion_prev=tk.BooleanVar(); self.onion_next=tk.BooleanVar(); self.hierarchy=tk.BooleanVar(value=True); self.show_pivots=tk.BooleanVar(value=True); self.anim_name=tk.StringVar(value='Idle_v001')
         self._build_ui(); self._render()
     def _build_ui(self):
         pw=ttk.Panedwindow(self,orient=tk.HORIZONTAL); pw.pack(fill=tk.BOTH,expand=True)
@@ -63,7 +78,7 @@ class AnimationStudio(tk.Tk):
         self.listbox.bind('<<ListboxSelect>>',self._list_select)
         tb=ttk.Frame(center);tb.pack(fill=tk.X,padx=8,pady=6)
         ttk.Button(tb,text='Zoom +',command=lambda:self._zoom(1.1)).pack(side=tk.LEFT);ttk.Button(tb,text='Zoom -',command=lambda:self._zoom(.9)).pack(side=tk.LEFT,padx=4)
-        ttk.Checkbutton(tb,text='Onion Prev',variable=self.onion_prev,command=self._render).pack(side=tk.LEFT,padx=(12,0));ttk.Checkbutton(tb,text='Onion Next',variable=self.onion_next,command=self._render).pack(side=tk.LEFT,padx=6);ttk.Checkbutton(tb,text='Hierarchy',variable=self.hierarchy,command=self._render).pack(side=tk.LEFT,padx=6)
+        ttk.Checkbutton(tb,text='Onion Prev',variable=self.onion_prev,command=self._render).pack(side=tk.LEFT,padx=(12,0));ttk.Checkbutton(tb,text='Onion Next',variable=self.onion_next,command=self._render).pack(side=tk.LEFT,padx=6);ttk.Checkbutton(tb,text='Hierarchy',variable=self.hierarchy,command=self._render).pack(side=tk.LEFT,padx=6);ttk.Checkbutton(tb,text='Show Pivots',variable=self.show_pivots,command=self._render).pack(side=tk.LEFT,padx=6)
         ttk.Button(tb,text='Save Animation',command=self._save).pack(side=tk.RIGHT);ttk.Button(tb,text='Load Animation',command=self._load).pack(side=tk.RIGHT,padx=6)
         self.canvas=tk.Canvas(center,bg='#171717',highlightthickness=0);self.canvas.pack(fill=tk.BOTH,expand=True,padx=8)
         self.canvas.bind('<Button-1>',self._click);self.canvas.bind('<B1-Motion>',self._drag);self.canvas.bind('<ButtonRelease-1>',lambda e:setattr(self,'drag_last',None));self.canvas.bind('<MouseWheel>',lambda e:self._zoom(1.08 if e.delta>0 else .92));self.canvas.bind('<Configure>',lambda e:self._render())
@@ -77,12 +92,16 @@ class AnimationStudio(tk.Tk):
         for label,var in [('Part',self.sel),('X',self.xv),('Y',self.yv),('Rotation°',self.rv),('Scale',self.sv)]:
             r=ttk.Frame(right);r.pack(fill=tk.X,padx=10,pady=3);ttk.Label(r,text=label,width=10).pack(side=tk.LEFT);e=ttk.Entry(r,textvariable=var);e.pack(side=tk.LEFT,fill=tk.X,expand=True);e.configure(state='readonly' if label=='Part' else 'normal')
         ttk.Button(right,text='Apply typed values',command=self._apply).pack(fill=tk.X,padx=10,pady=(8,4));ttk.Button(right,text='Reset part to calibrated pose',command=self._reset).pack(fill=tk.X,padx=10,pady=4)
+        ttk.Separator(right).pack(fill=tk.X,padx=10,pady=(10,6))
+        ttk.Button(right,text='Set Selected Pivot',command=self._begin_set_pivot).pack(fill=tk.X,padx=10,pady=3)
+        ttk.Button(right,text='Save Animation Pivots',command=self._save_pivots).pack(fill=tk.X,padx=10,pady=3)
         r=ttk.Frame(right);r.pack(fill=tk.X,padx=10,pady=(14,4));ttk.Label(r,text='Animation',width=10).pack(side=tk.LEFT);ttk.Entry(r,textvariable=self.anim_name).pack(side=tk.LEFT,fill=tk.X,expand=True)
         ttk.Label(right,text='Drag = move\nArrow = 1 px\nShift+Arrow = 10 px\nQ/E = rotate ±1°\nShift+Q/E = ±5°\nCtrl+Up/Down = scale ±1%\n\nHierarchy ON:\nUpperArm rotates at shoulder and carries forearm/hand.\nLowerArm rotates at elbow and carries hand.\nHand rotates at wrist.\n\nApproved source PNGs are never modified.',justify=tk.LEFT).pack(anchor='w',padx=10,pady=8)
         self.status=tk.StringVar(value='Ready');ttk.Label(right,textvariable=self.status,wraplength=250).pack(anchor='w',padx=10,pady=8)
         self.bind('<Left>',lambda e:self._nudge(-self._step(e),0));self.bind('<Right>',lambda e:self._nudge(self._step(e),0));self.bind('<Up>',self._key_up);self.bind('<Down>',self._key_down);self.bind('q',lambda e:self._rotate(-1));self.bind('e',lambda e:self._rotate(1));self.bind('Q',lambda e:self._rotate(-5));self.bind('E',lambda e:self._rotate(5))
         self._refresh_timeline()
     def pose(self): return self.frames[self.current]['parts']
+    def frame_pivots(self): return self.frames[self.current]['pivots']
     def _part_img(self,n,pose,opacity=255):
         p=pose[n];c=self.base_images[n];s=p['base_scale']*p['scale'];im=c.resize((max(1,round(c.width*s)),max(1,round(c.height*s))),Image.Resampling.LANCZOS)
         if p['rotation']: im=im.rotate(p['rotation'],resample=Image.Resampling.BICUBIC,expand=True,fillcolor=(0,0,0,0))
@@ -98,12 +117,47 @@ class AnimationStudio(tk.Tk):
         if self.onion_prev.get() and self.current>0:self._draw_pose(self.frames[self.current-1]['parts'],75)
         if self.onion_next.get() and self.current<len(self.frames)-1:self._draw_pose(self.frames[self.current+1]['parts'],55)
         self._draw_pose(self.pose(),255,True)
+        if self.show_pivots.get():self._draw_pivots()
     def _draw_pose(self,pose,opacity,select=False):
         for n in sorted(PART_ORDER,key=lambda x:pose[x]['z_order']):
             im=self._part_img(n,pose,opacity);view=im.resize((max(1,round(im.width*self.zoom)),max(1,round(im.height*self.zoom))),Image.Resampling.LANCZOS);ref=ImageTk.PhotoImage(view);self._refs.append(ref);x=self.pan_x+pose[n]['x']*self.zoom;y=self.pan_y+pose[n]['y']*self.zoom;self.canvas.create_image(x,y,image=ref,anchor=tk.NW)
             if select and n==self.selected:self.canvas.create_rectangle(x,y,x+view.width,y+view.height,outline='#00ffff',width=2)
+    def _draw_pivots(self):
+        piv=self.frame_pivots()
+        for n in PART_ORDER:
+            pt=piv.get(n)
+            if not pt:continue
+            x=self.pan_x+pt['x']*self.zoom;y=self.pan_y+pt['y']*self.zoom
+            r=6 if n==self.selected else 4
+            color='#00ffff' if n==self.selected else '#ffffff'
+            self.canvas.create_oval(x-r,y-r,x+r,y+r,outline=color,width=2)
+            if n==self.selected:
+                self.canvas.create_line(x-10,y,x+10,y,fill=color)
+                self.canvas.create_line(x,y-10,x,y+10,fill=color)
+    def _begin_set_pivot(self):
+        if not self.selected:
+            messagebox.showinfo('Set Pivot','Select a part first.');return
+        self.set_pivot_mode=True
+        self.status.set(f'Click the exact {self.part_pivot_key.get(self.selected,"joint")} location for {self.selected}.')
+    def _save_pivots(self):
+        # Save the current frame pivots as the new animation-pivot calibration.
+        piv=self.frame_pivots()
+        self.base_pivots=copy.deepcopy(piv)
+        data={'metadata':{'asset_id':ASSET_ID,'document':'AnimationPivots','version':'v001','studio_version':APP_VERSION,'status':'CALIBRATED','approved_art_modified':False},'pivots':{n:{'pivot':self.part_pivot_key.get(n),'x_px':round(piv[n]['x'],3),'y_px':round(piv[n]['y'],3)} for n in PART_ORDER}}
+        save_yaml(self.animation_pivots_path,data)
+        self.status.set(f'Saved animation pivots: {self.animation_pivots_path}')
+        messagebox.showinfo('Pivots Saved',str(self.animation_pivots_path))
     def _click(self,e):
-        wx=(e.x-self.pan_x)/self.zoom;wy=(e.y-self.pan_y)/self.zoom;hits=[];p=self.pose()
+        wx=(e.x-self.pan_x)/self.zoom;wy=(e.y-self.pan_y)/self.zoom
+        if self.set_pivot_mode and self.selected:
+            # Pivot calibration is a rig-level setting: propagate to every frame.
+            for fr in self.frames:
+                fr['pivots'][self.selected]={'x':float(wx),'y':float(wy)}
+            self.base_pivots[self.selected]={'x':float(wx),'y':float(wy)}
+            self.set_pivot_mode=False
+            self.status.set(f'Pivot set for {self.selected}: ({wx:.1f}, {wy:.1f})')
+            self._render();return
+        hits=[];p=self.pose()
         for n in PART_ORDER:
             im=self._part_img(n,p);x,y=p[n]['x'],p[n]['y']
             if x<=wx<=x+im.width and y<=wy<=y+im.height:hits.append((p[n]['z_order'],n))
@@ -135,11 +189,13 @@ class AnimationStudio(tk.Tk):
         return out
     def _targets(self,n):return [n]+self._descendants(n) if self.hierarchy.get() else [n]
     def _translate(self,n,dx,dy):
-        p=self.pose()
-        for t in self._targets(n):p[t]['x']+=dx;p[t]['y']+=dy
+        p=self.pose();piv=self.frame_pivots()
+        for t in self._targets(n):
+            p[t]['x']+=dx;p[t]['y']+=dy
+            if t in piv:piv[t]['x']+=dx;piv[t]['y']+=dy
     def _pivot(self,n):
-        key=self.parts_meta[n].get('pivot');rec=self.pivots.get(key)
-        return (float(rec['x_px']),float(rec['y_px'])) if rec else None
+        rec=self.frame_pivots().get(n)
+        return (float(rec['x']),float(rec['y'])) if rec else None
     def _center(self,n):
         p=self.pose();im=self._part_img(n,p)
         return (p[n]['x']+im.width/2.0,p[n]['y']+im.height/2.0)
@@ -150,9 +206,13 @@ class AnimationStudio(tk.Tk):
     def _rotate_hierarchy(self,n,d):
         p=self.pose();pivot=self._pivot(n)
         if not pivot:p[n]['rotation']+=d;return
-        px,py=pivot;targets=self._targets(n);centers={t:self._center(t) for t in targets}
+        px,py=pivot;targets=self._targets(n);centers={t:self._center(t) for t in targets};piv=self.frame_pivots()
         for t in targets:
             nc=self._rotate_point(centers[t][0],centers[t][1],px,py,d);p[t]['rotation']+=d;im=self._part_img(t,p);p[t]['x']=round(nc[0]-im.width/2.0);p[t]['y']=round(nc[1]-im.height/2.0)
+        # Selected joint remains fixed. Child/descendant joints travel with the chain.
+        for t in self._descendants(n):
+            if t in piv:
+                nx,ny=self._rotate_point(piv[t]['x'],piv[t]['y'],px,py,d);piv[t]['x']=nx;piv[t]['y']=ny
     def _nudge(self,dx,dy):
         if self.selected:self._translate(self.selected,dx,dy);self._fields();self._render()
     def _rotate(self,d):
@@ -173,7 +233,7 @@ class AnimationStudio(tk.Tk):
     def _goto(self,i):self.current=max(0,min(i,len(self.frames)-1));self._fields();self._refresh_timeline();self._render()
     def _prev(self):self._goto((self.current-1)%len(self.frames))
     def _next(self):self._goto((self.current+1)%len(self.frames))
-    def _add(self):self.frames.append({'name':f'Frame {len(self.frames)+1}','parts':copy.deepcopy(self.base_pose)});self._goto(len(self.frames)-1)
+    def _add(self):self.frames.append({'name':f'Frame {len(self.frames)+1}','parts':copy.deepcopy(self.base_pose),'pivots':copy.deepcopy(self.base_pivots)});self._goto(len(self.frames)-1)
     def _dup(self):fr=copy.deepcopy(self.frames[self.current]);fr['name']=f'Frame {len(self.frames)+1}';self.frames.insert(self.current+1,fr);self._goto(self.current+1)
     def _delete(self):
         if len(self.frames)<=1:return
@@ -190,7 +250,7 @@ class AnimationStudio(tk.Tk):
     def outdir(self):return self.repo/'Production'/ASSET_ID/'06_Animations'/(self.anim_name.get().strip() or 'Animation_v001')
     def _save(self):
         d=self.outdir();d.mkdir(parents=True,exist_ok=True);data={'metadata':{'asset_id':ASSET_ID,'document':'AnimationStudioAnimation','version':'v001','studio_version':APP_VERSION,'status':'WORKING','approved_art_modified':False},'animation':{'name':self.anim_name.get(),'fps':int(self.fps.get()),'frame_count':len(self.frames),'frames':[]}}
-        for i,fr in enumerate(self.frames):data['animation']['frames'].append({'index':i,'name':fr['name'],'parts':{n:{'x':p['x'],'y':p['y'],'rotation_deg':p['rotation'],'scale':p['scale']} for n,p in fr['parts'].items()}})
+        for i,fr in enumerate(self.frames):data['animation']['frames'].append({'index':i,'name':fr['name'],'parts':{n:{'x':p['x'],'y':p['y'],'rotation_deg':p['rotation'],'scale':p['scale']} for n,p in fr['parts'].items()},'pivots':{n:{'x_px':fr['pivots'][n]['x'],'y_px':fr['pivots'][n]['y']} for n in PART_ORDER}})
         save_yaml(d/'Animation.yaml',data);self.status.set(f'Saved {d/"Animation.yaml"}')
     def _load(self):
         p=self.outdir()/'Animation.yaml'
@@ -199,7 +259,10 @@ class AnimationStudio(tk.Tk):
         for fr in data['animation']['frames']:
             pose=copy.deepcopy(self.base_pose)
             for n,t in fr['parts'].items():pose[n]['x']=t['x'];pose[n]['y']=t['y'];pose[n]['rotation']=t['rotation_deg'];pose[n]['scale']=t['scale']
-            frames.append({'name':fr['name'],'parts':pose})
+            piv=copy.deepcopy(self.base_pivots)
+            for n,t in fr.get('pivots',{}).items():
+                if n in piv:piv[n]={'x':float(t['x_px']),'y':float(t['y_px'])}
+            frames.append({'name':fr['name'],'parts':pose,'pivots':piv})
         self.frames=frames;self.fps.set(data['animation'].get('fps',8));self._goto(0)
     def _export_frames(self):
         d=self.outdir()/'Frames';d.mkdir(parents=True,exist_ok=True)
