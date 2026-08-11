@@ -1,0 +1,510 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: AnimationStudioAnimation
+  version: v001
+  studio_version: 0.1.0
+  status: WORKING
+  approved_art_modified: false
+animation:
+  name: Idle_v001
+  fps: 4
+  frame_count: 6
+  frames:
+  - index: 0
+    name: Frame 1
+    parts:
+      Head:
+        x: 469
+        y: 120
+        rotation_deg: 0.0
+        scale: 1.0
+      Helmet:
+        x: 449
+        y: 103
+        rotation_deg: 0.0
+        scale: 0.8
+      Torso:
+        x: 350
+        y: 187
+        rotation_deg: 0.0
+        scale: 1.0
+      Pelvis:
+        x: 437
+        y: 458
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperArm_L:
+        x: 316
+        y: 223
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerArm_L:
+        x: 643
+        y: 341
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_L:
+        x: 727
+        y: 391
+        rotation_deg: -45.0
+        scale: 1.5
+      UpperArm_R:
+        x: 576
+        y: 230
+        rotation_deg: 0.0
+        scale: 1.02
+      LowerArm_R:
+        x: 252
+        y: 339
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_R:
+        x: 144
+        y: 373
+        rotation_deg: 45.0
+        scale: 1.5
+      UpperLeg_L:
+        x: 404
+        y: 488
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_L:
+        x: 399
+        y: 655
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_L:
+        x: 380
+        y: 819
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperLeg_R:
+        x: 513
+        y: 483
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_R:
+        x: 544
+        y: 658
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_R:
+        x: 543
+        y: 829
+        rotation_deg: 0.0
+        scale: 1.0
+  - index: 1
+    name: Frame 2
+    parts:
+      Head:
+        x: 469
+        y: 120
+        rotation_deg: 0.0
+        scale: 1.0
+      Helmet:
+        x: 449
+        y: 103
+        rotation_deg: 0.0
+        scale: 0.8
+      Torso:
+        x: 350
+        y: 186
+        rotation_deg: 0.0
+        scale: 1.0
+      Pelvis:
+        x: 437
+        y: 458
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperArm_L:
+        x: 316
+        y: 223
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerArm_L:
+        x: 643
+        y: 341
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_L:
+        x: 727
+        y: 391
+        rotation_deg: -45.0
+        scale: 1.5
+      UpperArm_R:
+        x: 576
+        y: 230
+        rotation_deg: 0.0
+        scale: 1.02
+      LowerArm_R:
+        x: 252
+        y: 339
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_R:
+        x: 144
+        y: 373
+        rotation_deg: 45.0
+        scale: 1.5
+      UpperLeg_L:
+        x: 404
+        y: 488
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_L:
+        x: 399
+        y: 655
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_L:
+        x: 380
+        y: 819
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperLeg_R:
+        x: 513
+        y: 483
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_R:
+        x: 544
+        y: 658
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_R:
+        x: 543
+        y: 829
+        rotation_deg: 0.0
+        scale: 1.0
+  - index: 2
+    name: Frame 3
+    parts:
+      Head:
+        x: 469
+        y: 120
+        rotation_deg: 0.0
+        scale: 1.0
+      Helmet:
+        x: 449
+        y: 103
+        rotation_deg: 0.0
+        scale: 0.8
+      Torso:
+        x: 350
+        y: 185
+        rotation_deg: 0.0
+        scale: 1.0
+      Pelvis:
+        x: 437
+        y: 458
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperArm_L:
+        x: 316
+        y: 223
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerArm_L:
+        x: 643
+        y: 341
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_L:
+        x: 727
+        y: 391
+        rotation_deg: -45.0
+        scale: 1.5
+      UpperArm_R:
+        x: 576
+        y: 230
+        rotation_deg: 0.0
+        scale: 1.02
+      LowerArm_R:
+        x: 252
+        y: 339
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_R:
+        x: 144
+        y: 373
+        rotation_deg: 45.0
+        scale: 1.5
+      UpperLeg_L:
+        x: 404
+        y: 488
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_L:
+        x: 399
+        y: 655
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_L:
+        x: 380
+        y: 819
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperLeg_R:
+        x: 513
+        y: 483
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_R:
+        x: 544
+        y: 658
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_R:
+        x: 543
+        y: 829
+        rotation_deg: 0.0
+        scale: 1.0
+  - index: 3
+    name: Frame 4
+    parts:
+      Head:
+        x: 469
+        y: 120
+        rotation_deg: 0.0
+        scale: 1.0
+      Helmet:
+        x: 449
+        y: 103
+        rotation_deg: 0.0
+        scale: 0.8
+      Torso:
+        x: 350
+        y: 184
+        rotation_deg: 0.0
+        scale: 1.0
+      Pelvis:
+        x: 437
+        y: 458
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperArm_L:
+        x: 316
+        y: 223
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerArm_L:
+        x: 643
+        y: 341
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_L:
+        x: 727
+        y: 391
+        rotation_deg: -45.0
+        scale: 1.5
+      UpperArm_R:
+        x: 576
+        y: 230
+        rotation_deg: 0.0
+        scale: 1.02
+      LowerArm_R:
+        x: 252
+        y: 339
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_R:
+        x: 144
+        y: 373
+        rotation_deg: 45.0
+        scale: 1.5
+      UpperLeg_L:
+        x: 404
+        y: 488
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_L:
+        x: 399
+        y: 655
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_L:
+        x: 380
+        y: 819
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperLeg_R:
+        x: 513
+        y: 483
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_R:
+        x: 544
+        y: 658
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_R:
+        x: 543
+        y: 829
+        rotation_deg: 0.0
+        scale: 1.0
+  - index: 4
+    name: Frame 5
+    parts:
+      Head:
+        x: 469
+        y: 120
+        rotation_deg: 0.0
+        scale: 1.0
+      Helmet:
+        x: 449
+        y: 103
+        rotation_deg: 0.0
+        scale: 0.8
+      Torso:
+        x: 350
+        y: 186
+        rotation_deg: 0.0
+        scale: 1.0
+      Pelvis:
+        x: 437
+        y: 458
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperArm_L:
+        x: 316
+        y: 223
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerArm_L:
+        x: 643
+        y: 341
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_L:
+        x: 727
+        y: 391
+        rotation_deg: -45.0
+        scale: 1.5
+      UpperArm_R:
+        x: 576
+        y: 230
+        rotation_deg: 0.0
+        scale: 1.02
+      LowerArm_R:
+        x: 252
+        y: 339
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_R:
+        x: 144
+        y: 373
+        rotation_deg: 45.0
+        scale: 1.5
+      UpperLeg_L:
+        x: 404
+        y: 488
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_L:
+        x: 399
+        y: 655
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_L:
+        x: 380
+        y: 819
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperLeg_R:
+        x: 513
+        y: 483
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_R:
+        x: 544
+        y: 658
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_R:
+        x: 543
+        y: 829
+        rotation_deg: 0.0
+        scale: 1.0
+  - index: 5
+    name: Frame 6
+    parts:
+      Head:
+        x: 469
+        y: 120
+        rotation_deg: 0.0
+        scale: 1.0
+      Helmet:
+        x: 449
+        y: 103
+        rotation_deg: 0.0
+        scale: 0.8
+      Torso:
+        x: 350
+        y: 187
+        rotation_deg: 0.0
+        scale: 1.0
+      Pelvis:
+        x: 437
+        y: 458
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperArm_L:
+        x: 316
+        y: 223
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerArm_L:
+        x: 643
+        y: 341
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_L:
+        x: 727
+        y: 391
+        rotation_deg: -45.0
+        scale: 1.5
+      UpperArm_R:
+        x: 576
+        y: 230
+        rotation_deg: 0.0
+        scale: 1.02
+      LowerArm_R:
+        x: 252
+        y: 339
+        rotation_deg: 0.0
+        scale: 1.0
+      Hand_R:
+        x: 144
+        y: 373
+        rotation_deg: 45.0
+        scale: 1.5
+      UpperLeg_L:
+        x: 404
+        y: 488
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_L:
+        x: 399
+        y: 655
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_L:
+        x: 380
+        y: 819
+        rotation_deg: 0.0
+        scale: 1.0
+      UpperLeg_R:
+        x: 513
+        y: 483
+        rotation_deg: 0.0
+        scale: 1.0
+      LowerLeg_R:
+        x: 544
+        y: 658
+        rotation_deg: 0.0
+        scale: 1.0
+      Foot_R:
+        x: 543
+        y: 829
+        rotation_deg: 0.0
+        scale: 1.0
