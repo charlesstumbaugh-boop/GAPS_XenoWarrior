@@ -1,0 +1,20 @@
+metadata:
+  system: GAPS_XenoWarrior
+  registry: ProductionLibraries
+  version: 1.0.0
+  status: ACTIVE
+heads: []
+helmets: []
+armor:
+- id: ARM_LIGHT_001
+  name: Grunt Light Combat Torso
+  file: Production/Libraries/Armor/ARM_LIGHT_001.png
+  sha256: c1946888feabed2b6ff4e017eb2a4cba9d1380aae533b84352f281df1a6a6d22
+  humanoid_base: HUMANOID_BASE_v001
+  status: APPROVED
+  reusable: true
+  compatible_variants:
+  - male
+  - female
+weapons: []
+materials: []

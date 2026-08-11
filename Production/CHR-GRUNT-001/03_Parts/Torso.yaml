@@ -1,0 +1,9 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: Torso
+  version: v001
+  status: APPROVED
+  library_reference: ARM_LIGHT_001
+file: Production/CHR-GRUNT-001/03_Parts/Torso.png
+canonical_library_file: Production/Libraries/Armor/ARM_LIGHT_001.png
+sha256: c1946888feabed2b6ff4e017eb2a4cba9d1380aae533b84352f281df1a6a6d22

@@ -8,8 +8,8 @@ inherits:
 default_assembly:
   head: HUM_HEAD_001
   helmet: HEL_GRUNT_001
-  armor_profile: GRUNT_LIGHT_ARMOR_v001
   weapon: WPN-GRUNT-CARBINE-001
+  armor: ARM_LIGHT_001
 approved_variants:
   male:
     head: HUM_HEAD_001
