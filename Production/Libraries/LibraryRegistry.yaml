@@ -16,5 +16,15 @@ armor:
   compatible_variants:
   - male
   - female
+- id: PEL_LIGHT_001
+  name: Light Humanoid Pelvis Armor
+  file: Production/Libraries/Armor/PEL_LIGHT_001.png
+  sha256: d636a2c4bd79657f4bc7a3e2dc1a088ab38956b8076fa786b4d4a077ab2d0a14
+  humanoid_base: HUMANOID_BASE_v001
+  status: APPROVED
+  reusable: true
+  compatible_variants:
+  - male
+  - female
 weapons: []
 materials: []
