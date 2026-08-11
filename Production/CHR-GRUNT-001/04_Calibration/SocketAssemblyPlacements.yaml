@@ -1,0 +1,84 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: SocketAssemblyPlacements
+  version: v001
+  status: CALIBRATION_OUTPUT
+  approved_art_modified: false
+placements:
+  Foot_L:
+    x: 264
+    y: 848
+    width: 125
+    height: 160
+  Foot_R:
+    x: 620
+    y: 850
+    width: 121
+    height: 155
+  LowerLeg_L:
+    x: 327
+    y: 672
+    width: 102
+    height: 225
+  LowerLeg_R:
+    x: 576
+    y: 679
+    width: 104
+    height: 230
+  UpperLeg_L:
+    x: 360
+    y: 527
+    width: 128
+    height: 190
+  UpperLeg_R:
+    x: 518
+    y: 529
+    width: 131
+    height: 195
+  Torso:
+    x: 350
+    y: 187
+    width: 330
+    height: 330
+  UpperArm_L:
+    x: 261
+    y: 229
+    width: 140
+    height: 146
+  UpperArm_R:
+    x: 598
+    y: 231
+    width: 125
+    height: 131
+  LowerArm_L:
+    x: 188
+    y: 337
+    width: 156
+    height: 130
+  LowerArm_R:
+    x: 654
+    y: 343
+    width: 130
+    height: 108
+  Hand_L:
+    x: 324
+    y: 390
+    width: 95
+    height: 70
+  Hand_R:
+    x: 619
+    y: 418
+    width: 95
+    height: 70
+  Head:
+    x: 449
+    y: 95
+    width: 102
+    height: 120
+  Helmet:
+    x: 418
+    y: 72
+    width: 164
+    height: 185
+failures:
+- 'Pelvis: no unique joint socket'
