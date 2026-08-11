@@ -10,8 +10,8 @@ active_asset:
   asset_id: CHR-GRUNT-001
   asset_name: Grunt Soldier 1
   current_stage: parts_manufacturing
-  next_required_part: Head
-  next_output: Production/CHR-GRUNT-001/03_Parts/Head.png
+  next_required_part: Helmet
+  next_output: Production/CHR-GRUNT-001/03_Parts/Helmet.png
 completed:
 - concept_approved
 - identity_locked
@@ -32,4 +32,4 @@ handoff:
   - Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
   - Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
   - Production/CHR-GRUNT-001/02_AnimationMaster/LayerManifest.yaml
-  destination: Production/CHR-GRUNT-001/03_Parts/Head.png
+  destination: Production/CHR-GRUNT-001/03_Parts/Helmet.png
