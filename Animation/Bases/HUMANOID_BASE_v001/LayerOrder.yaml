@@ -1,0 +1,23 @@
+metadata:
+  animation_base: HUMANOID_BASE_v001
+back_to_front:
+- Back_Equipment
+- UpperArm_R
+- LowerArm_R
+- Hand_R
+- UpperLeg_R
+- LowerLeg_R
+- Foot_R
+- Pelvis
+- Torso
+- UpperLeg_L
+- LowerLeg_L
+- Foot_L
+- UpperArm_L
+- LowerArm_L
+- Hand_L
+- Head
+- Helmet_or_Headgear
+- Front_Equipment
+- Weapon
+- FX

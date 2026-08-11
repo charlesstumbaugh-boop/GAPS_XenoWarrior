@@ -1,0 +1,59 @@
+metadata:
+  animation_base: HUMANOID_BASE_v001
+  version: 1.0.0
+parts:
+- name: Head
+  joint: head
+  parent_part: Torso
+- name: Torso
+  joint: chest
+  parent_part: Pelvis
+- name: Pelvis
+  joint: pelvis
+  parent_part: null
+- name: UpperArm_L
+  joint: shoulder_L
+  parent_part: Torso
+- name: LowerArm_L
+  joint: elbow_L
+  parent_part: UpperArm_L
+- name: Hand_L
+  joint: wrist_L
+  parent_part: LowerArm_L
+- name: UpperArm_R
+  joint: shoulder_R
+  parent_part: Torso
+- name: LowerArm_R
+  joint: elbow_R
+  parent_part: UpperArm_R
+- name: Hand_R
+  joint: wrist_R
+  parent_part: LowerArm_R
+- name: UpperLeg_L
+  joint: hip_L
+  parent_part: Pelvis
+- name: LowerLeg_L
+  joint: knee_L
+  parent_part: UpperLeg_L
+- name: Foot_L
+  joint: ankle_L
+  parent_part: LowerLeg_L
+- name: UpperLeg_R
+  joint: hip_R
+  parent_part: Pelvis
+- name: LowerLeg_R
+  joint: knee_R
+  parent_part: UpperLeg_R
+- name: Foot_R
+  joint: ankle_R
+  parent_part: LowerLeg_R
+character_overrides_allowed:
+- gender/body proportions within humanoid limits
+- armor and clothing
+- helmet/headgear
+- palette/material assignments
+- equipment and weapons
+character_overrides_forbidden:
+- renaming required base joints
+- removing required base joints
+- changing frame numbering convention

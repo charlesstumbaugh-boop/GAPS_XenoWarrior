@@ -1,0 +1,43 @@
+metadata:
+  animation_base: HUMANOID_BASE_v001
+  version: 1.0.0
+joint_limits_degrees:
+  neck:
+    min: -15
+    max: 15
+  shoulder_L:
+    min: -55
+    max: 75
+  elbow_L:
+    min: -5
+    max: 125
+  wrist_L:
+    min: -30
+    max: 30
+  shoulder_R:
+    min: -75
+    max: 55
+  elbow_R:
+    min: -125
+    max: 5
+  wrist_R:
+    min: -30
+    max: 30
+  hip_L:
+    min: -35
+    max: 45
+  knee_L:
+    min: 0
+    max: 120
+  ankle_L:
+    min: -25
+    max: 25
+  hip_R:
+    min: -45
+    max: 35
+  knee_R:
+    min: -120
+    max: 0
+  ankle_R:
+    min: -25
+    max: 25

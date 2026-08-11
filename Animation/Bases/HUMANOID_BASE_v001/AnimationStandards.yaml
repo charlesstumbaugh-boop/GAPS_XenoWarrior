@@ -1,0 +1,43 @@
+metadata:
+  animation_base: HUMANOID_BASE_v001
+canvas:
+  width: 1024
+  height: 1024
+  transparent: true
+naming:
+  frame_pattern: <ASSET-ID>_<ACTION>_F##_v###.png
+animations:
+  idle:
+    frames: 6
+    fps: 8
+    loop: true
+  walk:
+    frames: 8
+    fps: 10
+    loop: true
+  run:
+    frames: 8
+    fps: 12
+    loop: true
+  fire:
+    frames: 4
+    fps: 12
+    loop: false
+  reload:
+    frames: 8
+    fps: 10
+    loop: false
+  hit:
+    frames: 3
+    fps: 10
+    loop: false
+  death:
+    frames: 8
+    fps: 10
+    loop: false
+unity_defaults:
+  pixels_per_unit: 100
+  pivot: Bottom Center
+  filter_mode: Point
+  compression: None
+  mip_maps: false

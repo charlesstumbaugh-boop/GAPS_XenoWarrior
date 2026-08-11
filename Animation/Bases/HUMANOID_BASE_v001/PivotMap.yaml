@@ -1,0 +1,49 @@
+metadata:
+  animation_base: HUMANOID_BASE_v001
+  coordinate_space: normalized_local
+pivots:
+  head:
+    x: 0.5
+    y: 0.92
+  neck:
+    x: 0.5
+    y: 0.84
+  shoulder_L:
+    x: 0.36
+    y: 0.79
+  elbow_L:
+    x: 0.28
+    y: 0.64
+  wrist_L:
+    x: 0.24
+    y: 0.51
+  shoulder_R:
+    x: 0.64
+    y: 0.79
+  elbow_R:
+    x: 0.72
+    y: 0.64
+  wrist_R:
+    x: 0.76
+    y: 0.51
+  pelvis:
+    x: 0.5
+    y: 0.47
+  hip_L:
+    x: 0.44
+    y: 0.45
+  knee_L:
+    x: 0.42
+    y: 0.27
+  ankle_L:
+    x: 0.4
+    y: 0.08
+  hip_R:
+    x: 0.56
+    y: 0.45
+  knee_R:
+    x: 0.58
+    y: 0.27
+  ankle_R:
+    x: 0.6
+    y: 0.08
