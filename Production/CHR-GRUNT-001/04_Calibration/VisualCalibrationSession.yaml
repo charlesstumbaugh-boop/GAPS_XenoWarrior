@@ -1,18 +1,9 @@
 metadata:
   asset_id: CHR-GRUNT-001
-  document: AssemblyOffsets
+  document: VisualCalibrationSession
   version: v001
-  status: CALIBRATION_DRAFT
-  art_files_modified: false
-  calibration_tool: GAPS Calibration Studio
-  calibration_tool_version: 0.1.0
-source_overrides:
-  UpperArm_L: Production/CHR-GRUNT-001/03_Parts/UpperArm_R.png
-  UpperArm_R: Production/CHR-GRUNT-001/03_Parts/UpperArm_L.png
-  LowerArm_L: Production/CHR-GRUNT-001/03_Parts/LowerArm_R.png
-  LowerArm_R: Production/CHR-GRUNT-001/03_Parts/LowerArm_L.png
-  UpperLeg_L: Production/CHR-GRUNT-001/03_Parts/UpperLeg_R.png
-  UpperLeg_R: Production/CHR-GRUNT-001/03_Parts/UpperLeg_L.png
+  tool_version: 0.1.0
+  status: SAVED
 offsets_px:
   Head:
     x: 33

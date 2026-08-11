@@ -1,7 +1,7 @@
 metadata:
   asset_id: CHR-GRUNT-001
   document: SocketAssemblyPlacements
-  version: v001
+  version: v002
   status: CALIBRATION_OUTPUT
   approved_art_modified: false
 placements:
@@ -10,75 +10,95 @@ placements:
     y: 848
     width: 125
     height: 160
+    attachment_target: ankle_L
   Foot_R:
     x: 620
     y: 850
     width: 121
     height: 155
+    attachment_target: ankle_R
   LowerLeg_L:
     x: 327
     y: 672
     width: 102
     height: 225
+    attachment_target: knee_L
   LowerLeg_R:
     x: 576
     y: 679
     width: 104
     height: 230
+    attachment_target: knee_R
   UpperLeg_L:
     x: 360
     y: 527
     width: 128
     height: 190
+    attachment_target: hip_L
   UpperLeg_R:
     x: 518
     y: 529
     width: 131
     height: 195
+    attachment_target: hip_R
+  Pelvis:
+    x: 425
+    y: 528
+    width: 157
+    height: 125
+    attachment_target: derived_hip_center
   Torso:
     x: 350
     y: 187
     width: 330
     height: 330
+    attachment_target: root_guide_box
   UpperArm_L:
     x: 261
     y: 229
     width: 140
     height: 146
+    attachment_target: shoulder_L
   UpperArm_R:
     x: 598
     y: 231
     width: 125
     height: 131
+    attachment_target: shoulder_R
   LowerArm_L:
     x: 188
     y: 337
     width: 156
     height: 130
+    attachment_target: elbow_L
   LowerArm_R:
     x: 654
     y: 343
     width: 130
     height: 108
+    attachment_target: elbow_R
   Hand_L:
     x: 324
     y: 390
     width: 95
     height: 70
+    attachment_target: wrist_L
   Hand_R:
     x: 619
     y: 418
     width: 95
     height: 70
+    attachment_target: wrist_R
   Head:
     x: 449
     y: 95
     width: 102
     height: 120
+    attachment_target: neck
   Helmet:
     x: 418
     y: 72
     width: 164
     height: 185
-failures:
-- 'Pelvis: no unique joint socket'
+    attachment_target: helmet
+failures: []
