@@ -8,7 +8,7 @@ from PIL import Image, ImageTk
 import yaml
 
 ASSET_ID='CHR-GRUNT-001'
-APP_VERSION='0.1.0'
+APP_VERSION='0.2.0'
 PART_ORDER=['Head','Helmet','Torso','Pelvis','UpperArm_L','LowerArm_L','Hand_L','UpperArm_R','LowerArm_R','Hand_R','UpperLeg_L','LowerLeg_L','Foot_L','UpperLeg_R','LowerLeg_R','Foot_R']
 
 def load_yaml(path: Path):
@@ -35,9 +35,13 @@ class AnimationStudio(tk.Tk):
         try: self.manifest=load_yaml(self.manifest_path)
         except Exception as e:
             messagebox.showerror('GAPS Animation Studio',str(e)); raise SystemExit(2)
+        self.rig_spec_path=self.repo/'Production'/ASSET_ID/'03_Rig'/'RigSpecification.yaml'
+        self.rig_spec=load_yaml(self.rig_spec_path)
+        self.pivots=self.rig_spec.get('pivots',{})
         if self.manifest.get('metadata',{}).get('status')!='VISUAL_CALIBRATION_PROMOTED':
             messagebox.showerror('GAPS Animation Studio','Calibrated rig must be promoted first.'); raise SystemExit(2)
         self.parts_meta=self.manifest['parts']; self.base_images={}; self.base_pose={}
+        self.parent_map={n:self.parts_meta[n].get('parent') for n in PART_ORDER}
         for n in PART_ORDER:
             rec=self.parts_meta[n]; src=self.repo/Path(rec['source'])
             im=Image.open(src).convert('RGBA'); crop=alpha_crop(im)
@@ -47,7 +51,7 @@ class AnimationStudio(tk.Tk):
             self.base_pose[n]={'x':int(place['x_px']),'y':int(place['y_px']),'rotation':float(vt.get('rotation_deg',0) or 0),'scale':float(vt.get('scale',1) or 1),'base_scale':float(rec.get('base_scale',1)),'z_order':int(rec.get('z_order',0))}
         self.frames=[{'name':f'Frame {i+1}','parts':copy.deepcopy(self.base_pose)} for i in range(6)]
         self.current=0; self.selected=None; self.drag_last=None; self.playing=False; self.play_after=None
-        self.zoom=.72; self.pan_x=20; self.pan_y=20; self.fps=tk.IntVar(value=8); self.onion_prev=tk.BooleanVar(); self.onion_next=tk.BooleanVar(); self.anim_name=tk.StringVar(value='Idle_v001')
+        self.zoom=.72; self.pan_x=20; self.pan_y=20; self.fps=tk.IntVar(value=8); self.onion_prev=tk.BooleanVar(); self.onion_next=tk.BooleanVar(); self.hierarchy=tk.BooleanVar(value=True); self.anim_name=tk.StringVar(value='Idle_v001')
         self._build_ui(); self._render()
     def _build_ui(self):
         pw=ttk.Panedwindow(self,orient=tk.HORIZONTAL); pw.pack(fill=tk.BOTH,expand=True)
@@ -59,7 +63,7 @@ class AnimationStudio(tk.Tk):
         self.listbox.bind('<<ListboxSelect>>',self._list_select)
         tb=ttk.Frame(center);tb.pack(fill=tk.X,padx=8,pady=6)
         ttk.Button(tb,text='Zoom +',command=lambda:self._zoom(1.1)).pack(side=tk.LEFT);ttk.Button(tb,text='Zoom -',command=lambda:self._zoom(.9)).pack(side=tk.LEFT,padx=4)
-        ttk.Checkbutton(tb,text='Onion Prev',variable=self.onion_prev,command=self._render).pack(side=tk.LEFT,padx=(12,0));ttk.Checkbutton(tb,text='Onion Next',variable=self.onion_next,command=self._render).pack(side=tk.LEFT,padx=6)
+        ttk.Checkbutton(tb,text='Onion Prev',variable=self.onion_prev,command=self._render).pack(side=tk.LEFT,padx=(12,0));ttk.Checkbutton(tb,text='Onion Next',variable=self.onion_next,command=self._render).pack(side=tk.LEFT,padx=6);ttk.Checkbutton(tb,text='Hierarchy',variable=self.hierarchy,command=self._render).pack(side=tk.LEFT,padx=6)
         ttk.Button(tb,text='Save Animation',command=self._save).pack(side=tk.RIGHT);ttk.Button(tb,text='Load Animation',command=self._load).pack(side=tk.RIGHT,padx=6)
         self.canvas=tk.Canvas(center,bg='#171717',highlightthickness=0);self.canvas.pack(fill=tk.BOTH,expand=True,padx=8)
         self.canvas.bind('<Button-1>',self._click);self.canvas.bind('<B1-Motion>',self._drag);self.canvas.bind('<ButtonRelease-1>',lambda e:setattr(self,'drag_last',None));self.canvas.bind('<MouseWheel>',lambda e:self._zoom(1.08 if e.delta>0 else .92));self.canvas.bind('<Configure>',lambda e:self._render())
@@ -74,7 +78,7 @@ class AnimationStudio(tk.Tk):
             r=ttk.Frame(right);r.pack(fill=tk.X,padx=10,pady=3);ttk.Label(r,text=label,width=10).pack(side=tk.LEFT);e=ttk.Entry(r,textvariable=var);e.pack(side=tk.LEFT,fill=tk.X,expand=True);e.configure(state='readonly' if label=='Part' else 'normal')
         ttk.Button(right,text='Apply typed values',command=self._apply).pack(fill=tk.X,padx=10,pady=(8,4));ttk.Button(right,text='Reset part to calibrated pose',command=self._reset).pack(fill=tk.X,padx=10,pady=4)
         r=ttk.Frame(right);r.pack(fill=tk.X,padx=10,pady=(14,4));ttk.Label(r,text='Animation',width=10).pack(side=tk.LEFT);ttk.Entry(r,textvariable=self.anim_name).pack(side=tk.LEFT,fill=tk.X,expand=True)
-        ttk.Label(right,text='Drag = move\nArrow = 1 px\nShift+Arrow = 10 px\nQ/E = rotate ±1°\nShift+Q/E = ±5°\nCtrl+Up/Down = scale ±1%\n\nApproved source PNGs are never modified.',justify=tk.LEFT).pack(anchor='w',padx=10,pady=8)
+        ttk.Label(right,text='Drag = move\nArrow = 1 px\nShift+Arrow = 10 px\nQ/E = rotate ±1°\nShift+Q/E = ±5°\nCtrl+Up/Down = scale ±1%\n\nHierarchy ON:\nUpperArm rotates at shoulder and carries forearm/hand.\nLowerArm rotates at elbow and carries hand.\nHand rotates at wrist.\n\nApproved source PNGs are never modified.',justify=tk.LEFT).pack(anchor='w',padx=10,pady=8)
         self.status=tk.StringVar(value='Ready');ttk.Label(right,textvariable=self.status,wraplength=250).pack(anchor='w',padx=10,pady=8)
         self.bind('<Left>',lambda e:self._nudge(-self._step(e),0));self.bind('<Right>',lambda e:self._nudge(self._step(e),0));self.bind('<Up>',self._key_up);self.bind('<Down>',self._key_down);self.bind('q',lambda e:self._rotate(-1));self.bind('e',lambda e:self._rotate(1));self.bind('Q',lambda e:self._rotate(-5));self.bind('E',lambda e:self._rotate(5))
         self._refresh_timeline()
@@ -106,7 +110,7 @@ class AnimationStudio(tk.Tk):
         if hits:self._select(max(hits)[1]);self.drag_last=(e.x,e.y)
     def _drag(self,e):
         if self.selected is None or self.drag_last is None:return
-        dx=round((e.x-self.drag_last[0])/self.zoom);dy=round((e.y-self.drag_last[1])/self.zoom);self.pose()[self.selected]['x']+=dx;self.pose()[self.selected]['y']+=dy;self.drag_last=(e.x,e.y);self._fields();self._render()
+        dx=round((e.x-self.drag_last[0])/self.zoom);dy=round((e.y-self.drag_last[1])/self.zoom);self._translate(self.selected,dx,dy);self.drag_last=(e.x,e.y);self._fields();self._render()
     def _list_select(self,e=None):
         s=self.listbox.curselection();
         if s:self._select(self.listbox.get(s[0]))
@@ -122,10 +126,37 @@ class AnimationStudio(tk.Tk):
     def _reset(self):
         if self.selected:self.pose()[self.selected]=copy.deepcopy(self.base_pose[self.selected]);self._fields();self._render()
     def _step(self,e):return 10 if e.state&1 else 1
+    def _children(self,n):return [c for c,p in self.parent_map.items() if p==n]
+    def _descendants(self,n):
+        out=[];stack=self._children(n)
+        while stack:
+            c=stack.pop(0)
+            if c not in out:out.append(c);stack.extend(self._children(c))
+        return out
+    def _targets(self,n):return [n]+self._descendants(n) if self.hierarchy.get() else [n]
+    def _translate(self,n,dx,dy):
+        p=self.pose()
+        for t in self._targets(n):p[t]['x']+=dx;p[t]['y']+=dy
+    def _pivot(self,n):
+        key=self.parts_meta[n].get('pivot');rec=self.pivots.get(key)
+        return (float(rec['x_px']),float(rec['y_px'])) if rec else None
+    def _center(self,n):
+        p=self.pose();im=self._part_img(n,p)
+        return (p[n]['x']+im.width/2.0,p[n]['y']+im.height/2.0)
+    def _rotate_point(self,x,y,cx,cy,d):
+        import math
+        r=math.radians(d);vx=x-cx;vy=y-cy
+        return cx+vx*math.cos(r)-vy*math.sin(r),cy+vx*math.sin(r)+vy*math.cos(r)
+    def _rotate_hierarchy(self,n,d):
+        p=self.pose();pivot=self._pivot(n)
+        if not pivot:p[n]['rotation']+=d;return
+        px,py=pivot;targets=self._targets(n);centers={t:self._center(t) for t in targets}
+        for t in targets:
+            nc=self._rotate_point(centers[t][0],centers[t][1],px,py,d);p[t]['rotation']+=d;im=self._part_img(t,p);p[t]['x']=round(nc[0]-im.width/2.0);p[t]['y']=round(nc[1]-im.height/2.0)
     def _nudge(self,dx,dy):
-        if self.selected:self.pose()[self.selected]['x']+=dx;self.pose()[self.selected]['y']+=dy;self._fields();self._render()
+        if self.selected:self._translate(self.selected,dx,dy);self._fields();self._render()
     def _rotate(self,d):
-        if self.selected:self.pose()[self.selected]['rotation']+=d;self._fields();self._render()
+        if self.selected:self._rotate_hierarchy(self.selected,d);self._fields();self._render()
     def _key_up(self,e):
         if e.state&4:self._scale(1.01)
         else:self._nudge(0,-self._step(e))
