@@ -11,6 +11,7 @@ default_assembly:
   weapon: WPN-GRUNT-CARBINE-001
   armor: ARM_LIGHT_001
   pelvis: PEL_LIGHT_001
+  upper_arm_l: ARM_UPPER_L_001
 approved_variants:
   male:
     head: HUM_HEAD_001

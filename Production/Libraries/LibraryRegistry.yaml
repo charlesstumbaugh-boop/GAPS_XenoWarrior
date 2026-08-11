@@ -26,5 +26,14 @@ armor:
   compatible_variants:
   - male
   - female
+- id: ARM_UPPER_L_001
+  name: Arm Upper L 001
+  file: Production/Libraries/Armor/ARM_UPPER_L_001.png
+  sha256: 3e4932bbbba3f4a442765233d88d85ca44750da80a275f7ba8b780c5020f43bb
+  status: APPROVED
+  reusable: true
+  variant: default
 weapons: []
 materials: []
+props: []
+effects: []
