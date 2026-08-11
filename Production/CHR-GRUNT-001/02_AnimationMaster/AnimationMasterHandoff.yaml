@@ -1,0 +1,23 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  artifact_type: animation_master_handoff
+  version: v001
+  status: READY
+inputs:
+  approved_model_sheet: Production/CHR-GRUNT-001/02_ModelSheet/CHR-GRUNT-001_MODEL_SHEET_v001.png
+  identity_lock: Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
+  animation_profile: Animation/Characters/CHR-GRUNT-001/CharacterAnimationProfile.yaml
+  humanoid_base: Animation/Bases/HUMANOID_BASE_v001
+next_output:
+  file: Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
+  requirements:
+  - single front-facing relaxed A-pose
+  - no weapon held
+  - no backpack attached
+  - arms clear of torso
+  - hands fully visible
+  - legs separated
+  - complete joint geometry
+  - true alpha transparency
+  - 1024x1024 RGBA
+  - no labels, UI, scenery, floor, or cast shadow

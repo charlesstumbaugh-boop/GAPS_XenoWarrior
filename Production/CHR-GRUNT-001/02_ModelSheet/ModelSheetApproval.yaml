@@ -1,0 +1,22 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  artifact_type: model_sheet
+  version: v001
+  status: APPROVED
+  approved_by: Project Owner
+file: Production/CHR-GRUNT-001/02_ModelSheet/CHR-GRUNT-001_MODEL_SHEET_v001.png
+sha256: 205db2c157d232985e4e38f976e4296eb7f8e7abc4a8095e050eb80483311110
+authority:
+- front_view
+- side_views
+- back_view
+- helmet_reference
+- backpack_reference
+- weapon_reference
+- proportion_reference
+notes:
+- Approved as animation/model-sheet reference.
+- This sheet is not itself the layered rig.
+- The front no-weapon body view is the source target for the Animation Master.
+- Weapon and backpack remain separate prop/equipment assets.
