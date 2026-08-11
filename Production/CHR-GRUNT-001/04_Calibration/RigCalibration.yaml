@@ -1,0 +1,12 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: RigCalibration
+  version: v001
+  status: IN_PROGRESS
+rules:
+- Do not modify approved production PNGs during calibration.
+- Correct side assignment and attachment relationships in metadata first.
+- Do not proceed to animation until calibrated assembly passes visual QA.
+- Any remaining art defect after metadata calibration is fixed one part at a time.
+current_pass: side_assignment_and_socket_relationships
+next_validation: generate calibrated assembly preview

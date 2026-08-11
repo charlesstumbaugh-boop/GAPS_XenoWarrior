@@ -1,0 +1,27 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: PivotValidation
+  version: v001
+  status: NOT_YET_CALIBRATED
+gate:
+  rig_animation_ready: false
+  reason: Side assignments, elbow sockets, wrist orientation, helmet alignment, and
+    pelvis scale require calibration preview.
+passed_visual_parts:
+- Head
+- Torso
+- LowerLeg_L
+- LowerLeg_R
+- Foot_L
+- Foot_R
+requires_calibration:
+- Helmet
+- Pelvis
+- UpperArm_L
+- UpperArm_R
+- LowerArm_L
+- LowerArm_R
+- Hand_L
+- Hand_R
+- UpperLeg_L
+- UpperLeg_R

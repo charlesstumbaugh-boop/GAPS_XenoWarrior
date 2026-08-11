@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import shutil
+
+FILES = [
+    "RigCalibration.yaml",
+    "JointSockets.yaml",
+    "PivotValidation.yaml",
+    "AssemblyOffsets.yaml",
+    "CalibrationReview.yaml",
+    "CalibrationReport.md",
+]
+
+def main():
+    repo = Path.cwd().resolve()
+    package_source = Path(__file__).resolve().parent.parent / "Production" / "CHR-GRUNT-001" / "04_Calibration"
+    destination = repo / "Production" / "CHR-GRUNT-001" / "04_Calibration"
+
+    if not (repo / "Production" / "CHR-GRUNT-001" / "03_Rig" / "RigSpecification.yaml").is_file():
+        print("CALIBRATION BUILD: FAIL")
+        print("Missing existing RigSpecification.yaml")
+        return 2
+
+    destination.mkdir(parents=True, exist_ok=True)
+
+    installed = 0
+    for name in FILES:
+        src = package_source / name
+        dst = destination / name
+        if not src.is_file():
+            print("CALIBRATION BUILD: FAIL")
+            print("Package file missing:", src)
+            return 2
+        shutil.copy2(src, dst)
+        installed += 1
+
+    print("RIG CALIBRATION BUILD: PASS")
+    print("Files installed:", installed)
+    print("Art files modified: NO")
+    print("Calibration status: IN PROGRESS")
+    print("NEXT: review Production\\CHR-GRUNT-001\\04_Calibration\\CalibrationReport.md")
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

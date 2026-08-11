@@ -1,0 +1,68 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: CalibrationReview
+  version: v001
+  status: REVIEW_CAPTURED
+  source_review: RigSource_QA_v001
+  art_changes_allowed: false
+findings:
+  UpperArm_L:
+    status: FAIL
+    issue: wrong_visual_side
+    proposed_correction: swap_visual_source_with_UpperArm_R
+  UpperArm_R:
+    status: FAIL
+    issue: wrong_visual_side
+    proposed_correction: swap_visual_source_with_UpperArm_L
+  LowerArm_L:
+    status: FAIL
+    issues:
+    - wrong_visual_side
+    - attachment_alignment_wrong
+    intended_parent: UpperArm_L
+    proposed_correction: swap_visual_source_with_LowerArm_R_then_calibrate_elbow_socket
+  LowerArm_R:
+    status: FAIL
+    issues:
+    - wrong_visual_side
+    - attachment_alignment_wrong
+    intended_parent: UpperArm_R
+    proposed_correction: swap_visual_source_with_LowerArm_L_then_calibrate_elbow_socket
+  Hand_L:
+    status: REVIEW_REQUIRED
+    issue: wrist_orientation
+    note: Palm/front presentation does not naturally expose the wrist attachment toward
+      the lower arm.
+  Hand_R:
+    status: REVIEW_REQUIRED
+    issue: wrist_orientation
+    note: Palm/front presentation does not naturally expose the wrist attachment toward
+      the lower arm.
+  UpperLeg_L:
+    status: FAIL
+    issue: wrong_visual_side
+    proposed_correction: swap_visual_source_with_UpperLeg_R
+  UpperLeg_R:
+    status: FAIL
+    issue: wrong_visual_side
+    proposed_correction: swap_visual_source_with_UpperLeg_L
+  LowerLeg_L:
+    status: PASS
+  LowerLeg_R:
+    status: PASS
+  Foot_L:
+    status: PASS
+  Foot_R:
+    status: PASS
+  Helmet:
+    status: REVIEW_REQUIRED
+    issue: assembly_offset
+    note: Artwork is acceptable; helmet must be centered relative to head/torso chain.
+  Pelvis:
+    status: REVIEW_REQUIRED
+    issue: apparent_scale
+    note: May be acceptable after upper-leg attachment; verify after calibrated assembly.
+  Head:
+    status: PASS
+  Torso:
+    status: PASS

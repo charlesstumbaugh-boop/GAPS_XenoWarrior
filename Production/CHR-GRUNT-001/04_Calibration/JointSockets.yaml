@@ -1,0 +1,105 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: JointSockets
+  version: v001
+  status: CALIBRATION_DRAFT
+  pivot_authority: Production/CHR-GRUNT-001/03_Rig/RigSpecification.yaml
+joints:
+  neck:
+    parent: Torso
+    child: Head
+    pivot: neck_center
+    target_px:
+    - 500
+    - 205
+  helmet:
+    parent: Head
+    child: Helmet
+    pivot: neck_center
+    target_px:
+    - 500
+    - 205
+  shoulder_L:
+    parent: Torso
+    child: UpperArm_L
+    pivot: left_shoulder
+    target_px:
+    - 370
+    - 255
+  elbow_L:
+    parent: UpperArm_L
+    child: LowerArm_L
+    pivot: left_elbow
+    target_px:
+    - 300
+    - 360
+  wrist_L:
+    parent: LowerArm_L
+    child: Hand_L
+    pivot: left_wrist
+    target_px:
+    - 392
+    - 410
+  shoulder_R:
+    parent: Torso
+    child: UpperArm_R
+    pivot: right_shoulder
+    target_px:
+    - 625
+    - 255
+  elbow_R:
+    parent: UpperArm_R
+    child: LowerArm_R
+    pivot: right_elbow
+    target_px:
+    - 690
+    - 362
+  wrist_R:
+    parent: LowerArm_R
+    child: Hand_R
+    pivot: right_wrist
+    target_px:
+    - 646
+    - 438
+  hip_L:
+    parent: Pelvis
+    child: UpperLeg_L
+    pivot: left_hip
+    target_px:
+    - 447
+    - 550
+  knee_L:
+    parent: UpperLeg_L
+    child: LowerLeg_L
+    pivot: left_knee
+    target_px:
+    - 378
+    - 690
+  ankle_L:
+    parent: LowerLeg_L
+    child: Foot_L
+    pivot: left_ankle
+    target_px:
+    - 327
+    - 864
+  hip_R:
+    parent: Pelvis
+    child: UpperLeg_R
+    pivot: right_hip
+    target_px:
+    - 560
+    - 552
+  knee_R:
+    parent: UpperLeg_R
+    child: LowerLeg_R
+    pivot: right_knee
+    target_px:
+    - 628
+    - 697
+  ankle_R:
+    parent: LowerLeg_R
+    child: Foot_R
+    pivot: right_ankle
+    target_px:
+    - 681
+    - 865
