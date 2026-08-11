@@ -1,0 +1,8 @@
+version: v001
+milestones:
+  - timeline
+  - pose_editor
+  - playback
+  - sprite_sheet_export
+  - gif_preview
+status: planned

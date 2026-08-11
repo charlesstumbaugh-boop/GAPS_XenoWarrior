@@ -1,0 +1,62 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: AnimationEngineIdleTest
+  version: v001
+  engine_version: 0.1.0
+  status: REVIEW_REQUIRED
+  approved_art_modified: false
+  animation_proven: false
+baseline_validation:
+  calibrated_preview: Production/CHR-GRUNT-001/03_Rig/Calibrated/CalibratedRigPreview.png
+  frame_000_pixel_exact_match: true
+  difference_bbox: null
+motion_policy:
+  type: translation_only
+  reason: Prove calibrated transform preservation before hierarchical joint rotation.
+  max_upper_body_translation_px: 5
+frames:
+- index: 0
+  name: neutral
+  file: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/frame_000.png
+  sha256: b748195297cb407b49896958479ada56f2ea4c544c1cfd24e1e89537eb5b1afe
+  upper_body_delta_px:
+    x: 0
+    y: 0
+- index: 1
+  name: rise_1
+  file: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/frame_001.png
+  sha256: 01898a58a414731cda7da29c4fe151ba409f40783aafe576d2129232f789bcd0
+  upper_body_delta_px:
+    x: 0
+    y: -3
+- index: 2
+  name: rise_2
+  file: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/frame_002.png
+  sha256: 2b29edf5174b56d125f23edb5aa2f3b0a8679a469215bfa8a7f1656a5141e566
+  upper_body_delta_px:
+    x: 0
+    y: -5
+- index: 3
+  name: settle
+  file: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/frame_003.png
+  sha256: 845d05d555c2ff644dce37b1f1e063c0c30165c3858fc2e724b81d133ad6f2b7
+  upper_body_delta_px:
+    x: 0
+    y: -2
+- index: 4
+  name: dip_1
+  file: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/frame_004.png
+  sha256: f5caf2ca0d549c3663c2e02c1e2e8b60b900127b2725a60a9f43fe90af73fa8b
+  upper_body_delta_px:
+    x: 0
+    y: 2
+- index: 5
+  name: return
+  file: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/frame_005.png
+  sha256: b748195297cb407b49896958479ada56f2ea4c544c1cfd24e1e89537eb5b1afe
+  upper_body_delta_px:
+    x: 0
+    y: 0
+outputs:
+  strip: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/EngineIdleTestStrip.png
+  onion_skin: Production/CHR-GRUNT-001/05_AnimationTests/EngineIdle_v001/EngineIdleOnionSkin.png
