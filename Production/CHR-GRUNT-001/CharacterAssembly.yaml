@@ -1,0 +1,21 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  version: v001
+  status: ACTIVE
+inherits:
+  animation_base: HUMANOID_BASE_v001
+default_assembly:
+  head: HUM_HEAD_001
+  helmet: HEL_GRUNT_001
+  armor_profile: GRUNT_LIGHT_ARMOR_v001
+  weapon: WPN-GRUNT-CARBINE-001
+approved_variants:
+  male:
+    head: HUM_HEAD_001
+  female:
+    head: HUM_HEAD_002
+runtime_policy:
+  head_variants_interchangeable: true
+  helmet_reusable: true
+  animation_rig_unchanged: true

@@ -1,0 +1,9 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: Head
+  version: v001
+  status: APPROVED
+  library_reference: HUM_HEAD_001
+file: Production/CHR-GRUNT-001/03_Parts/Head.png
+canonical_library_file: Production/Libraries/Heads/HUM_HEAD_001_Male.png
+sha256: efc628e4cc20130e57ad816db5cfb46f0d706549cccea163d1d32e7b4ecfafb1
