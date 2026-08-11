@@ -1,0 +1,11 @@
+asset_id: CHR-GRUNT-001
+asset_name: Grunt Soldier 1
+part: UpperLeg_L
+artifact_type: production_part
+format: PNG
+color_mode: RGBA
+width: 1024
+height: 1024
+transparent_background: true
+destination: Production/CHR-GRUNT-001/03_Parts/UpperLeg_L.png
+approval_required: true
