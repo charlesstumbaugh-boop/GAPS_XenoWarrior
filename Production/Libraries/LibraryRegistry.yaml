@@ -75,6 +75,13 @@ armor:
   status: APPROVED
   reusable: true
   variant: default
+- id: ARM_LOWERLEG_L_001
+  name: Arm Lowerleg L 001
+  file: Production/Libraries/Armor/ARM_LOWERLEG_L_001.png
+  sha256: c9fa0cecab7550e95a06391f6e36a0a81cdbf4a88e2556eb4c1cce323cea0558
+  status: APPROVED
+  reusable: true
+  variant: default
 weapons: []
 materials: []
 props: []
