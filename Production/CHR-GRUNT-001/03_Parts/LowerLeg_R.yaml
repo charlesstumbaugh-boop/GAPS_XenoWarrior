@@ -1,0 +1,14 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: LowerLeg_R
+  version: v001
+  status: APPROVED
+  library_reference: ARM_LOWERLEG_R_001
+file: Production/CHR-GRUNT-001/03_Parts/LowerLeg_R.png
+canonical_library_file: Production/Libraries/Armor/ARM_LOWERLEG_R_001.png
+sha256: 7e13a627cb9c83c60223a3966ae2607c269290480599b6206a87ba2e3cbff690
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

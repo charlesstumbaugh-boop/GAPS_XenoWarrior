@@ -1,0 +1,15 @@
+metadata:
+  asset_id: ARM_LOWERLEG_R_001
+  asset_name: Arm Lowerleg R 001
+  category: Armor
+  artifact_type: production_library_asset
+  version: v001
+  status: APPROVED
+file: Production/Libraries/Armor/ARM_LOWERLEG_R_001.png
+sha256: 7e13a627cb9c83c60223a3966ae2607c269290480599b6206a87ba2e3cbff690
+variant: default
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

@@ -82,6 +82,34 @@ armor:
   status: APPROVED
   reusable: true
   variant: default
+- id: ARM_FOOT_L_001
+  name: Arm Foot L 001
+  file: Production/Libraries/Armor/ARM_FOOT_L_001.png
+  sha256: 8c7ef6fd8f039b11280dd5702356f9e11204dc895a61e79072080e1c18bdc147
+  status: APPROVED
+  reusable: true
+  variant: default
+- id: ARM_UPPERLEG_R_001
+  name: Arm Upperleg R 001
+  file: Production/Libraries/Armor/ARM_UPPERLEG_R_001.png
+  sha256: 4b3bc2ff1d52815ababc87a5ce903b8b2a1395a1e6d1eae131a99e28e45bbf94
+  status: APPROVED
+  reusable: true
+  variant: default
+- id: ARM_LOWERLEG_R_001
+  name: Arm Lowerleg R 001
+  file: Production/Libraries/Armor/ARM_LOWERLEG_R_001.png
+  sha256: 7e13a627cb9c83c60223a3966ae2607c269290480599b6206a87ba2e3cbff690
+  status: APPROVED
+  reusable: true
+  variant: default
+- id: ARM_FOOT_R_001
+  name: Arm Foot R 001
+  file: Production/Libraries/Armor/ARM_FOOT_R_001.png
+  sha256: 1a7a1431f747c29d6a4f42319966054d5522007d4ae1e8f87f2a1bc054fbd9b4
+  status: APPROVED
+  reusable: true
+  variant: default
 weapons: []
 materials: []
 props: []

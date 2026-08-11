@@ -1,0 +1,14 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: Foot_R
+  version: v001
+  status: APPROVED
+  library_reference: ARM_FOOT_R_001
+file: Production/CHR-GRUNT-001/03_Parts/Foot_R.png
+canonical_library_file: Production/Libraries/Armor/ARM_FOOT_R_001.png
+sha256: 1a7a1431f747c29d6a4f42319966054d5522007d4ae1e8f87f2a1bc054fbd9b4
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

@@ -1,0 +1,15 @@
+metadata:
+  asset_id: ARM_FOOT_L_001
+  asset_name: Arm Foot L 001
+  category: Armor
+  artifact_type: production_library_asset
+  version: v001
+  status: APPROVED
+file: Production/Libraries/Armor/ARM_FOOT_L_001.png
+sha256: 8c7ef6fd8f039b11280dd5702356f9e11204dc895a61e79072080e1c18bdc147
+variant: default
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

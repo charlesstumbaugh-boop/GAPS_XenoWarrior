@@ -1,0 +1,15 @@
+metadata:
+  asset_id: ARM_UPPERLEG_R_001
+  asset_name: Arm Upperleg R 001
+  category: Armor
+  artifact_type: production_library_asset
+  version: v001
+  status: APPROVED
+file: Production/Libraries/Armor/ARM_UPPERLEG_R_001.png
+sha256: 4b3bc2ff1d52815ababc87a5ce903b8b2a1395a1e6d1eae131a99e28e45bbf94
+variant: default
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

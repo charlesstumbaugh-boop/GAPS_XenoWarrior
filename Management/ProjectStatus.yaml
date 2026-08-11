@@ -9,12 +9,12 @@ project:
 active_asset:
   asset_id: CHR-GRUNT-001
   asset_name: Grunt Soldier 1
-  current_stage: parts_manufacturing
-  next_required_part: Foot_L
-  next_output: Production/CHR-GRUNT-001/03_Parts/Foot_L.png
-  parts_completed: 12
+  current_stage: rig_assembly
+  next_required_part: null
+  next_output: null
+  parts_completed: 16
   parts_required: 16
-  completion_percent: 75.0
+  completion_percent: 100.0
 completed:
 - concept_approved
 - identity_locked
@@ -23,16 +23,12 @@ completed:
 - character_animation_profile
 - animation_master
 - layer_definition
-pending:
 - parts
+pending:
 - rig
 - idle_animation
 - sprite_sheet
 - unity_import
 handoff:
-  action_type: external_generation
-  required_inputs:
-  - Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
-  - Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
-  - Production/CHR-GRUNT-001/02_AnimationMaster/LayerManifest.yaml
-  destination: Production/CHR-GRUNT-001/03_Parts/Foot_L.png
+  action_type: local_tool
+  next_command: python Compiler/build_rig.py --asset-id CHR-GRUNT-001 --build
