@@ -1,0 +1,15 @@
+metadata:
+  asset_id: ARM_UPPER_R_001
+  asset_name: Arm Upper R 001
+  category: Armor
+  artifact_type: production_library_asset
+  version: v001
+  status: APPROVED
+file: Production/Libraries/Armor/ARM_UPPER_R_001.png
+sha256: 5e9ca268c53cee064f404b4140b5f5047603d84b9020c0b933786458763fa65f
+variant: default
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

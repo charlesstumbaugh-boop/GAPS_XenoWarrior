@@ -47,6 +47,13 @@ armor:
   status: APPROVED
   reusable: true
   variant: default
+- id: ARM_UPPER_R_001
+  name: Arm Upper R 001
+  file: Production/Libraries/Armor/ARM_UPPER_R_001.png
+  sha256: 5e9ca268c53cee064f404b4140b5f5047603d84b9020c0b933786458763fa65f
+  status: APPROVED
+  reusable: true
+  variant: default
 weapons: []
 materials: []
 props: []

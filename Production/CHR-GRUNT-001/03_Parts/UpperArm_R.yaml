@@ -1,0 +1,14 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: UpperArm_R
+  version: v001
+  status: APPROVED
+  library_reference: ARM_UPPER_R_001
+file: Production/CHR-GRUNT-001/03_Parts/UpperArm_R.png
+canonical_library_file: Production/Libraries/Armor/ARM_UPPER_R_001.png
+sha256: 5e9ca268c53cee064f404b4140b5f5047603d84b9020c0b933786458763fa65f
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true
