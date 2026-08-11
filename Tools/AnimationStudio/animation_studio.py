@@ -8,7 +8,7 @@ from PIL import Image, ImageTk
 import yaml
 
 ASSET_ID='CHR-GRUNT-001'
-APP_VERSION='0.3.0'
+APP_VERSION='0.4.0'
 PART_ORDER=['Head','Helmet','Torso','Pelvis','UpperArm_L','LowerArm_L','Hand_L','UpperArm_R','LowerArm_R','Hand_R','UpperLeg_L','LowerLeg_L','Foot_L','UpperLeg_R','LowerLeg_R','Foot_R']
 
 def load_yaml(path: Path):
@@ -203,16 +203,66 @@ class AnimationStudio(tk.Tk):
         import math
         r=math.radians(d);vx=x-cx;vy=y-cy
         return cx+vx*math.cos(r)-vy*math.sin(r),cy+vx*math.sin(r)+vy*math.cos(r)
+    def _rotated_top_left_about_pivot(self,n,px,py,d):
+        # Compute the new top-left by rotating the CURRENT rendered layer around
+        # the exact user-calibrated global pivot. This avoids center-axis drift.
+        p=self.pose();im=self._part_img(n,p)
+        x=float(p[n]['x']);y=float(p[n]['y'])
+        lx=px-x;ly=py-y
+
+        import math
+        side=int(math.ceil(math.hypot(im.width,im.height)*2.5))+20
+        side=max(side,64)
+        cx=cy=side//2
+
+        stage=Image.new('RGBA',(side,side),(0,0,0,0))
+        stage.alpha_composite(im,(round(cx-lx),round(cy-ly)))
+        spun=stage.rotate(
+            d,
+            resample=Image.Resampling.BICUBIC,
+            expand=False,
+            center=(cx,cy),
+            fillcolor=(0,0,0,0),
+        )
+        bb=spun.getchannel('A').getbbox()
+        if not bb:
+            return x,y
+        # The stage center is the fixed global pivot. Cropping changes the local
+        # origin, so recover the global top-left from the crop's offset.
+        return px+(bb[0]-cx), py+(bb[1]-cy)
+
     def _rotate_hierarchy(self,n,d):
         p=self.pose();pivot=self._pivot(n)
-        if not pivot:p[n]['rotation']+=d;return
-        px,py=pivot;targets=self._targets(n);centers={t:self._center(t) for t in targets};piv=self.frame_pivots()
+        if not pivot:
+            p[n]['rotation']+=d
+            return
+
+        px,py=pivot
+        targets=self._targets(n)
+        piv=self.frame_pivots()
+
+        # Calculate all new positions BEFORE mutating any rotation values.
+        new_xy={}
         for t in targets:
-            nc=self._rotate_point(centers[t][0],centers[t][1],px,py,d);p[t]['rotation']+=d;im=self._part_img(t,p);p[t]['x']=round(nc[0]-im.width/2.0);p[t]['y']=round(nc[1]-im.height/2.0)
-        # Selected joint remains fixed. Child/descendant joints travel with the chain.
+            new_xy[t]=self._rotated_top_left_about_pivot(t,px,py,d)
+
+        # Apply one rigid rotation to the selected segment and every descendant.
+        for t in targets:
+            p[t]['rotation']+=d
+            p[t]['x']=round(new_xy[t][0])
+            p[t]['y']=round(new_xy[t][1])
+
+        # The selected pivot stays fixed. Every descendant pivot orbits that
+        # exact point so elbow -> wrist -> hand relationships remain intact.
         for t in self._descendants(n):
             if t in piv:
-                nx,ny=self._rotate_point(piv[t]['x'],piv[t]['y'],px,py,d);piv[t]['x']=nx;piv[t]['y']=ny
+                nx,ny=self._rotate_point(piv[t]['x'],piv[t]['y'],px,py,d)
+                piv[t]['x']=nx;piv[t]['y']=ny
+
+        self.status.set(
+            f'Rotated {n} {d:+.1f}° about calibrated pivot '
+            f'({px:.1f}, {py:.1f}); descendants followed.'
+        )
     def _nudge(self,dx,dy):
         if self.selected:self._translate(self.selected,dx,dy);self._fields();self._render()
     def _rotate(self,d):

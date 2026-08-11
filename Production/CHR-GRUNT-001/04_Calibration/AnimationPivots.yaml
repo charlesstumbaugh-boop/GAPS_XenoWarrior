@@ -1,0 +1,72 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: AnimationPivots
+  version: v001
+  studio_version: 0.3.0
+  status: CALIBRATED
+  approved_art_modified: false
+pivots:
+  Head:
+    pivot: neck_center
+    x_px: 514.027
+    y_px: 243.222
+  Helmet:
+    pivot: neck_center
+    x_px: 514.524
+    y_px: 238.367
+  Torso:
+    pivot: hip_center
+    x_px: 516.534
+    y_px: 467.639
+  Pelvis:
+    pivot: hip_center
+    x_px: 518.158
+    y_px: 497.083
+  UpperArm_L:
+    pivot: left_shoulder
+    x_px: 409.968
+    y_px: 249.491
+  LowerArm_L:
+    pivot: left_elbow
+    x_px: 654.783
+    y_px: 360.458
+  Hand_L:
+    pivot: left_wrist
+    x_px: 776.147
+    y_px: 459.293
+  UpperArm_R:
+    pivot: right_shoulder
+    x_px: 626.862
+    y_px: 239.461
+  LowerArm_R:
+    pivot: right_elbow
+    x_px: 385.531
+    y_px: 360.712
+  Hand_R:
+    pivot: right_wrist
+    x_px: 279.064
+    y_px: 430.95
+  UpperLeg_L:
+    pivot: left_hip
+    x_px: 471.647
+    y_px: 526.152
+  LowerLeg_L:
+    pivot: left_knee
+    x_px: 452.594
+    y_px: 688.294
+  Foot_L:
+    pivot: left_ankle
+    x_px: 453.848
+    y_px: 867.577
+  UpperLeg_R:
+    pivot: right_hip
+    x_px: 563.215
+    y_px: 531.239
+  LowerLeg_R:
+    pivot: right_knee
+    x_px: 590.504
+    y_px: 692.055
+  Foot_R:
+    pivot: right_ankle
+    x_px: 593.011
+    y_px: 872.592
