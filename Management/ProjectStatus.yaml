@@ -1,0 +1,35 @@
+metadata:
+  system: GAPS_XenoWarrior
+  document: ProjectStatus
+  version: 1.0.0
+  status: ACTIVE
+project:
+  current_phase: Production
+  current_sprint: Sprint07_ProductionManufacturing
+active_asset:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  current_stage: parts_manufacturing
+  next_required_part: Head
+  next_output: Production/CHR-GRUNT-001/03_Parts/Head.png
+completed:
+- concept_approved
+- identity_locked
+- design_gold_master
+- humanoid_base
+- character_animation_profile
+- animation_master
+- layer_definition
+pending:
+- parts
+- rig
+- idle_animation
+- sprite_sheet
+- unity_import
+handoff:
+  action_type: external_generation
+  required_inputs:
+  - Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
+  - Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
+  - Production/CHR-GRUNT-001/02_AnimationMaster/LayerManifest.yaml
+  destination: Production/CHR-GRUNT-001/03_Parts/Head.png
