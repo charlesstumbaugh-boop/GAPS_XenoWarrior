@@ -12,6 +12,9 @@ active_asset:
   current_stage: parts_manufacturing
   next_required_part: Pelvis
   next_output: Production/CHR-GRUNT-001/03_Parts/Pelvis.png
+  parts_completed: 3
+  parts_required: 16
+  completion_percent: 18.8
 completed:
 - concept_approved
 - identity_locked
