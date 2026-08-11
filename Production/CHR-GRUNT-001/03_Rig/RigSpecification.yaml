@@ -1,0 +1,94 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  version: v001
+  status: APPROVED_FOR_RIGGING
+source:
+  gold_master: Reference/GoldMasters/CHR-GRUNT-001/Design/CHR-GRUNT-001_DESIGN_MASTER_v001.png
+  identity_lock: Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
+root: Torso
+parts:
+- name: Helmet
+  parent: Head
+  pivot: neck_center
+  z: 100
+- name: Head
+  parent: Torso
+  pivot: neck_base
+  z: 90
+- name: Torso
+  parent: null
+  pivot: pelvis_center
+  z: 50
+- name: UpperArm_L
+  parent: Torso
+  pivot: left_shoulder
+  z: 80
+- name: LowerArm_L
+  parent: UpperArm_L
+  pivot: left_elbow
+  z: 81
+- name: Hand_L
+  parent: LowerArm_L
+  pivot: left_wrist
+  z: 82
+- name: UpperArm_R
+  parent: Torso
+  pivot: right_shoulder
+  z: 80
+- name: LowerArm_R
+  parent: UpperArm_R
+  pivot: right_elbow
+  z: 81
+- name: Hand_R
+  parent: LowerArm_R
+  pivot: right_wrist
+  z: 82
+- name: Weapon
+  parent: Hand_R
+  pivot: rear_grip
+  z: 95
+- name: Pelvis
+  parent: Torso
+  pivot: hip_center
+  z: 45
+- name: UpperLeg_L
+  parent: Pelvis
+  pivot: left_hip
+  z: 40
+- name: LowerLeg_L
+  parent: UpperLeg_L
+  pivot: left_knee
+  z: 39
+- name: Foot_L
+  parent: LowerLeg_L
+  pivot: left_ankle
+  z: 38
+- name: UpperLeg_R
+  parent: Pelvis
+  pivot: right_hip
+  z: 40
+- name: LowerLeg_R
+  parent: UpperLeg_R
+  pivot: right_knee
+  z: 39
+- name: Foot_R
+  parent: LowerLeg_R
+  pivot: right_ankle
+  z: 38
+animation_defaults:
+  idle:
+    frames: 6
+    fps: 8
+  walk:
+    frames: 8
+    fps: 10
+  fire:
+    frames: 4
+    fps: 12
+  hit:
+    frames: 3
+    fps: 10
+  death:
+    frames: 8
+    fps: 10
