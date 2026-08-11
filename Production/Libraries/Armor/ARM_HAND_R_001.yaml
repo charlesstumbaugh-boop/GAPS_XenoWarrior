@@ -1,0 +1,15 @@
+metadata:
+  asset_id: ARM_HAND_R_001
+  asset_name: Arm Hand R 001
+  category: Armor
+  artifact_type: production_library_asset
+  version: v001
+  status: APPROVED
+file: Production/Libraries/Armor/ARM_HAND_R_001.png
+sha256: fafff700f9a0f9ec81e98f76862353df89b06ce33b450322b705e4f130b961d9
+variant: default
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

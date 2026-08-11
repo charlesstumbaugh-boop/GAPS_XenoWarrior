@@ -16,6 +16,7 @@ default_assembly:
   hand_l: ARM_HAND_L_001
   upper_arm_r: ARM_UPPER_R_001
   lower_arm_r: ARM_LOWER_R_001
+  hand_r: ARM_HAND_R_001
 approved_variants:
   male:
     head: HUM_HEAD_001

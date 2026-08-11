@@ -1,0 +1,14 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: Hand_R
+  version: v001
+  status: APPROVED
+  library_reference: ARM_HAND_R_001
+file: Production/CHR-GRUNT-001/03_Parts/Hand_R.png
+canonical_library_file: Production/Libraries/Armor/ARM_HAND_R_001.png
+sha256: fafff700f9a0f9ec81e98f76862353df89b06ce33b450322b705e4f130b961d9
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true
