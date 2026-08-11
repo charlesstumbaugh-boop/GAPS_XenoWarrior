@@ -68,6 +68,13 @@ armor:
   status: APPROVED
   reusable: true
   variant: default
+- id: ARM_UPPERLEG_L_001
+  name: Arm Upperleg L 001
+  file: Production/Libraries/Armor/ARM_UPPERLEG_L_001.png
+  sha256: d6ab843f7c03ace9602ef34d8a922846de487fa5641b62184cd191fb5f85ac51
+  status: APPROVED
+  reusable: true
+  variant: default
 weapons: []
 materials: []
 props: []

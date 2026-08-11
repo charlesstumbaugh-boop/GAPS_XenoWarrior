@@ -1,0 +1,14 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: UpperLeg_L
+  version: v001
+  status: APPROVED
+  library_reference: ARM_UPPERLEG_L_001
+file: Production/CHR-GRUNT-001/03_Parts/UpperLeg_L.png
+canonical_library_file: Production/Libraries/Armor/ARM_UPPERLEG_L_001.png
+sha256: d6ab843f7c03ace9602ef34d8a922846de487fa5641b62184cd191fb5f85ac51
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

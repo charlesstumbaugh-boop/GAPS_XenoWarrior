@@ -6,9 +6,9 @@ metadata:
 active_asset: CHR-GRUNT-001
 summary:
   parts_required: 16
-  parts_complete: 10
-  parts_missing: 6
-  percent_complete: 62.5
+  parts_complete: 11
+  parts_missing: 5
+  percent_complete: 68.8
 completed_parts:
 - Head
 - Helmet
@@ -20,17 +20,13 @@ completed_parts:
 - UpperArm_R
 - LowerArm_R
 - Hand_R
+- UpperLeg_L
 queue:
-- asset_id: CHR-GRUNT-001
-  stage: parts_manufacturing
-  part: UpperLeg_L
-  destination: Production/CHR-GRUNT-001/03_Parts/UpperLeg_L.png
-  status: READY
 - asset_id: CHR-GRUNT-001
   stage: parts_manufacturing
   part: LowerLeg_L
   destination: Production/CHR-GRUNT-001/03_Parts/LowerLeg_L.png
-  status: PENDING
+  status: READY
 - asset_id: CHR-GRUNT-001
   stage: parts_manufacturing
   part: Foot_L
