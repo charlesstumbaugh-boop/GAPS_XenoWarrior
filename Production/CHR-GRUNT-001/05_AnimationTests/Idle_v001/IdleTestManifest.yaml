@@ -1,0 +1,630 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: IdleTestManifest
+  version: v001
+  tool: GAPS First Idle Motion Test
+  tool_version: 0.1.0
+  status: REVIEW_REQUIRED
+  animation_proven: false
+  approved_art_modified: false
+purpose: Validate rig behavior under minimal motion before creating real animation.
+frame_count: 6
+frames:
+- index: 0
+  name: neutral
+  file: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/frame_000.png
+  sha256: 0087dd4de0b0755b55c72b1a59ab5fa1ecc1000dc4d83e24be7d3904dcd3dbc1
+  parts:
+    Foot_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+      x_px: 380
+      y_px: 819
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Foot_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+      x_px: 543
+      y_px: 829
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+      x_px: 399
+      y_px: 655
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+      x_px: 544
+      y_px: 658
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+      x_px: 404
+      y_px: 488
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+      x_px: 513
+      y_px: 483
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Pelvis:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+      x_px: 437
+      y_px: 458
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Torso:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+      x_px: 350
+      y_px: 187
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+      x_px: 316
+      y_px: 223
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+      x_px: 576
+      y_px: 230
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+      x_px: 643
+      y_px: 341
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+      x_px: 252
+      y_px: 339
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Hand_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+      x_px: 727
+      y_px: 391
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: -45.0
+    Hand_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+      x_px: 144
+      y_px: 373
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 45.0
+    Head:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+      x_px: 469
+      y_px: 120
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Helmet:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+      x_px: 449
+      y_px: 103
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+- index: 1
+  name: rise_1
+  file: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/frame_001.png
+  sha256: e730f6e064827356c2b6fe0ad30cd00c74bc74cd0c5579e687d72383270f9c42
+  parts:
+    Foot_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+      x_px: 380
+      y_px: 819
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Foot_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+      x_px: 543
+      y_px: 829
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+      x_px: 399
+      y_px: 655
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+      x_px: 544
+      y_px: 658
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+      x_px: 404
+      y_px: 488
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+      x_px: 513
+      y_px: 483
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Pelvis:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+      x_px: 437
+      y_px: 458
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Torso:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+      x_px: 350
+      y_px: 185
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+      x_px: 316
+      y_px: 223
+      frame_rotation_delta_deg: -0.8
+      resolved_rotation_deg: -0.8
+    UpperArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+      x_px: 576
+      y_px: 230
+      frame_rotation_delta_deg: 0.8
+      resolved_rotation_deg: 0.8
+    LowerArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+      x_px: 643
+      y_px: 341
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+      x_px: 252
+      y_px: 339
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Hand_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+      x_px: 727
+      y_px: 391
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: -45.0
+    Hand_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+      x_px: 144
+      y_px: 373
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 45.0
+    Head:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+      x_px: 469
+      y_px: 118
+      frame_rotation_delta_deg: -0.5
+      resolved_rotation_deg: -0.5
+    Helmet:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+      x_px: 449
+      y_px: 101
+      frame_rotation_delta_deg: -0.5
+      resolved_rotation_deg: -0.5
+- index: 2
+  name: rise_2
+  file: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/frame_002.png
+  sha256: 5d8baa5ebfa6c88401b3f8fbbcda4ada065803a174a7e6e4b4193eead6f12536
+  parts:
+    Foot_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+      x_px: 380
+      y_px: 819
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Foot_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+      x_px: 543
+      y_px: 829
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+      x_px: 399
+      y_px: 655
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+      x_px: 544
+      y_px: 658
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+      x_px: 404
+      y_px: 488
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+      x_px: 513
+      y_px: 483
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Pelvis:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+      x_px: 437
+      y_px: 458
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Torso:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+      x_px: 350
+      y_px: 184
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+      x_px: 316
+      y_px: 223
+      frame_rotation_delta_deg: -1.2
+      resolved_rotation_deg: -1.2
+    UpperArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+      x_px: 576
+      y_px: 230
+      frame_rotation_delta_deg: 1.2
+      resolved_rotation_deg: 1.2
+    LowerArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+      x_px: 643
+      y_px: 341
+      frame_rotation_delta_deg: -0.5
+      resolved_rotation_deg: -0.5
+    LowerArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+      x_px: 252
+      y_px: 339
+      frame_rotation_delta_deg: 0.5
+      resolved_rotation_deg: 0.5
+    Hand_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+      x_px: 727
+      y_px: 391
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: -45.0
+    Hand_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+      x_px: 144
+      y_px: 373
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 45.0
+    Head:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+      x_px: 469
+      y_px: 117
+      frame_rotation_delta_deg: -0.8
+      resolved_rotation_deg: -0.8
+    Helmet:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+      x_px: 449
+      y_px: 100
+      frame_rotation_delta_deg: -0.8
+      resolved_rotation_deg: -0.8
+- index: 3
+  name: settle
+  file: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/frame_003.png
+  sha256: e7b4b4f5ceb3d76ad84d983dc4a71ccb30ef8ed1265be0c5ccc8e045ae58adbb
+  parts:
+    Foot_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+      x_px: 380
+      y_px: 819
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Foot_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+      x_px: 543
+      y_px: 829
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+      x_px: 399
+      y_px: 655
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+      x_px: 544
+      y_px: 658
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+      x_px: 404
+      y_px: 488
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+      x_px: 513
+      y_px: 483
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Pelvis:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+      x_px: 437
+      y_px: 458
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Torso:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+      x_px: 350
+      y_px: 186
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+      x_px: 316
+      y_px: 223
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+      x_px: 576
+      y_px: 230
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+      x_px: 643
+      y_px: 341
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+      x_px: 252
+      y_px: 339
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Hand_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+      x_px: 727
+      y_px: 391
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: -45.0
+    Hand_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+      x_px: 144
+      y_px: 373
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 45.0
+    Head:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+      x_px: 469
+      y_px: 119
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Helmet:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+      x_px: 449
+      y_px: 102
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+- index: 4
+  name: dip_1
+  file: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/frame_004.png
+  sha256: 4aaea313847db8c35d5e24610bf5291011b03d0a552012ff34e7df48764c15b2
+  parts:
+    Foot_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+      x_px: 380
+      y_px: 819
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Foot_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+      x_px: 543
+      y_px: 829
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+      x_px: 399
+      y_px: 655
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+      x_px: 544
+      y_px: 658
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+      x_px: 404
+      y_px: 488
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+      x_px: 513
+      y_px: 483
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Pelvis:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+      x_px: 437
+      y_px: 458
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Torso:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+      x_px: 350
+      y_px: 188
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+      x_px: 316
+      y_px: 223
+      frame_rotation_delta_deg: 0.7
+      resolved_rotation_deg: 0.7
+    UpperArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+      x_px: 576
+      y_px: 230
+      frame_rotation_delta_deg: -0.7
+      resolved_rotation_deg: -0.7
+    LowerArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+      x_px: 643
+      y_px: 341
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+      x_px: 252
+      y_px: 339
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Hand_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+      x_px: 727
+      y_px: 391
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: -45.0
+    Hand_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+      x_px: 144
+      y_px: 373
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 45.0
+    Head:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+      x_px: 469
+      y_px: 121
+      frame_rotation_delta_deg: 0.5
+      resolved_rotation_deg: 0.5
+    Helmet:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+      x_px: 449
+      y_px: 104
+      frame_rotation_delta_deg: 0.5
+      resolved_rotation_deg: 0.5
+- index: 5
+  name: return
+  file: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/frame_005.png
+  sha256: 0087dd4de0b0755b55c72b1a59ab5fa1ecc1000dc4d83e24be7d3904dcd3dbc1
+  parts:
+    Foot_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+      x_px: 380
+      y_px: 819
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Foot_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+      x_px: 543
+      y_px: 829
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+      x_px: 399
+      y_px: 655
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+      x_px: 544
+      y_px: 658
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+      x_px: 404
+      y_px: 488
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperLeg_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+      x_px: 513
+      y_px: 483
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Pelvis:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+      x_px: 437
+      y_px: 458
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Torso:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+      x_px: 350
+      y_px: 187
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+      x_px: 316
+      y_px: 223
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    UpperArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+      x_px: 576
+      y_px: 230
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+      x_px: 643
+      y_px: 341
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    LowerArm_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+      x_px: 252
+      y_px: 339
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Hand_L:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+      x_px: 727
+      y_px: 391
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: -45.0
+    Hand_R:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+      x_px: 144
+      y_px: 373
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 45.0
+    Head:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+      x_px: 469
+      y_px: 120
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+    Helmet:
+      source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+      x_px: 449
+      y_px: 103
+      frame_rotation_delta_deg: 0.0
+      resolved_rotation_deg: 0.0
+review_gate:
+  check_shoulders: true
+  check_elbows: true
+  check_wrists: true
+  check_head_helmet_chain: true
+  check_torso_pelvis_continuity: true
+  check_knees: true
+  check_ankles: true
+  pass_condition: No unacceptable separation, overlap, side swap, or armor parenting
+    failure under motion.
+outputs:
+  strip: Production/CHR-GRUNT-001/05_AnimationTests/Idle_v001/IdleTestStrip.png
