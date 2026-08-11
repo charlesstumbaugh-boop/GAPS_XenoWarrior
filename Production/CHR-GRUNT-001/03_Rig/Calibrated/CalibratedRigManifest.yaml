@@ -1,0 +1,396 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  document: CalibratedRigManifest
+  version: v001
+  tool: GAPS Calibrated Rig Bridge
+  tool_version: 0.1.0
+  status: VISUAL_CALIBRATION_PROMOTED
+  canvas:
+  - 1024
+  - 1024
+  approved_art_modified: false
+  source_calibration: Production/CHR-GRUNT-001/04_Calibration/VisualCalibrationSession.yaml
+assembly_policy:
+  root: Torso
+  placement_authority: saved_visual_calibration
+  animation_pivot_authority: Production/CHR-GRUNT-001/03_Rig/RigSpecification.yaml
+  source_override_authority: Production/CHR-GRUNT-001/04_Calibration/AssemblyOffsets.yaml
+  note: Visual placement is promoted; animation pivot behavior remains subject to
+    first animation validation.
+shoulder_review:
+  status: ACCEPTED_VISUALLY_PENDING_ANIMATION_BEHAVIOR_TEST
+  observation: Shoulder armor visually fits as an epaulette-like outer armor layer.
+  rule: Do not restructure source art before first animation test. Validate shoulder
+    parenting/rotation behavior during idle/arm motion.
+parts:
+  Foot_L:
+    parent: LowerLeg_L
+    pivot: left_ankle
+    z_order: 38
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_L.png
+    source_sha256: 8c7ef6fd8f039b11280dd5702356f9e11204dc895a61e79072080e1c18bdc147
+    guide_box_px:
+    - 220
+    - 830
+    - 405
+    - 990
+    base_scale: 0.166667
+    visual_transform:
+      x_offset_px: 130
+      y_offset_px: -11
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 380
+      y_px: 819
+      render_width_px: 125
+      render_height_px: 160
+    calibration_status: VISUALLY_CALIBRATED
+  Foot_R:
+    parent: LowerLeg_R
+    pivot: right_ankle
+    z_order: 38
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Foot_R.png
+    source_sha256: b873ac7ec4a298ed3b1d603ed353cfa0475dde10eaa628eb39d31e676f738f62
+    guide_box_px:
+    - 625
+    - 835
+    - 820
+    - 990
+    base_scale: 0.161458
+    visual_transform:
+      x_offset_px: -119
+      y_offset_px: -6
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 543
+      y_px: 829
+      render_width_px: 121
+      render_height_px: 155
+    calibration_status: VISUALLY_CALIBRATED
+  LowerLeg_L:
+    parent: UpperLeg_L
+    pivot: left_knee
+    z_order: 39
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_L.png
+    source_sha256: 455968975a28d798fce2c27a092cfdf6a5ecf71cc728a4e70ea9a95da7efd0df
+    guide_box_px:
+    - 275
+    - 650
+    - 410
+    - 875
+    base_scale: 0.334324
+    visual_transform:
+      x_offset_px: 108
+      y_offset_px: 5
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 399
+      y_px: 655
+      render_width_px: 102
+      render_height_px: 225
+    calibration_status: VISUALLY_CALIBRATED
+  LowerLeg_R:
+    parent: UpperLeg_R
+    pivot: right_knee
+    z_order: 39
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerLeg_R.png
+    source_sha256: 6bb50c094b5123c0ed5d8e9543755c04e7d7fa344d96c60b390ef32113444476
+    guide_box_px:
+    - 590
+    - 650
+    - 735
+    - 880
+    base_scale: 0.341753
+    visual_transform:
+      x_offset_px: -66
+      y_offset_px: 8
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 544
+      y_px: 658
+      render_width_px: 104
+      render_height_px: 230
+    calibration_status: VISUALLY_CALIBRATED
+  UpperLeg_L:
+    parent: Pelvis
+    pivot: left_hip
+    z_order: 40
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_R.png
+    source_sha256: e4aa9d6ada06693ad80ccb035c4d4b23e032e4fba137a1e71c3d0a7ac828f434
+    guide_box_px:
+    - 310
+    - 520
+    - 470
+    - 710
+    base_scale: 0.324786
+    visual_transform:
+      x_offset_px: 78
+      y_offset_px: -32
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 404
+      y_px: 488
+      render_width_px: 128
+      render_height_px: 190
+    calibration_status: VISUALLY_CALIBRATED
+  UpperLeg_R:
+    parent: Pelvis
+    pivot: right_hip
+    z_order: 40
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperLeg_L.png
+    source_sha256: 381a3cf6cd919481346492c441866a836a3c418e64619f9478d9647d72d6654d
+    guide_box_px:
+    - 535
+    - 520
+    - 680
+    - 715
+    base_scale: 0.333333
+    visual_transform:
+      x_offset_px: -29
+      y_offset_px: -37
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 513
+      y_px: 483
+      render_width_px: 131
+      render_height_px: 195
+    calibration_status: VISUALLY_CALIBRATED
+  Pelvis:
+    parent: Torso
+    pivot: hip_center
+    z_order: 45
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Pelvis.png
+    source_sha256: d636a2c4bd79657f4bc7a3e2dc1a088ab38956b8076fa786b4d4a077ab2d0a14
+    guide_box_px:
+    - 410
+    - 465
+    - 590
+    - 590
+    base_scale: 0.163399
+    visual_transform:
+      x_offset_px: 16
+      y_offset_px: -7
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 437
+      y_px: 458
+      render_width_px: 157
+      render_height_px: 125
+    calibration_status: VISUALLY_CALIBRATED
+  Torso:
+    parent: null
+    pivot: hip_center
+    z_order: 50
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Torso.png
+    source_sha256: c1946888feabed2b6ff4e017eb2a4cba9d1380aae533b84352f281df1a6a6d22
+    guide_box_px:
+    - 350
+    - 185
+    - 680
+    - 520
+    base_scale: 0.34375
+    visual_transform:
+      x_offset_px: 0
+      y_offset_px: 0
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 350
+      y_px: 187
+      render_width_px: 330
+      render_height_px: 330
+    calibration_status: VISUALLY_CALIBRATED
+  UpperArm_L:
+    parent: Torso
+    pivot: left_shoulder
+    z_order: 80
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_R.png
+    source_sha256: ef76a5f68cff149712733a8549132a52e9bc41c38784091e014630b4ec7efcaf
+    guide_box_px:
+    - 245
+    - 210
+    - 385
+    - 385
+    base_scale: 0.257827
+    visual_transform:
+      x_offset_px: 71
+      y_offset_px: -1
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 316
+      y_px: 223
+      render_width_px: 140
+      render_height_px: 146
+    calibration_status: VISUALLY_CALIBRATED
+  UpperArm_R:
+    parent: Torso
+    pivot: right_shoulder
+    z_order: 80
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/UpperArm_L.png
+    source_sha256: e7beb7005a47cc00acae06cd77239f007b2b54dab075a6f17a2e58b3192d1eea
+    guide_box_px:
+    - 600
+    - 210
+    - 725
+    - 395
+    base_scale: 0.230203
+    visual_transform:
+      x_offset_px: -24
+      y_offset_px: -7
+      rotation_deg: 0.0
+      scale: 1.02
+    resolved_canvas_placement:
+      x_px: 576
+      y_px: 230
+      render_width_px: 128
+      render_height_px: 133
+    calibration_status: VISUALLY_CALIBRATED
+  LowerArm_L:
+    parent: UpperArm_L
+    pivot: left_elbow
+    z_order: 81
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_R.png
+    source_sha256: 26c4119ec2e28e7641e8487fa6a73abd14e8d3921ca24014546a01baa1455cba
+    guide_box_px:
+    - 235
+    - 325
+    - 415
+    - 455
+    base_scale: 0.325
+    visual_transform:
+      x_offset_px: 396
+      y_offset_px: 16
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 643
+      y_px: 341
+      render_width_px: 156
+      render_height_px: 130
+    calibration_status: VISUALLY_CALIBRATED
+  LowerArm_R:
+    parent: UpperArm_R
+    pivot: right_elbow
+    z_order: 81
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/LowerArm_L.png
+    source_sha256: 8b417848cbd535da5f0c5a363ab9153b0a0e9f603d2cb2165d07113d4e9df028
+    guide_box_px:
+    - 620
+    - 325
+    - 750
+    - 455
+    base_scale: 0.270833
+    visual_transform:
+      x_offset_px: -368
+      y_offset_px: 3
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 252
+      y_px: 339
+      render_width_px: 130
+      render_height_px: 108
+    calibration_status: VISUALLY_CALIBRATED
+  Hand_L:
+    parent: LowerArm_L
+    pivot: left_wrist
+    z_order: 82
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_L.png
+    source_sha256: 5952fcaabb6dc84c9e9e9166b28bc38c03777cbcb1649d25b9efd5dd91e3c6f5
+    guide_box_px:
+    - 360
+    - 365
+    - 455
+    - 455
+    base_scale: 0.098958
+    visual_transform:
+      x_offset_px: 367
+      y_offset_px: 16
+      rotation_deg: -45.0
+      scale: 1.5
+    resolved_canvas_placement:
+      x_px: 727
+      y_px: 391
+      render_width_px: 176
+      render_height_px: 175
+    calibration_status: VISUALLY_CALIBRATED
+  Hand_R:
+    parent: LowerArm_R
+    pivot: right_wrist
+    z_order: 82
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Hand_R.png
+    source_sha256: 8fe787fa6c722b2a7c17b608fc5231d9047b49e3aeced26932c1080514a114c7
+    guide_box_px:
+    - 605
+    - 395
+    - 700
+    - 475
+    base_scale: 0.098958
+    visual_transform:
+      x_offset_px: -461
+      y_offset_px: -27
+      rotation_deg: 45.0
+      scale: 1.5
+    resolved_canvas_placement:
+      x_px: 144
+      y_px: 373
+      render_width_px: 176
+      render_height_px: 175
+    calibration_status: VISUALLY_CALIBRATED
+  Head:
+    parent: Torso
+    pivot: neck_center
+    z_order: 90
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Head.png
+    source_sha256: efc628e4cc20130e57ad816db5cfb46f0d706549cccea163d1d32e7b4ecfafb1
+    guide_box_px:
+    - 410
+    - 115
+    - 565
+    - 235
+    base_scale: 0.125
+    visual_transform:
+      x_offset_px: 33
+      y_offset_px: 5
+      rotation_deg: 0.0
+      scale: 1.0
+    resolved_canvas_placement:
+      x_px: 469
+      y_px: 120
+      render_width_px: 102
+      render_height_px: 120
+    calibration_status: VISUALLY_CALIBRATED
+  Helmet:
+    parent: Head
+    pivot: neck_center
+    z_order: 100
+    source: Production/CHR-GRUNT-001/03_Rig/RigSource/Helmet.png
+    source_sha256: f1ddc674bc8338e5d995d4fc175463368ce2c395afd866f904f671b70565e4a9
+    guide_box_px:
+    - 395
+    - 35
+    - 570
+    - 220
+    base_scale: 0.192708
+    visual_transform:
+      x_offset_px: 49
+      y_offset_px: 68
+      rotation_deg: 0.0
+      scale: 0.8
+    resolved_canvas_placement:
+      x_px: 449
+      y_px: 103
+      render_width_px: 131
+      render_height_px: 148
+    calibration_status: VISUALLY_CALIBRATED
+outputs:
+  preview: Production/CHR-GRUNT-001/03_Rig/Calibrated/CalibratedRigPreview.png
+  pivot_preview: Production/CHR-GRUNT-001/03_Rig/Calibrated/CalibratedRigPreview_Pivots.png
