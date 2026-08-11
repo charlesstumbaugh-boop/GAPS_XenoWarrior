@@ -1,0 +1,19 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  artifact_type: animation_master
+  version: v001
+  status: APPROVED
+  approved_by: Project Owner
+file: Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
+sha256: 40956409cc8119d3dca2e92c1cbd3f4cb0443eb03d984133b4009a358b8ef825
+validation:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  true_alpha: true
+  source_normalized_from_approved_render: true
+notes:
+- Approved Grunt Animation Master normalized to repository production contract.
+- Weapon remains separate from Animation Master.
+- Use as visual source for production part extraction.

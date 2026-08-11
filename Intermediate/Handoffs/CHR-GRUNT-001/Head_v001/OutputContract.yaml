@@ -1,0 +1,8 @@
+asset_id: CHR-GRUNT-001
+part: Head
+artifact_type: production_part
+format: PNG
+color_mode: RGBA
+transparent_background: true
+destination: Production/CHR-GRUNT-001/03_Parts/Head.png
+approval_required: true
