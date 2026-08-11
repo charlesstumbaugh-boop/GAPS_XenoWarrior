@@ -1,0 +1,75 @@
+metadata:
+  system: GAPS_XenoWarrior
+  contract_type: manufacturing_contract
+  contract_version: 1.0.0
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  part: UpperArm_R
+  stage: parts_manufacturing
+  status: READY
+operation:
+  type: counterpart_generation
+  source_counterpart_part: UpperArm_L
+  objective: Manufacture UpperArm_R without artistic reinterpretation.
+reference_assets:
+  animation_master:
+    repository_path: Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
+    handoff_file: CHR-GRUNT-001_ANIMATION_MASTER_v001.png
+    sha256: 40956409cc8119d3dca2e92c1cbd3f4cb0443eb03d984133b4009a358b8ef825
+  identity_lock:
+    repository_path: Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
+    handoff_file: CHR-GRUNT-001_IdentityLock_v001.yaml
+    sha256: a7173ef65886181e209d99d6cbe488b3bcd7d8a5a238ef1fe0f9d40e6780b4e7
+  layer_manifest:
+    repository_path: Production/CHR-GRUNT-001/02_AnimationMaster/LayerManifest.yaml
+    handoff_file: LayerManifest.yaml
+    sha256: e85be210352128d58641df0f01e00a07a630f319147c5a5551709f1f6ac1dba4
+  source_counterpart:
+    repository_path: Production/CHR-GRUNT-001/03_Parts/UpperArm_L.png
+    handoff_file: UpperArm_L.png
+    sha256: 3e4932bbbba3f4a442765233d88d85ca44750da80a275f7ba8b780c5020f43bb
+authority_order:
+- ManufacturingContract.yaml
+- approved source counterpart part (when supplied)
+- approved Animation Master
+- Identity Lock
+- Layer Manifest
+- OutputContract.yaml
+allowed_operations:
+- mirror counterpart geometry when required by left/right pairing
+- orientation correction required for the requested side
+- edge cleanup
+- alpha cleanup
+- canvas normalization
+- minor seam restoration needed to preserve approved geometry
+forbidden_operations:
+- redesign
+- new character generation
+- new species generation
+- armor geometry invention
+- silhouette substitution
+- palette change
+- material change
+- lighting style change
+- line-weight style change
+- weapon addition
+- prop addition
+- anatomy substitution
+- poster or character-sheet generation
+- background or scenery generation
+identity_preservation:
+  required: true
+  artistic_interpretation_allowed: false
+  failure_policy: STOP_AND_REPORT
+output:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  part: UpperArm_R
+  artifact_type: production_part
+  format: PNG
+  color_mode: RGBA
+  width: 1024
+  height: 1024
+  transparent_background: true
+  destination: Production/CHR-GRUNT-001/03_Parts/UpperArm_R.png
+  approval_required: true
