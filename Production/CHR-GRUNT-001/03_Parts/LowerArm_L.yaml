@@ -1,0 +1,14 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  part: LowerArm_L
+  version: v001
+  status: APPROVED
+  library_reference: ARM_LOWER_L_001
+file: Production/CHR-GRUNT-001/03_Parts/LowerArm_L.png
+canonical_library_file: Production/Libraries/Armor/ARM_LOWER_L_001.png
+sha256: 7ddad2536748253bb7aaa8b5bd0b1e65f5d40ca055d44f1ce8cd65b2a144292f
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

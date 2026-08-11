@@ -33,6 +33,13 @@ armor:
   status: APPROVED
   reusable: true
   variant: default
+- id: ARM_LOWER_L_001
+  name: Arm Lower L 001
+  file: Production/Libraries/Armor/ARM_LOWER_L_001.png
+  sha256: 7ddad2536748253bb7aaa8b5bd0b1e65f5d40ca055d44f1ce8cd65b2a144292f
+  status: APPROVED
+  reusable: true
+  variant: default
 weapons: []
 materials: []
 props: []

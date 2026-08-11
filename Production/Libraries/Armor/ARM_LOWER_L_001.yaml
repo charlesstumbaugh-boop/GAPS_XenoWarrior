@@ -1,0 +1,15 @@
+metadata:
+  asset_id: ARM_LOWER_L_001
+  asset_name: Arm Lower L 001
+  category: Armor
+  artifact_type: production_library_asset
+  version: v001
+  status: APPROVED
+file: Production/Libraries/Armor/ARM_LOWER_L_001.png
+sha256: 7ddad2536748253bb7aaa8b5bd0b1e65f5d40ca055d44f1ce8cd65b2a144292f
+variant: default
+image:
+  width: 1024
+  height: 1024
+  mode: RGBA
+  transparent_background: true

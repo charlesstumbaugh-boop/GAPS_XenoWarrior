@@ -12,6 +12,7 @@ default_assembly:
   armor: ARM_LIGHT_001
   pelvis: PEL_LIGHT_001
   upper_arm_l: ARM_UPPER_L_001
+  lower_arm_l: ARM_LOWER_L_001
 approved_variants:
   male:
     head: HUM_HEAD_001
