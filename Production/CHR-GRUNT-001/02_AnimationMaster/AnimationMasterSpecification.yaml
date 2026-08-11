@@ -1,0 +1,52 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  artifact_type: animation_master
+  version: v001
+  status: SPECIFICATION_APPROVED
+input_authority:
+  identity_concept: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+  display_gold_master: Reference/GoldMasters/CHR-GRUNT-001/Design/CHR-GRUNT-001_DESIGN_MASTER_v001.png
+  animation_profile: Animation/Characters/CHR-GRUNT-001/CharacterAnimationProfile.yaml
+output:
+  master_png: Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.png
+  layer_manifest: Production/CHR-GRUNT-001/02_AnimationMaster/LayerManifest.yaml
+  editable_source_optional: Production/CHR-GRUNT-001/02_AnimationMaster/CHR-GRUNT-001_ANIMATION_MASTER_v001.kra
+pose_contract:
+  pose: relaxed_A_pose
+  front_facing: true
+  head_neutral: true
+  arms_separated_from_torso: true
+  elbows_nearly_straight: true
+  hands_visible: true
+  legs_separated: true
+  feet_flat: true
+body_contract:
+  complete_body_under_armor: true
+  complete_shoulders: true
+  complete_upper_arms: true
+  complete_forearms: true
+  complete_hands: true
+  complete_thighs: true
+  complete_knees: true
+  complete_shins: true
+  complete_feet: true
+  joint_overlap_pixels_required: true
+prop_contract:
+  weapon_in_master: false
+  backpack_may_be_separate: true
+  helmet_may_be_separate: true
+  no_prop_may_occlude_required_body_geometry: true
+render_contract:
+  style_match: CHR-GRUNT-001 Gold Master
+  identity_match: CHR-GRUNT-001 approved concept
+  canvas:
+  - 1024
+  - 1024
+  rgba: true
+  transparent_background: true
+  full_body_visible: true
+  no_text: true
+  no_ui: true
+  no_floor: true
+  no_cast_shadow: true

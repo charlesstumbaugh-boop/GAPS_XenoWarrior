@@ -1,0 +1,76 @@
+metadata:
+  asset_id: CHR-GRUNT-001
+  asset_name: Grunt Soldier 1
+  version: 1.0.0
+  status: APPROVED_FOR_ANIMATION_MASTER
+inherits:
+  animation_base: Animation/Bases/HUMANOID_BASE_v001
+  skeleton: Animation/Bases/HUMANOID_BASE_v001/Skeleton.yaml
+  rig_specification: Animation/Bases/HUMANOID_BASE_v001/RigSpecification.yaml
+  pivot_map: Animation/Bases/HUMANOID_BASE_v001/PivotMap.yaml
+  joint_limits: Animation/Bases/HUMANOID_BASE_v001/JointLimits.yaml
+  layer_order: Animation/Bases/HUMANOID_BASE_v001/LayerOrder.yaml
+  animation_standards: Animation/Bases/HUMANOID_BASE_v001/AnimationStandards.yaml
+identity_authority:
+  concept: Reference/Concepts/Characters/Friendly/CHR-GRUNT-001/CHR-GRUNT-001_CONCEPT_APPROVED_v001.png
+  identity_lock: Reference/Identity/CHR-GRUNT-001/CHR-GRUNT-001_IdentityLock_v001.yaml
+  gold_master: Reference/GoldMasters/CHR-GRUNT-001/Design/CHR-GRUNT-001_DESIGN_MASTER_v001.png
+appearance_overrides:
+  body_class: friendly_light_combat_infantry
+  gender: variant_allowed
+  armor:
+    structure: metallic_light_combat
+    primary: steel_gunmetal
+    undersuit: tan_brown_tactical
+    shoulders: compact_rounded
+    chest: light_segmented
+    knees: light_metal_plate
+    shins: light_metal_guard
+  helmet:
+    family: rounded_low_profile_military
+    visor: wide_plasma_blue
+  palette:
+    friendly_caution: Hazard Yellow
+    visor: Plasma Blue
+    outline: Shadow Black
+equipment_overrides:
+  weapon:
+    asset_id: WPN-GRUNT-CARBINE-001
+    type: compact_service_carbine
+    separate_from_body_master: true
+  backpack:
+    allowed: true
+    separate_layer: true
+  helmet:
+    separate_layer: true
+animation_master_rules:
+  pose: relaxed_A_pose
+  front_facing: true
+  arms_clear_of_torso: true
+  hands_visible: true
+  legs_separated: true
+  weapon_held: false
+  large_props_attached: false
+  true_alpha: true
+  canvas:
+    width: 1024
+    height: 1024
+  hidden_joint_geometry_required: true
+  joint_overlap_required: true
+  no_cast_shadow: true
+  no_floor: true
+  no_labels: true
+  no_checkerboard: true
+required_layer_overrides:
+- Helmet
+- ShoulderArmor_L
+- ShoulderArmor_R
+- ChestArmor
+- ForearmArmor_L
+- ForearmArmor_R
+- KneeArmor_L
+- KneeArmor_R
+- ShinArmor_L
+- ShinArmor_R
+- Back_Equipment
+- Weapon
