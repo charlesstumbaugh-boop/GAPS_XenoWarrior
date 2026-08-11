@@ -1,0 +1,89 @@
+metadata:
+  id: CORE_INTERCHANGE
+  name: GAPS Interoperability Contract
+  version: "1.0.0"
+  status: APPROVED
+
+principles:
+  github_repository_is_source_of_truth: true
+  zip_is_transport_only: true
+  no_pipeline_stage_may_require_zip_access: true
+  no_pipeline_stage_may_depend_on_one_ai_vendor: true
+  no_pipeline_stage_may_require_proprietary_format_as_only_copy: true
+
+canonical_formats:
+  images:
+    production: PNG
+    transparency: RGBA
+    concept_reference: PNG
+    optional_vector: SVG
+  structured_data:
+    primary: YAML
+    secondary: JSON
+  documentation:
+    primary: Markdown
+  animation:
+    exported_frames: PNG
+    spritesheet: PNG
+    metadata: YAML
+  hashes:
+    algorithm: SHA-256
+
+editable_source_formats:
+  krita: KRA
+  aseprite: ASEPRITE
+  photoshop: PSD
+  blender: BLEND
+  policy: >
+    Editable source files may be tool-specific, but every approved deliverable
+    must also have an open interchange export defined by GAPS.
+
+tool_handoffs:
+  ai_tools:
+    consume:
+      - PNG concept/reference images
+      - YAML identity/specification files
+      - Markdown generation instructions
+    must_not_require:
+      - ZIP archives
+      - Krita project files
+      - Unity project caches
+
+  krita:
+    consume:
+      - PNG Gold Master
+      - PNG rig-part layers
+      - YAML rig specification
+      - PNG pose references
+    produce:
+      - KRA editable source
+      - PNG animation frames
+      - PNG sprite sheets
+      - YAML animation metadata
+
+  unity:
+    consume:
+      - PNG frames or sprite sheets
+      - YAML or JSON metadata
+      - documented pivot and pixels-per-unit settings
+    optional_generated_outputs:
+      - Unity .meta
+      - animation clips
+      - animator controllers
+
+repository_rules:
+  canonical_asset_data_must_be_exploded_into_folders: true
+  zip_files_should_not_be_committed_as_canonical_assets: true
+  every_asset_pack_must_be_installable_to_exploded_files: true
+  every_generated_asset_must_have:
+    - readable image output
+    - machine-readable metadata
+    - human-readable documentation
+
+portability_gate:
+  fail_if:
+    - only_copy_exists_inside_zip
+    - only_copy_exists_in_proprietary_source
+    - required_identity_data_exists_only_in_chat_history
+    - required_generation_data_exists_only_in_ai_memory
+    - unity_import_requires_undocumented_manual_settings
