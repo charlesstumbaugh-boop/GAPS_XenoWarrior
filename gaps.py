@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 """
 GAPS Production Orchestrator
-Version 0.2.0
+Version 0.2.1
 
 The repository is the source of truth.
 
-v0.2 changes:
-- Scans Production/<ASSET-ID>/03_Parts for actual completion.
-- Shows completed / missing parts and completion percentage.
-- Automatically resolves the next missing required part.
-- --sync reconciles ProjectStatus.yaml with repository contents.
-- --handoff synchronizes before creating a handoff.
-- --advance is retained for compatibility but now performs repository sync.
+v0.2.1 changes:
+- Preserves the existing v0.2 repository-aware dashboard and sync behavior.
+- Every external-generation handoff now writes ManufacturingContract.yaml.
+- Counterpart parts automatically include the already-approved opposite-side PNG
+  when available (for example UpperArm_L -> UpperArm_R).
+- Manufacturing contracts contain source hashes, allowed operations, forbidden
+  operations, output contract, and identity-preservation rules.
+- No queue, part-count, naming, or production architecture changes.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import shutil
 import subprocess
 import sys
@@ -24,7 +26,7 @@ from pathlib import Path
 
 import yaml
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 PARTS = [
     "Head",
@@ -44,6 +46,21 @@ PARTS = [
     "LowerLeg_R",
     "Foot_R",
 ]
+
+COUNTERPART_SOURCE = {
+    "UpperArm_R": "UpperArm_L",
+    "LowerArm_R": "LowerArm_L",
+    "Hand_R": "Hand_L",
+    "UpperLeg_R": "UpperLeg_L",
+    "LowerLeg_R": "LowerLeg_L",
+    "Foot_R": "Foot_L",
+    "UpperArm_L": "UpperArm_R",
+    "LowerArm_L": "LowerArm_R",
+    "Hand_L": "Hand_R",
+    "UpperLeg_L": "UpperLeg_R",
+    "LowerLeg_L": "LowerLeg_R",
+    "Foot_L": "Foot_R",
+}
 
 
 def repo_root() -> Path:
@@ -74,6 +91,14 @@ def save_status(root: Path, data: dict) -> None:
         yaml.safe_dump(data, sort_keys=False),
         encoding="utf-8",
     )
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for block in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(block)
+    return h.hexdigest()
 
 
 def parts_state(root: Path, asset_id: str) -> tuple[list[str], list[str]]:
@@ -200,13 +225,27 @@ def run_validators(root: Path) -> int:
             continue
         print(f"\nRUN: {rel}")
         code = subprocess.run([sys.executable, str(script)], cwd=root, check=False).returncode
-        # Existing validators may return 1 for PASS WITH WARNINGS.
         if code >= 2:
             blocking = True
 
     print()
     print("GAPS VALIDATION:", "FAIL" if blocking else "PASS / PASS WITH WARNINGS")
     return 2 if blocking else 0
+
+
+def _copy_reference(root: Path, folder: Path, rel: str, copied: list[str], missing: list[str]) -> dict | None:
+    source = root / Path(rel)
+    if not source.is_file():
+        missing.append(rel)
+        return None
+    target = folder / source.name
+    shutil.copy2(source, target)
+    copied.append(target.name)
+    return {
+        "repository_path": rel.replace("\\", "/"),
+        "handoff_file": target.name,
+        "sha256": sha256(source),
+    }
 
 
 def create_handoff(root: Path, data: dict) -> int:
@@ -230,57 +269,82 @@ def create_handoff(root: Path, data: dict) -> int:
     )
     folder.mkdir(parents=True, exist_ok=True)
 
-    # Remove stale request/contract only; preserve other handoff contents.
-    for name in ["Request.md", "OutputContract.yaml"]:
+    # Rewrite generated handoff documents, preserve copied source/reference files.
+    for name in ["Request.md", "OutputContract.yaml", "ManufacturingContract.yaml"]:
         target = folder / name
         if target.exists():
             target.unlink()
 
     copied = []
     missing_inputs = []
+    reference_records = {}
 
+    # Existing authoritative inputs from ProjectStatus.yaml.
     for rel in handoff.get("required_inputs", []):
-        source = root / Path(rel)
-        if source.is_file():
-            target = folder / source.name
-            shutil.copy2(source, target)
-            copied.append(target.name)
-        else:
-            missing_inputs.append(rel)
+        rec = _copy_reference(root, folder, rel, copied, missing_inputs)
+        if rec:
+            filename = Path(rel).name
+            if "ANIMATION_MASTER" in filename.upper():
+                reference_records["animation_master"] = rec
+            elif "IDENTITYLOCK" in filename.upper().replace("_", ""):
+                reference_records["identity_lock"] = rec
+            elif filename.lower() == "layermanifest.yaml":
+                reference_records["layer_manifest"] = rec
+            else:
+                reference_records.setdefault("additional", []).append(rec)
 
-    request = f"""# GAPS External Generation Handoff
+    # For paired right/left body parts, include the approved opposite-side part
+    # as a deterministic geometry/style reference when it exists.
+    source_part = COUNTERPART_SOURCE.get(part)
+    counterpart_record = None
+    if source_part:
+        counterpart_rel = f"Production/{asset['asset_id']}/03_Parts/{source_part}.png"
+        counterpart_path = root / counterpart_rel
+        if counterpart_path.is_file():
+            counterpart_record = _copy_reference(
+                root, folder, counterpart_rel, copied, missing_inputs
+            )
+
+    operation_type = "counterpart_generation" if counterpart_record else "reference_locked_part_generation"
+
+    request = f"""# GAPS External Manufacturing Handoff
 
 Asset: {asset['asset_id']}
 Asset Name: {asset.get('asset_name')}
 Part: {part}
 Stage: {asset.get('current_stage')}
+Operation: {operation_type}
 Output: {asset.get('next_output')}
 
-## Task
+## Manufacturing Task
 
-Generate exactly one production PNG for `{part}`.
+Manufacture exactly one production PNG for `{part}` from the files contained in
+this handoff. The repository references are authoritative.
 
-## Requirements
+## Hard Rules
 
-- preserve the approved character identity;
-- match the approved Animation Master;
-- isolate only the requested production part;
-- 1024 x 1024 RGBA;
-- true alpha transparency;
-- no checkerboard;
-- no text or labels;
-- no UI;
-- no floor or scenery;
-- no cast shadow;
-- full requested part visible.
+- Do not redesign the character or requested part.
+- Do not create a new character, poster, sheet, scene, or concept.
+- Preserve approved identity, armor family, palette, line work, shading, and silhouette.
+- Use the approved Animation Master as the character visual authority.
+- If an approved counterpart part is supplied, use it as the geometry/style authority
+  and produce only the required opposite-side counterpart.
+- Do not introduce new armor panels, colors, lights, weapons, props, or anatomy.
+- Return exactly one isolated production part.
+- Final production normalization: 1024 x 1024 RGBA with true alpha transparency.
+- No checkerboard, text, labels, UI, floor, scenery, or cast shadow.
+- If the supplied references conflict or are insufficient, STOP and report the
+  conflict instead of inventing missing design information.
 
 ## Repository Destination
 
 `{asset.get('next_output')}`
+
+Read `ManufacturingContract.yaml` before generation.
 """
     (folder / "Request.md").write_text(request, encoding="utf-8")
 
-    contract = {
+    output_contract = {
         "asset_id": asset["asset_id"],
         "asset_name": asset.get("asset_name"),
         "part": part,
@@ -294,7 +358,76 @@ Generate exactly one production PNG for `{part}`.
         "approval_required": True,
     }
     (folder / "OutputContract.yaml").write_text(
-        yaml.safe_dump(contract, sort_keys=False),
+        yaml.safe_dump(output_contract, sort_keys=False),
+        encoding="utf-8",
+    )
+
+    manufacturing_contract = {
+        "metadata": {
+            "system": "GAPS_XenoWarrior",
+            "contract_type": "manufacturing_contract",
+            "contract_version": "1.0.0",
+            "asset_id": asset["asset_id"],
+            "asset_name": asset.get("asset_name"),
+            "part": part,
+            "stage": asset.get("current_stage"),
+            "status": "READY",
+        },
+        "operation": {
+            "type": operation_type,
+            "source_counterpart_part": source_part if counterpart_record else None,
+            "objective": f"Manufacture {part} without artistic reinterpretation.",
+        },
+        "reference_assets": {
+            **reference_records,
+            **({"source_counterpart": counterpart_record} if counterpart_record else {}),
+        },
+        "authority_order": [
+            "ManufacturingContract.yaml",
+            "approved source counterpart part (when supplied)",
+            "approved Animation Master",
+            "Identity Lock",
+            "Layer Manifest",
+            "OutputContract.yaml",
+        ],
+        "allowed_operations": [
+            "mirror counterpart geometry when required by left/right pairing",
+            "orientation correction required for the requested side",
+            "edge cleanup",
+            "alpha cleanup",
+            "canvas normalization",
+            "minor seam restoration needed to preserve approved geometry",
+        ],
+        "forbidden_operations": [
+            "redesign",
+            "new character generation",
+            "new species generation",
+            "armor geometry invention",
+            "silhouette substitution",
+            "palette change",
+            "material change",
+            "lighting style change",
+            "line-weight style change",
+            "weapon addition",
+            "prop addition",
+            "anatomy substitution",
+            "poster or character-sheet generation",
+            "background or scenery generation",
+        ],
+        "identity_preservation": {
+            "required": True,
+            "artistic_interpretation_allowed": False,
+            "failure_policy": "STOP_AND_REPORT",
+        },
+        "output": output_contract,
+    }
+
+    # Remove null field for cleaner YAML when no counterpart is available.
+    if manufacturing_contract["operation"]["source_counterpart_part"] is None:
+        del manufacturing_contract["operation"]["source_counterpart_part"]
+
+    (folder / "ManufacturingContract.yaml").write_text(
+        yaml.safe_dump(manufacturing_contract, sort_keys=False),
         encoding="utf-8",
     )
 
@@ -303,6 +436,12 @@ Generate exactly one production PNG for `{part}`.
         print("Inputs copied:")
         for name in copied:
             print(f"  - {name}")
+    print("Generated:")
+    print("  - Request.md")
+    print("  - OutputContract.yaml")
+    print("  - ManufacturingContract.yaml")
+    if counterpart_record:
+        print(f"Counterpart authority: {source_part}.png")
 
     if missing_inputs:
         print("WARNING missing inputs:")
